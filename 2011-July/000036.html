@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/content/class menuitem.class.php,	1.1, 1.2 avmenuitem.class.php, 1.1, 1.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/content/class%20menuitem.class.php%2C%0A%091.1%2C%201.2%20avmenuitem.class.php%2C%201.1%2C%201.2&In-Reply-To=%3C20110704210051.24F48483388%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000034.html">
+   <LINK REL="Next"  HREF="000037.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/content/class menuitem.class.php,	1.1, 1.2 avmenuitem.class.php, 1.1, 1.2</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/content/class%20menuitem.class.php%2C%0A%091.1%2C%201.2%20avmenuitem.class.php%2C%201.1%2C%201.2&In-Reply-To=%3C20110704210051.24F48483388%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/content/class menuitem.class.php,	1.1, 1.2 avmenuitem.class.php, 1.1, 1.2">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 23:00:51 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000034.html">[artscene-cvs] art.scene.v2/htdocs/control/usage usage.class.php,	1.1, 1.2
+</A></li>
+        <LI>Next message: <A HREF="000037.html">[artscene-cvs] art.scene.v2/htdocs/blocks/class avblock.class.php,	1.4, 1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/content/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/content/class
+
+Modified Files:
+	menuitem.class.php avmenuitem.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avmenuitem.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/content/class/avmenuitem.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avmenuitem.class.php	4 Aug 2004 22:51:57 -0000	1.1
+--- avmenuitem.class.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 64,119 ****
+  
+           
+!         $this-&gt;controls[] = &amp; new avcId( &amp;$this, 'id', 'id', '',  
+                  0, 1, 1, 'id', 0 ); 
+           
+  		if (!empty($GLOBALS['pid']))
+  		{
+! 	        $this-&gt;controls[] = &amp; new avcText( &amp;$this, 'name', $g_lang['menuitem_name'], '',  
+  		            0, 1, 1, $g_lang['menuitem_name'], 1 , 40); 
+  		}
+  		else
+  		{
+! 	        $this-&gt;controls[] = &amp; new avcLinkText( &amp;$this, 'name', $g_lang['menuitem_name'], '',  
+  		            0, 1, 1, $g_lang['menuitem_name'], 1 , 40, 'avmenuitem'); 
+  		}
+  
+! 		$this-&gt;controls[] = &amp; new avcText( &amp;$this, 'iname', $g_lang['menuitem_iname'], '',  
+  	            0, 1, 1, $g_lang['menuitem_iname'], 1 , 40); 
+  
+! 	    $this-&gt;controls[] = &amp; new avcSelect( &amp;$this, 'page', $g_lang['menuitem_page'], '',  
+  	            0, 1, 1, $g_lang['menuitem_page'], 1 , $this-&gt;list_pages()); 
+  			 
+!         $this-&gt;controls[] = &amp; new avcImage( &amp;$this, 'file', $g_lang['menuitem_image'], '',  
+                  0, 1, 0, 'file', 1 , $g_ini-&gt;read_var('avnews', 'image_dir'), $g_ini-&gt;read_var('avnews', 'image_url'), 110, 210); 
+           
+!         $this-&gt;controls[] = &amp; new avcSelect( &amp;$this, 'type', $g_lang['menuitem_type'], '2',  
+                  0, 1, 1, $g_lang['menuitem_type'], 1, array('1'=&gt;'nuoroda', '2'=&gt;'html', '3'=&gt;'blokas', '4'=&gt;'failas', '5'=&gt;'komponentas') ); 
+           
+!         $this-&gt;controls[] = &amp; new avcText( &amp;$this, 'link', $g_lang['menuitem_link'], '',  
+                  0, 1, 0, $g_lang['menuitem_link'], 1 , 40); 
+           
+!         $this-&gt;controls[] = &amp; new avcTextArea( &amp;$this, 'html', $g_lang['menuitem_html'], '',  
+                  0, 1, 0, $g_lang['menuitem_html'], 1 , 60, 20); 
+           
+!         $this-&gt;controls[] = &amp; new avcDbSelect( &amp;$this, 'block_id', $g_lang['menuitem_block'], '',  
+                  0, 1, 0, $g_lang['menuitem_block'], 1 , 'avblock', 'name', 'title', '', '0'); 
+           
+!         $this-&gt;controls[] = &amp; new avcText( &amp;$this, 'include', $g_lang['menuitem_include'], '',  
+                  0, 1, 0, $g_lang['menuitem_include'], 1 , 40); 
+           
+!         $this-&gt;controls[] = &amp; new avcText( &amp;$this, 'column_id', $g_lang['menuitem_component'], '',  
+                  0, 1, 0, $g_lang['menuitem_component'], 1 , 40); 
+           
+!         $this-&gt;controls[] = &amp; new avcDbSelect( &amp;$this, 'pid', $g_lang['menuitem_parent'], '',  
+                  0, 1, 1, $g_lang['menuitem_parent'], 1 , 'menuitem', 'id', 'name', '', '0'); 
+  
+!         $this-&gt;controls[] = &amp; new avcText( &amp;$this, 'sort_number', $g_lang['menuitem_sort'], '1',  
+                  0, 1, 1, $g_lang['menuitem_sort'], 1 , 5); 
+  		
+! 		$this-&gt;controls[] = &amp; new avcSelect( &amp;$this, 'visible', $g_lang['menuitem_visible'], 1, 0, 1, 1, 
+  		$g_lang['menuitem_visible'], 1, array('0'=&gt;'ne', '1'=&gt;'taip'));
+  
+           
+!         $this-&gt;controls[] = &amp; new avcActions( &amp;$this, '', '', '',  
+                  0, 0, 1, $g_lang['action'], 0 ); 
+           
+--- 64,119 ----
+  
+           
+!         $this-&gt;controls[] = new avcId( &amp;$this, 'id', 'id', '',  
+                  0, 1, 1, 'id', 0 ); 
+           
+  		if (!empty($GLOBALS['pid']))
+  		{
+! 	        $this-&gt;controls[] = new avcText( &amp;$this, 'name', $g_lang['menuitem_name'], '',  
+  		            0, 1, 1, $g_lang['menuitem_name'], 1 , 40); 
+  		}
+  		else
+  		{
+! 	        $this-&gt;controls[] = new avcLinkText( &amp;$this, 'name', $g_lang['menuitem_name'], '',  
+  		            0, 1, 1, $g_lang['menuitem_name'], 1 , 40, 'avmenuitem'); 
+  		}
+  
+! 		$this-&gt;controls[] = new avcText( &amp;$this, 'iname', $g_lang['menuitem_iname'], '',  
+  	            0, 1, 1, $g_lang['menuitem_iname'], 1 , 40); 
+  
+! 	    $this-&gt;controls[] = new avcSelect( &amp;$this, 'page', $g_lang['menuitem_page'], '',  
+  	            0, 1, 1, $g_lang['menuitem_page'], 1 , $this-&gt;list_pages()); 
+  			 
+!         $this-&gt;controls[] = new avcImage( &amp;$this, 'file', $g_lang['menuitem_image'], '',  
+                  0, 1, 0, 'file', 1 , $g_ini-&gt;read_var('avnews', 'image_dir'), $g_ini-&gt;read_var('avnews', 'image_url'), 110, 210); 
+           
+!         $this-&gt;controls[] = new avcSelect( &amp;$this, 'type', $g_lang['menuitem_type'], '2',  
+                  0, 1, 1, $g_lang['menuitem_type'], 1, array('1'=&gt;'nuoroda', '2'=&gt;'html', '3'=&gt;'blokas', '4'=&gt;'failas', '5'=&gt;'komponentas') ); 
+           
+!         $this-&gt;controls[] = new avcText( &amp;$this, 'link', $g_lang['menuitem_link'], '',  
+                  0, 1, 0, $g_lang['menuitem_link'], 1 , 40); 
+           
+!         $this-&gt;controls[] = new avcTextArea( &amp;$this, 'html', $g_lang['menuitem_html'], '',  
+                  0, 1, 0, $g_lang['menuitem_html'], 1 , 60, 20); 
+           
+!         $this-&gt;controls[] = new avcDbSelect( &amp;$this, 'block_id', $g_lang['menuitem_block'], '',  
+                  0, 1, 0, $g_lang['menuitem_block'], 1 , 'avblock', 'name', 'title', '', '0'); 
+           
+!         $this-&gt;controls[] = new avcText( &amp;$this, 'include', $g_lang['menuitem_include'], '',  
+                  0, 1, 0, $g_lang['menuitem_include'], 1 , 40); 
+           
+!         $this-&gt;controls[] = new avcText( &amp;$this, 'column_id', $g_lang['menuitem_component'], '',  
+                  0, 1, 0, $g_lang['menuitem_component'], 1 , 40); 
+           
+!         $this-&gt;controls[] = new avcDbSelect( &amp;$this, 'pid', $g_lang['menuitem_parent'], '',  
+                  0, 1, 1, $g_lang['menuitem_parent'], 1 , 'menuitem', 'id', 'name', '', '0'); 
+  
+!         $this-&gt;controls[] = new avcText( &amp;$this, 'sort_number', $g_lang['menuitem_sort'], '1',  
+                  0, 1, 1, $g_lang['menuitem_sort'], 1 , 5); 
+  		
+! 		$this-&gt;controls[] = new avcSelect( &amp;$this, 'visible', $g_lang['menuitem_visible'], 1, 0, 1, 1, 
+  		$g_lang['menuitem_visible'], 1, array('0'=&gt;'ne', '1'=&gt;'taip'));
+  
+           
+!         $this-&gt;controls[] = new avcActions( &amp;$this, '', '', '',  
+                  0, 0, 1, $g_lang['action'], 0 ); 
+           
+
+Index: menuitem.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/content/class/menuitem.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** menuitem.class.php	4 Aug 2004 22:51:57 -0000	1.1
+--- menuitem.class.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 49,53 ****
+  		$names = explode('-', $this-&gt;info['column_id']);
+  		include_once($RELPATH . $names[0] . '/class/' . $names[1] . '.class.php');
+! 		$this-&gt;component = &amp; new $names[1]('component');
+  	}
+  
+--- 49,53 ----
+  		$names = explode('-', $this-&gt;info['column_id']);
+  		include_once($RELPATH . $names[0] . '/class/' . $names[1] . '.class.php');
+! 		$this-&gt;component = new $names[1]('component');
+  	}
+  
+***************
+*** 98,102 ****
+  			else
+  			{
+! 				$list[$i]['url'] = $GLOBALS['SCRIPT_NAME'] . '/page.' . $list[$i]['page'] . ';menuitem.' . $list[$i]['id'];
+  			}
+  		}
+--- 98,102 ----
+  			else
+  			{
+! 				$list[$i]['url'] = $_SERVER['SCRIPT_NAME'] . '/page.' . $list[$i]['page'] . ';menuitem.' . $list[$i]['id'];
+  			}
+  		}
+***************
+*** 155,159 ****
+  			else
+  			{
+! 				$list[$i]['url'] = $GLOBALS['SCRIPT_NAME'] . '/page.' . $GLOBALS['page'] . ';menuitem.' . $list[$i]['id'];
+  			}
+  		}
+--- 155,159 ----
+  			else
+  			{
+! 				$list[$i]['url'] = $_SERVER['SCRIPT_NAME'] . '/page.' . $GLOBALS['page'] . ';menuitem.' . $list[$i]['id'];
+  			}
+  		}
+***************
+*** 214,218 ****
+  					include_once($RELPATH . 'blocks/class/block.class.php');
+  
+! 					$table = &amp; new block();
+  					
+  					return $table-&gt;show($this-&gt;info['block_id']);
+--- 214,218 ----
+  					include_once($RELPATH . 'blocks/class/block.class.php');
+  
+! 					$table =  new block();
+  					
+  					return $table-&gt;show($this-&gt;info['block_id']);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000034.html">[artscene-cvs] art.scene.v2/htdocs/control/usage usage.class.php,	1.1, 1.2
+</A></li>
+	<LI>Next message: <A HREF="000037.html">[artscene-cvs] art.scene.v2/htdocs/blocks/class avblock.class.php,	1.4, 1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#36">[ date ]</a>
+              <a href="thread.html#36">[ thread ]</a>
+              <a href="subject.html#36">[ subject ]</a>
+              <a href="author.html#36">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs site.ini.php,1.2,1.3
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs%20site.ini.php%2C1.2%2C1.3&In-Reply-To=%3C20071221234713.6B83DEA4D%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000003.html">
+   <LINK REL="Next"  HREF="000005.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs site.ini.php,1.2,1.3</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs%20site.ini.php%2C1.2%2C1.3&In-Reply-To=%3C20071221234713.6B83DEA4D%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs site.ini.php,1.2,1.3">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Dec 22 00:47:13 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000003.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.3, 1.4
+</A></li>
+        <LI>Next message: <A HREF="000005.html">[artscene-cvs] art.scene.v2/htdocs/forum/tpl fresh_list.html, 1.2,	1.3 forum_post_list.html, 1.2, 1.3 forum_list.html, 1.1,	1.2 forum_thread_list.html, 1.1, 1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs
+In directory sheep:/tmp/cvs-serv32024/htdocs
+
+Modified Files:
+	site.ini.php 
+Log Message:
+atsibodo klaida apie hakerius, kurie bando inkludinti puslapius is kitu serveriu.
+
+Index: site.ini.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/site.ini.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** site.ini.php	3 Dec 2005 22:45:01 -0000	1.2
+--- site.ini.php	21 Dec 2007 23:46:02 -0000	1.3
+***************
+*** 47,51 ****
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[ini]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! if (empty($lang)) { $lang = $g_ini-&gt;read_var('site', 'Language'); }
+  include_once($RELPATH . $LANGPATH . $lang . '.inc.php');
+  
+--- 47,52 ----
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[ini]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! if (empty($lang) || ($lang != 'lt' &amp;&amp; $lang != 'en') ) { $lang = $g_ini-&gt;read_var('site', 'Language'); }
+! $lang = clean_name($lang);
+  include_once($RELPATH . $LANGPATH . $lang . '.inc.php');
+  
+***************
+*** 65,69 ****
+  
+  $g_tpl-&gt;set_var('RELPATH', $RELPATH);
+! $g_tpl-&gt;set_var('G_PHP_SELF', $PHP_SELF);
+  $g_tpl-&gt;set_var('lang', $g_lang);
+  
+--- 66,71 ----
+  
+  $g_tpl-&gt;set_var('RELPATH', $RELPATH);
+! //$g_tpl-&gt;set_var('G_PHP_SELF', $PHP_SELF);
+! $g_tpl-&gt;set_var('G_PHP_SELF', $_SERVER[&quot;PHP_SELF&quot;]);
+  $g_tpl-&gt;set_var('lang', $g_lang);
+  
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000003.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.3, 1.4
+</A></li>
+	<LI>Next message: <A HREF="000005.html">[artscene-cvs] art.scene.v2/htdocs/forum/tpl fresh_list.html, 1.2,	1.3 forum_post_list.html, 1.2, 1.3 forum_list.html, 1.1,	1.2 forum_thread_list.html, 1.1, 1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#4">[ date ]</a>
+              <a href="thread.html#4">[ thread ]</a>
+              <a href="subject.html#4">[ subject ]</a>
+              <a href="author.html#4">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

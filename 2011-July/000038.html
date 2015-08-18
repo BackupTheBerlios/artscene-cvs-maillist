@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/users/class messages.class.php,	1.3, 1.4 login.class.php, 1.17, 1.18
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/users/class%20messages.class.php%2C%0A%091.3%2C%201.4%20login.class.php%2C%201.17%2C%201.18&In-Reply-To=%3C20110704210051.32EC748338A%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000037.html">
+   <LINK REL="Next"  HREF="000039.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/users/class messages.class.php,	1.3, 1.4 login.class.php, 1.17, 1.18</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/users/class%20messages.class.php%2C%0A%091.3%2C%201.4%20login.class.php%2C%201.17%2C%201.18&In-Reply-To=%3C20110704210051.32EC748338A%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/users/class messages.class.php,	1.3, 1.4 login.class.php, 1.17, 1.18">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 23:00:51 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000037.html">[artscene-cvs] art.scene.v2/htdocs/blocks/class avblock.class.php,	1.4, 1.5
+</A></li>
+        <LI>Next message: <A HREF="000039.html">[artscene-cvs] art.scene.v2/htdocs/faq/class faq.class.php, 1.2,	1.3 avfaq.class.php, 1.1, 1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/users/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/users/class
+
+Modified Files:
+	messages.class.php login.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: login.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/users/class/login.class.php,v
+retrieving revision 1.17
+retrieving revision 1.18
+diff -C 2 -d -r1.17 -r1.18
+*** login.class.php	26 Jul 2008 21:27:02 -0000	1.17
+--- login.class.php	4 Jul 2011 21:00:48 -0000	1.18
+***************
+*** 141,145 ****
+  		global $g_usr, $g_user_id, $g_user_name, $oldpass, $newpass, $newpass2, $email, $lastname, $webpage, $icq, $mail_news, $mail_comments, $mail_works;
+  		
+! 		if (empty($g_user_id)) { redirect($GLOBALS['SCRIPT_NAME'] . '/'); }
+  
+  		if (empty($email)) // get info from db
+--- 141,145 ----
+  		global $g_usr, $g_user_id, $g_user_name, $oldpass, $newpass, $newpass2, $email, $lastname, $webpage, $icq, $mail_news, $mail_comments, $mail_works;
+  		
+! 		if (empty($g_user_id)) { redirect($_SERVER['SCRIPT_NAME'] . '/'); }
+  
+  		if (empty($email)) // get info from db
+
+Index: messages.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/users/class/messages.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C 2 -d -r1.3 -r1.4
+*** messages.class.php	23 Sep 2004 21:44:08 -0000	1.3
+--- messages.class.php	4 Jul 2011 21:00:48 -0000	1.4
+***************
+*** 102,106 ****
+  				$this-&gt;tpl-&gt;set_var('subject', $subject);
+  				$this-&gt;tpl-&gt;set_var('error_str', $this-&gt;error);
+! 				$this-&gt;tpl-&gt;set_var('url', $GLOBALS['REQUEST_URI']);
+  				return $this-&gt;tpl-&gt;process('out', 'send_msg');
+  			}
+--- 102,106 ----
+  				$this-&gt;tpl-&gt;set_var('subject', $subject);
+  				$this-&gt;tpl-&gt;set_var('error_str', $this-&gt;error);
+! 				$this-&gt;tpl-&gt;set_var('url', $_SERVER['REQUEST_URI']);
+  				return $this-&gt;tpl-&gt;process('out', 'send_msg');
+  			}
+***************
+*** 196,200 ****
+  
+  		$this-&gt;tpl-&gt;set_var('error_str', $this-&gt;error);
+! 		$this-&gt;tpl-&gt;set_var('url', $GLOBALS['REQUEST_URI']);
+  
+  		return $this-&gt;tpl-&gt;process('out', 'reply_msg');
+--- 196,200 ----
+  
+  		$this-&gt;tpl-&gt;set_var('error_str', $this-&gt;error);
+! 		$this-&gt;tpl-&gt;set_var('url', $_SERVER['REQUEST_URI']);
+  
+  		return $this-&gt;tpl-&gt;process('out', 'reply_msg');
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000037.html">[artscene-cvs] art.scene.v2/htdocs/blocks/class avblock.class.php,	1.4, 1.5
+</A></li>
+	<LI>Next message: <A HREF="000039.html">[artscene-cvs] art.scene.v2/htdocs/faq/class faq.class.php, 1.2,	1.3 avfaq.class.php, 1.1, 1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#38">[ date ]</a>
+              <a href="thread.html#38">[ thread ]</a>
+              <a href="subject.html#38">[ subject ]</a>
+              <a href="author.html#38">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

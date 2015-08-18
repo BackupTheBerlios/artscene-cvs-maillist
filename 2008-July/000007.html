@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/core avsession.class.php, 1.1,	1.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/core%20avsession.class.php%2C%201.1%2C%0A%091.2&In-Reply-To=%3C20080726210659.4D1AF146C3F%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000008.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/core avsession.class.php, 1.1,	1.2</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/core%20avsession.class.php%2C%201.1%2C%0A%091.2&In-Reply-To=%3C20080726210659.4D1AF146C3F%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/core avsession.class.php, 1.1,	1.2">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Jul 26 23:06:59 CEST 2008</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000008.html">[artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.4,1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#7">[ date ]</a>
+              <a href="thread.html#7">[ thread ]</a>
+              <a href="subject.html#7">[ subject ]</a>
+              <a href="author.html#7">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/core
+In directory sheep:/tmp/cvs-serv835/htdocs/core
+
+Modified Files:
+	avsession.class.php 
+Log Message:
+kitas globalsas
+
+Index: avsession.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/avsession.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1 -r1.2
+*** avsession.class.php	4 Aug 2004 22:51:40 -0000	1.1
+--- avsession.class.php	26 Jul 2008 21:06:56 -0000	1.2
+***************
+*** 234,238 ****
+  
+  		$this-&gt;db-&gt;query(&quot;INSERT INTO $this-&gt;session_table 
+! 					VALUES ('$sesscode', &quot;.time().&quot;, '&quot;.$GLOBALS['REMOTE_ADDR'].&quot;', NULL, '$GLOBALS[REQUEST_URI]')&quot;);
+  		
+  		setcookie(&quot;session&quot;,$sesscode, false, &quot;/&quot;);
+--- 234,238 ----
+  
+  		$this-&gt;db-&gt;query(&quot;INSERT INTO $this-&gt;session_table 
+! 					VALUES ('$sesscode', &quot;.time().&quot;, '&quot;.$_SERVER['REMOTE_ADDR'].&quot;', NULL, '$_SERVER[REQUEST_URI]')&quot;);
+  		
+  		setcookie(&quot;session&quot;,$sesscode, false, &quot;/&quot;);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000008.html">[artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.4,1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#7">[ date ]</a>
+              <a href="thread.html#7">[ thread ]</a>
+              <a href="subject.html#7">[ subject ]</a>
+              <a href="author.html#7">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

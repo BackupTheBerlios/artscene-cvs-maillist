@@ -1,0 +1,456 @@
+From nobody at sheep.berlios.de  Sat Dec 22 00:24:34 2007
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 22 Dec 2007 00:24:34 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.3,1.4
+Message-ID: <20071221232434.C36BF124BA1@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/core
+In directory sheep:/tmp/cvs-serv32251/htdocs/core
+
+Modified Files:
+	averror.class.php 
+Log Message:
+klaidas siuncia i salna at kl.mii.lt
+
+Index: averror.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/averror.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** averror.class.php	3 Dec 2005 22:45:02 -0000	1.3
+--- averror.class.php	21 Dec 2007 23:23:23 -0000	1.4
+***************
+*** 3,10 ****
+  	Global error header 	
+  	Created: js, 2001.08.13
+  	___________________________________________________________
+- 	This file is part of flexiUpdate, content control framework
+- 	Copyright (c) 2001 UAB "Alternatyvus valdymas"
+- 	http://www.avc.lt <info at avc.lt>
+  */
+  
+--- 3,8 ----
+  	Global error header 	
+  	Created: js, 2001.08.13
++ 	$Id$
+  	___________________________________________________________
+  */
+  
+***************
+*** 72,78 ****
+  function avErrorHandler ($errno, $errstr, $errfile, $errline, $context) 
+  {
+  	if (!error_reporting()) return false;
+  	$errpage = $GLOBALS['REQUEST_URI'];
+! 	echo "<br>
+  	<b>atsipra?ome, bet sistemoje ?vyko klaida</b>:<br>
+  	<font color='#CC0000'>$errstr</font>
+--- 70,77 ----
+  function avErrorHandler ($errno, $errstr, $errfile, $errline, $context) 
+  {
++   global $g_user_id, $g_user_name;
+  	if (!error_reporting()) return false;
+  	$errpage = $GLOBALS['REQUEST_URI'];
+! 	$text = "<br>
+  	<b>atsipra?ome, bet sistemoje ?vyko klaida</b>:<br>
+  	<font color='#CC0000'>$errstr</font>
+***************
+*** 80,88 ****
+  	failas: $errfile [$errline]<br>
+  	puslapis: $errpage<br>
+! 	<b>b?t? labai smagu, jei atsi?stum ?i? informacij? <a href='mailto:artscene at fluxus.lt?subject=error on art.scene'>pa?tu</a> su priera?u k? m?ginai padaryti.</b>
+  	<br><br>";
+! 	exit;
+  }
+  
+! //set_error_handler("avErrorHandler");
+! ?>
+--- 79,95 ----
+  	failas: $errfile [$errline]<br>
+  	puslapis: $errpage<br>
+! 	g_user_id: $g_user_id<br>
+! 	g_user_name: $g_user_name<br>
+  	<br><br>";
+! 
+! 	if (isset($GLOBALS['bench'])) { echo $text; }
+! 	else { 
+! 		mail('salna at ktl.mii.lt', 'klaida ant art.scene.lt', $text);
+! 		echo "<b>atsipra?ome, bet sistemoje ?vyko klaida</b>: ";
+! 		echo "<font color='#CC0000'>$errno</font><br>";		
+! 	}
+  }
+  
+! 
+! set_error_handler("avErrorHandler");
+! ?>
+\ No newline at end of file
+
+
+
+From nobody at sheep.berlios.de  Sat Dec 22 00:24:57 2007
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 22 Dec 2007 00:24:57 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class
+	darbai_list.class.php, 1.3, 1.4
+Message-ID: <20071221232457.6FB5E110362@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv32275/htdocs/darbai/class
+
+Modified Files:
+	darbai_list.class.php 
+Log Message:
+tadas zelionis pakeite selektus
+kad butu greitesni
+
+Index: darbai_list.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_list.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** darbai_list.class.php	5 Oct 2004 13:40:25 -0000	1.3
+--- darbai_list.class.php	21 Dec 2007 23:23:46 -0000	1.4
+***************
+*** 44,48 ****
+  	function get_top($limit = 4)
+  	{
+! 		$statement = "SELECT COUNT(v.id) AS vcount, SUM(v.mark) AS summark, AVG(v.mark) AS avgmark,
+  			w.id AS id, subject, w.submiter AS user_id, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted,  u.username AS username, wc.name AS category, category_id, thumbnail
+  			FROM avworkvotes v, avworks w, u_users u, avworkcategory wc
+--- 44,48 ----
+  	function get_top($limit = 4)
+  	{
+! /*		$statement = "SELECT COUNT(v.id) AS vcount, SUM(v.mark) AS summark, AVG(v.mark) AS avgmark,
+  			w.id AS id, subject, w.submiter AS user_id, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted,  u.username AS username, wc.name AS category, category_id, thumbnail
+  			FROM avworkvotes v, avworks w, u_users u, avworkcategory wc
+***************
+*** 53,56 ****
+--- 53,71 ----
+  			LIMIT $limit
+  		";
++ */
++ 		// plusam plusam optimizuojam /tm
++ 		$statement = "SELECT COUNT(v.id) AS vcount, SUM(v.mark) AS summark, AVG(v.mark) AS avgmark,
++ 				w.id AS id, subject, w.submiter AS user_id, 
++ 				DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, 
++ 				u.username AS username, wc.name AS category, category_id, thumbnail
++ 			FROM avworkvotes v
++ 				LEFT JOIN avworks w ON v.work_id=w.id 
++ 				LEFT JOIN u_users u ON u.id=w.submiter
++ 				LEFT JOIN avworkcategory wc ON w.category_id=wc.id
++ 			WHERE DATE_SUB( NOW(), INTERVAL 7 DAY ) < v.posted
++ 			GROUP BY w.id
++ 			ORDER BY summark DESC, avgmark DESC, w.score DESC
++ 			LIMIT $limit
++ 		";
+  		
+  		$result = $this->db->cached_select('top', $statement, array('avworkvotes', 'avworks', 'u_users', 'avworkcategory'), 12000);
+***************
+*** 136,146 ****
+  	function get_fresh_works($count)
+  	{
+! 		$sql = "SELECT w.id AS id, w.subject, w.submiter AS user_id, w.thumbnail, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, u.username AS username, DATE_FORMAT(max(c.posted), '%Y.%m.%d %H:%i') as last_post
+  			FROM avcomments c, avworks w, u_users u
+  			WHERE c.table_name='avworks' AND w.id=c.parent_id AND w.submiter=u.id
+  			GROUP BY w.id
+  			ORDER BY last_post DESC 
+  			LIMIT $count";
+  
+  		return $this->db->cached_select('comments', $sql, array('avworks', 'u_users','avcomments'), 6000);
+  	}
+--- 151,171 ----
+  	function get_fresh_works($count)
+  	{
+! /*		$sql = "SELECT w.id AS id, w.subject, w.submiter AS user_id, w.thumbnail, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, u.username AS username, DATE_FORMAT(max(c.posted), '%Y.%m.%d %H:%i') as last_post
+  			FROM avcomments c, avworks w, u_users u
+  			WHERE c.table_name='avworks' AND w.id=c.parent_id AND w.submiter=u.id
+  			GROUP BY w.id
+  			ORDER BY last_post DESC 
++ 			LIMIT $count"; */
++ 		// optimizuojam optimizuojam, nemiegam /tm
++ 		$sql = "SELECT w.id AS id, w.subject, w.submiter AS user_id, w.thumbnail, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, u.username AS username, DATE_FORMAT(max(c.posted), '%Y.%m.%d %H:%i') as last_post
++ 			FROM avcomments c
++ 				RIGHT JOIN avworks w ON c.parent_id=w.id AND c.table_name='avworks'
++ 				LEFT JOIN u_users u ON u.id=w.submiter
++ 			GROUP BY w.id
++ 			ORDER BY last_post DESC 
+  			LIMIT $count";
+  
++ 
++ 
+  		return $this->db->cached_select('comments', $sql, array('avworks', 'u_users','avcomments'), 6000);
+  	}
+***************
+*** 160,162 ****
+  }
+  
+! ?>
+\ No newline at end of file
+--- 185,187 ----
+  }
+  
+! ?>
+
+
+
+From nobody at sheep.berlios.de  Sat Dec 22 00:47:13 2007
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 22 Dec 2007 00:47:13 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs site.ini.php,1.2,1.3
+Message-ID: <20071221234713.6B83DEA4D@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs
+In directory sheep:/tmp/cvs-serv32024/htdocs
+
+Modified Files:
+	site.ini.php 
+Log Message:
+atsibodo klaida apie hakerius, kurie bando inkludinti puslapius is kitu serveriu.
+
+Index: site.ini.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/site.ini.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** site.ini.php	3 Dec 2005 22:45:01 -0000	1.2
+--- site.ini.php	21 Dec 2007 23:46:02 -0000	1.3
+***************
+*** 47,51 ****
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[ini]: " . round((getmicrotime() - $pradedam),2); }
+  
+! if (empty($lang)) { $lang = $g_ini->read_var('site', 'Language'); }
+  include_once($RELPATH . $LANGPATH . $lang . '.inc.php');
+  
+--- 47,52 ----
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[ini]: " . round((getmicrotime() - $pradedam),2); }
+  
+! if (empty($lang) || ($lang != 'lt' && $lang != 'en') ) { $lang = $g_ini->read_var('site', 'Language'); }
+! $lang = clean_name($lang);
+  include_once($RELPATH . $LANGPATH . $lang . '.inc.php');
+  
+***************
+*** 65,69 ****
+  
+  $g_tpl->set_var('RELPATH', $RELPATH);
+! $g_tpl->set_var('G_PHP_SELF', $PHP_SELF);
+  $g_tpl->set_var('lang', $g_lang);
+  
+--- 66,71 ----
+  
+  $g_tpl->set_var('RELPATH', $RELPATH);
+! //$g_tpl->set_var('G_PHP_SELF', $PHP_SELF);
+! $g_tpl->set_var('G_PHP_SELF', $_SERVER["PHP_SELF"]);
+  $g_tpl->set_var('lang', $g_lang);
+  
+
+
+
+From nobody at sheep.berlios.de  Sat Dec 22 22:41:58 2007
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 22 Dec 2007 22:41:58 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/forum/tpl fresh_list.html, 1.2,
+	1.3 forum_post_list.html, 1.2, 1.3 forum_list.html, 1.1,
+	1.2 forum_thread_list.html, 1.1, 1.2
+Message-ID: <20071222214158.E5722122C7A@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl
+In directory sheep:/tmp/cvs-serv13081/htdocs/forum/tpl
+
+Modified Files:
+	fresh_list.html forum_post_list.html forum_list.html 
+	forum_thread_list.html 
+Log Message:
+nebeatskiriu, kas online
+
+Index: fresh_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/fresh_list.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** fresh_list.html	10 Apr 2006 19:14:25 -0000	1.2
+--- fresh_list.html	22 Dec 2007 21:40:47 -0000	1.3
+***************
+*** 8,10 ****
+  <br>
+  
+! <a href="page.simple;menuname.freshworks">?vie?iai komentuoti darbai</a>
+\ No newline at end of file
+--- 8,12 ----
+  <br>
+  
+! <a href="page.simple;menuname.freshworks">?vie?iai komentuoti darbai</a>
+! 
+! <block name="cvs_version">$Id</block name="cvs_version">
+\ No newline at end of file
+
+Index: forum_post_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/forum_post_list.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** forum_post_list.html	4 Apr 2006 14:04:27 -0000	1.2
+--- forum_post_list.html	22 Dec 2007 21:40:47 -0000	1.3
+***************
+*** 67,69 ****
+  </form>
+  </table> 
+! </block name="NewPost">
+\ No newline at end of file
+--- 67,71 ----
+  </form>
+  </table> 
+! </block name="NewPost">
+! 
+! <block name="cvs_version">$Id</block name="cvs_version">
+\ No newline at end of file
+
+Index: forum_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/forum_list.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1 -r1.2
+*** forum_list.html	4 Aug 2004 22:48:29 -0000	1.1
+--- forum_list.html	22 Dec 2007 21:40:47 -0000	1.2
+***************
+*** 25,27 ****
+  <block name="PleaseLogin">
+  Primename kad norint dalyvauti forume reikia prisijungti prie sistemos. Jei J?s vis dar neprisiregistrav?, pra?om registruotis.
+! </block name="PleaseLogin">
+\ No newline at end of file
+--- 25,29 ----
+  <block name="PleaseLogin">
+  Primename kad norint dalyvauti forume reikia prisijungti prie sistemos. Jei J?s vis dar neprisiregistrav?, pra?om registruotis.
+! </block name="PleaseLogin">
+! 
+! <block name="cvs_version">$Id</block name="cvs_version">
+\ No newline at end of file
+
+Index: forum_thread_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/forum_thread_list.html,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1 -r1.2
+*** forum_thread_list.html	4 Aug 2004 22:48:28 -0000	1.1
+--- forum_thread_list.html	22 Dec 2007 21:40:47 -0000	1.2
+***************
+*** 65,67 ****
+  </form>
+  </table> 
+! </block name="NewThread">
+\ No newline at end of file
+--- 65,69 ----
+  </form>
+  </table> 
+! </block name="NewThread">
+! 
+! <block name="cvs_version">$Id</block name="cvs_version">
+\ No newline at end of file
+
+
+
+From nobody at sheep.berlios.de  Sat Dec 22 22:50:17 2007
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 22 Dec 2007 22:50:17 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/forum/tpl fresh_list.html, 1.3,
+	1.4 forum_post_list.html, 1.3, 1.4 forum_list.html, 1.2,
+	1.3 forum_thread_list.html, 1.2, 1.3
+Message-ID: <20071222215017.115161240E7@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl
+In directory sheep:/tmp/cvs-serv13312/htdocs/forum/tpl
+
+Modified Files:
+	fresh_list.html forum_post_list.html forum_list.html 
+	forum_thread_list.html 
+Log Message:
+blin vaiku klaida ;]
+
+Index: fresh_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/fresh_list.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** fresh_list.html	22 Dec 2007 21:40:47 -0000	1.3
+--- fresh_list.html	22 Dec 2007 21:49:05 -0000	1.4
+***************
+*** 10,12 ****
+  <a href="page.simple;menuname.freshworks">?vie?iai komentuoti darbai</a>
+  
+! <block name="cvs_version">$Id</block name="cvs_version">
+\ No newline at end of file
+--- 10,12 ----
+  <a href="page.simple;menuname.freshworks">?vie?iai komentuoti darbai</a>
+  
+! <block name="cvs_version">$Id$</block name="cvs_version">
+\ No newline at end of file
+
+Index: forum_post_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/forum_post_list.html,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** forum_post_list.html	22 Dec 2007 21:40:47 -0000	1.3
+--- forum_post_list.html	22 Dec 2007 21:49:05 -0000	1.4
+***************
+*** 69,71 ****
+  </block name="NewPost">
+  
+! <block name="cvs_version">$Id</block name="cvs_version">
+\ No newline at end of file
+--- 69,71 ----
+  </block name="NewPost">
+  
+! <block name="cvs_version">$Id$</block name="cvs_version">
+\ No newline at end of file
+
+Index: forum_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/forum_list.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** forum_list.html	22 Dec 2007 21:40:47 -0000	1.2
+--- forum_list.html	22 Dec 2007 21:49:05 -0000	1.3
+***************
+*** 27,29 ****
+  </block name="PleaseLogin">
+  
+! <block name="cvs_version">$Id</block name="cvs_version">
+\ No newline at end of file
+--- 27,29 ----
+  </block name="PleaseLogin">
+  
+! <block name="cvs_version">$Id$</block name="cvs_version">
+\ No newline at end of file
+
+Index: forum_thread_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/forum_thread_list.html,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** forum_thread_list.html	22 Dec 2007 21:40:47 -0000	1.2
+--- forum_thread_list.html	22 Dec 2007 21:49:05 -0000	1.3
+***************
+*** 67,69 ****
+  </block name="NewThread">
+  
+! <block name="cvs_version">$Id</block name="cvs_version">
+\ No newline at end of file
+--- 67,69 ----
+  </block name="NewThread">
+  
+! <block name="cvs_version">$Id$</block name="cvs_version">
+\ No newline at end of file
+
+
+

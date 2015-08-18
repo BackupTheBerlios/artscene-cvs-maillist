@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_cleanup.class.php, 1.15, 1.16
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_cleanup.class.php%2C%201.15%2C%201.16&In-Reply-To=%3C20080726212400.4640ED0BC%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000009.html">
+   <LINK REL="Next"  HREF="000011.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_cleanup.class.php, 1.15, 1.16</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_cleanup.class.php%2C%201.15%2C%201.16&In-Reply-To=%3C20080726212400.4640ED0BC%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_cleanup.class.php, 1.15, 1.16">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Jul 26 23:24:00 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000009.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.4, 1.5
+</A></li>
+        <LI>Next message: <A HREF="000011.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.22, 1.23
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv3102/htdocs/darbai/class
+
+Modified Files:
+	darbai_cleanup.class.php 
+Log Message:
+cia uzkomentuoti kazkokie tm eksperimentai su skaitliukais
+
+Index: darbai_cleanup.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_cleanup.class.php,v
+retrieving revision 1.15
+retrieving revision 1.16
+diff -C2 -d -r1.15 -r1.16
+*** darbai_cleanup.class.php	17 Nov 2006 21:44:02 -0000	1.15
+--- darbai_cleanup.class.php	26 Jul 2008 21:23:58 -0000	1.16
+***************
+*** 91,95 ****
+  			$this-&gt;db-&gt;query(&quot;INSERT INTO avcomments (subject, info, posted, parent_id, table_name, user_id, new) 
+  				VALUES ('$subject', '$comment', NOW(), $parent_id, 'u_users',1, 1)&quot;);
+! 				
+  
+  		    // gales siusti darba tik sekancia diena 
+--- 91,142 ----
+  			$this-&gt;db-&gt;query(&quot;INSERT INTO avcomments (subject, info, posted, parent_id, table_name, user_id, new) 
+  				VALUES ('$subject', '$comment', NOW(), $parent_id, 'u_users',1, 1)&quot;);
+! 
+! 			// $this-&gt;db-&gt;query(&quot;UPDATE $tbl SET c_last_post=NOW() , c_count=c_count+1 WHERE id=$parent_id&quot;);
+! 			// $this-&gt;db-&gt;query(&quot;UPDATE $tbl t, avcomments c SET t.c_last_post=MAX(c.posted), t.c_count=COUNT(c.id) 
+! 			//	WHERE t.id=$parent_id AND c.parent_id=t.id&quot;;
+! 
+! 			// CREATE TEMPORARY TABLE tmpCount AS
+! 			// SELECT u.id AS id, MAX(c.posted) AS c_last_post, COUNT(c.id) AS c_count 
+! 			//	FROM avcomments c LEFT JOIN u_users u ON u.id=c.parent_id WHERE table_name='u_users' GROUP BY id;
+! 			// UPDATE u_users u, tmpCount c SET u.c_last_post=c.c_last_post, u.c_count=c.c_count WHERE c.id=u.id;
+! 			// DROP TEMPORARY TABLE tmpCount; 
+! 			// 
+! 
+! 
+! 
+! 			// // refreshinti skaitliukus 1 teiblui //
+! 			// CREATE TEMPORARY TABLE tmpCount AS
+! 			// SELECT z.id AS id, MAX(c.posted) AS c_last_post, COUNT(c.id) AS c_count
+! 			// 	FROM avcomments c LEFT JOIN avworks z ON z.id=c.parent_id WHERE table_name='avworks' GROUP BY id;
+! 			// UPDATE avworks z, tmpCount c SET z.c_last_post=c.c_last_post, z.c_count=c.c_count WHERE c.id=z.id;
+! 			// DROP TEMPORARY TABLE tmpCount;
+! 			//
+! 
+! 			/* // refreshinti viena //
+! 			   SELECT @last:=MAX(c.posted), @count:=COUNT(c.id) FROM avcomments c 
+! 			   	WHERE table_name='u_users' AND c.parent_id=4600;
+! 			   UPDATE u_users SET c_last_post=@last, c_count=@count WHERE id=4600;
+! 			   
+! 			   $this-&gt;db-&gt;update_cc_one('avcomments','u_users',4600);
+! 
+! 			   // +1 comment //
+! 			   
+! 			   UPDATE $table SET c_last_post=@now, c_count=c_count+1;
+! 
+! 
+! 			*/
+! 
+! 			/* // gauti paskutinius komentuotus darbus
+! 			   SELECT w.id AS id, w.subject, w.submiter AS user_id, w.thumbnail, 
+! 			   		DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, u.username AS username, 
+! 					DATE_FORMAT(w.c_last_post, '%Y.%m.%d %H:%i') as last_post 
+! 				FROM avworks w LEFT JOIN u_users u ON u.id=w.submiter 
+! 				GROUP BY w.id 
+! 				ORDER BY w.c_last_post 
+! 				DESC LIMIT 10;
+! 
+! 			*/
+! 
+! 
+  
+  		    // gales siusti darba tik sekancia diena 
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000009.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.4, 1.5
+</A></li>
+	<LI>Next message: <A HREF="000011.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.22, 1.23
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#10">[ date ]</a>
+              <a href="thread.html#10">[ thread ]</a>
+              <a href="subject.html#10">[ subject ]</a>
+              <a href="author.html#10">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

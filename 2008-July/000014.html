@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/news/class news.class.php, 1.3,	1.4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/news/class%20news.class.php%2C%201.3%2C%0A%091.4&In-Reply-To=%3C20080726213331.27C3914A132%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000013.html">
+   <LINK REL="Next"  HREF="000015.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/news/class news.class.php, 1.3,	1.4</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/news/class%20news.class.php%2C%201.3%2C%0A%091.4&In-Reply-To=%3C20080726213331.27C3914A132%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/news/class news.class.php, 1.3,	1.4">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Jul 26 23:33:31 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000013.html">[artscene-cvs] art.scene.v2/htdocs/users/class login.class.php, 1.16,	1.17
+</A></li>
+        <LI>Next message: <A HREF="000015.html">[artscene-cvs] art.scene.v2/htdocs .cvsignore,NONE,1.1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/news/class
+In directory sheep:/tmp/cvs-serv4306/htdocs/news/class
+
+Modified Files:
+	news.class.php 
+Log Message:
+tm optimizuotas selektas
+
+Index: news.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/news/class/news.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** news.class.php	22 Dec 2005 12:11:37 -0000	1.3
+--- news.class.php	26 Jul 2008 21:33:28 -0000	1.4
+***************
+*** 188,192 ****
+  		if ($search) { $where .= &quot; AND (n.subject LIKE '%$search%' OR n.info LIKE '%$search%' OR n.full_text LIKE '%$search%') &quot;; }
+  
+! 		$statement = &quot;SELECT n.id AS id, n.subject AS subject, n.info AS info, n.file AS file, DATE_FORMAT(n.posted, '%Y.%m.%d') AS posted, LENGTH(n.full_text) AS read_more, category_id,
+  			u.id AS user_id, u.username AS username,
+  			nc.name AS category,
+--- 188,192 ----
+  		if ($search) { $where .= &quot; AND (n.subject LIKE '%$search%' OR n.info LIKE '%$search%' OR n.full_text LIKE '%$search%') &quot;; }
+  
+! /*		$statement = &quot;SELECT n.id AS id, n.subject AS subject, n.info AS info, n.file AS file, DATE_FORMAT(n.posted, '%Y.%m.%d') AS posted, LENGTH(n.full_text) AS read_more, category_id,
+  			u.id AS user_id, u.username AS username,
+  			nc.name AS category,
+***************
+*** 197,200 ****
+--- 197,214 ----
+  			ORDER BY n.posted DESC, id DESC 
+  			$limit&quot;;
++ */
++ 		// optimizuojam optimizuojam, nemiegam /tm
++ 		$statement = &quot;SELECT n.id AS id, n.subject AS subject, n.info AS info, n.file AS file, DATE_FORMAT(n.posted, '%Y.%m.%d') AS posted, LENGTH(n.full_text) AS read_more, category_id,
++ 			u.id AS user_id, u.username AS username,
++ 			nc.name AS category,
++ 			COUNT(c.id) AS comments
++ 			FROM avnews n 
++ 				LEFT JOIN avcomments c ON (c.table_name='avnews' AND c.parent_id=n.id)
++ 				LEFT JOIN u_users u ON n.submiter=u.id
++ 				LEFT JOIN avnewscategory nc ON n.category_id=nc.id 
++ 			WHERE n.visible=1 $where  
++ 			GROUP BY n.id
++ 			ORDER BY n.posted DESC, id DESC 
++ 			$limit&quot;;
+  			
+  		$result = $this-&gt;db-&gt;cached_select('newslist', $statement, array('avnews', 'avcomments', 'u_users', 'avnewscategory'), 9000);
+***************
+*** 449,451 ****
+  
+  
+! ?&gt;
+--- 463,465 ----
+  
+  
+! ?&gt;
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000013.html">[artscene-cvs] art.scene.v2/htdocs/users/class login.class.php, 1.16,	1.17
+</A></li>
+	<LI>Next message: <A HREF="000015.html">[artscene-cvs] art.scene.v2/htdocs .cvsignore,NONE,1.1
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#14">[ date ]</a>
+              <a href="thread.html#14">[ thread ]</a>
+              <a href="subject.html#14">[ subject ]</a>
+              <a href="author.html#14">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

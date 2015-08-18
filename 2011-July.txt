@@ -1,0 +1,2858 @@
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:50 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:50 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/control/class
+	avctextarea_html.class.php, 1.1, 1.2 avctext.class.php, 1.1,
+	1.2 page_users.class.php, 1.5, 1.6 avcactions.class.php, 1.1,
+	1.2 page_language.class.php, 1.1, 1.2 avcselect.class.php, 1.1,
+	1.2 avcbrowser_type.class.php, 1.1, 1.2 avcimage.class.php,
+	1.1, 1.2 page_modules.class.php, 1.1,
+	1.2 page_groups.class.php, 1.1, 1.2 avctextarea.class.php, 1.1,
+	1.2 page_permissions.class.php, 1.1,
+	1.2 avctextarea_bbcode.class.php, 1.1,
+	1.2 avcdbselect.class.php, 1.1, 1.2 avclinktext.class.php, 1.1,
+	1.2 page_user_log.class.php, 1.1, 1.2 avcdbtext.class.php, 1.4, 1.5
+Message-ID: <20110704210050.CCC484803CE@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/control/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/control/class
+
+Modified Files:
+	avctextarea_html.class.php avctext.class.php 
+	page_users.class.php avcactions.class.php 
+	page_language.class.php avcselect.class.php 
+	avcbrowser_type.class.php avcimage.class.php 
+	page_modules.class.php page_groups.class.php 
+	avctextarea.class.php page_permissions.class.php 
+	avctextarea_bbcode.class.php avcdbselect.class.php 
+	avclinktext.class.php page_user_log.class.php 
+	avcdbtext.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avclinktext.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avclinktext.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avclinktext.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avclinktext.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 35,45 ****
+  	function avcLinkText(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size, $link, $link_module='')
+  	{
+! 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size, $link, $link_module);
+  	}
+  	
+! 	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size, $link, $link_module='')
+  	{
+  		global $module;
+! 		avcText::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size);
+  		$this->link = $link;
+  		if (empty($link_module))
+--- 35,45 ----
+  	function avcLinkText(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size, $link, $link_module='')
+  	{
+! 		$this->constructor_overloaded(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size, $link, $link_module);
+  	}
+  	
+! 	function constructor_overloaded(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size, $link, $link_module='')
+  	{
+  		global $module;
+! 		parent::avcText(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size);
+  		$this->link = $link;
+  		if (empty($link_module))
+***************
+*** 48,51 ****
+--- 48,52 ----
+  		}
+  		$this->link_module = $link_module;
++ 		
+  	}
+  
+
+Index: avcselect.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avcselect.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avcselect.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avcselect.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 33,41 ****
+  	function avcSelect(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $values)
+  	{
+- 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $values);
+- 	}
+- 	
+- 	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $values)
+- 	{
+  		avControl::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->visible = true;
+--- 33,36 ----
+***************
+*** 44,48 ****
+  	}
+  
+- 
+  	/*!
+  		rodo selecta aktyvus tas kur value sutampa
+--- 39,42 ----
+
+Index: avctext.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avctext.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avctext.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avctext.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 29,45 ****
+  		\param $size - size of input field
+  	*/
+! 	function avcText(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size)
+! 	{
+! 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size);
+! 	}
+! 	
+! 	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $size)
+  	{
+! 		avControl::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->size = $size;
+  		$this->visible = true;
+  	}
+  
+- 
+  	/*!
+  		show form control	
+--- 29,39 ----
+  		\param $size - size of input field
+  	*/
+! 	function avcText($table, $name, $description, $default, $required, $quered, $list, $header, $order, $size)
+  	{
+! 		$this->constructor($table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->size = $size;
+  		$this->visible = true;
+  	}
+  
+  	/*!
+  		show form control	
+
+Index: avcactions.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avcactions.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avcactions.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avcactions.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 37,41 ****
+  	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order)
+  	{
+! 		avControl::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->visible = false;
+  	}
+--- 37,41 ----
+  	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order)
+  	{
+! 		parent::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->visible = false;
+  	}
+
+Index: avcimage.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avcimage.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avcimage.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avcimage.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 35,43 ****
+  	function avcImage(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $dir, $url, $xsize = false, $ysize = false)
+  	{
+- 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $dir, $url, $xsize, $ysize);
+- 	}
+- 
+- 	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $dir, $url, $xsize = false, $ysize = false)
+- 	{
+  		avControl::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->visible = true;
+--- 35,38 ----
+
+Index: avctextarea_bbcode.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avctextarea_bbcode.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avctextarea_bbcode.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avctextarea_bbcode.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 36,44 ****
+  	function avcTextArea_bbcode(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $cols, $rows)
+  	{
+- 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $cols, $rows);
+- 	}
+- 	
+- 	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $cols, $rows)
+- 	{
+  		avControl::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->cols = $cols;
+--- 36,39 ----
+***************
+*** 46,50 ****
+  		$this->visible = true;
+  	}
+! 
+  
+  	/*!
+--- 41,45 ----
+  		$this->visible = true;
+  	}
+! 	
+  
+  	/*!
+
+Index: avcdbtext.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avcdbtext.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C 2 -d -r1.4 -r1.5
+*** avcdbtext.class.php	30 Nov 2004 23:14:34 -0000	1.4
+--- avcdbtext.class.php	4 Jul 2011 21:00:47 -0000	1.5
+***************
+*** 34,38 ****
+  	function avcDbText(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $s_table, $c_value, $c_name, $s_order = '', $empty = 'none')
+  	{
+! 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $s_table, $c_value, $c_name, $s_order, $empty);
+  	}
+  
+--- 34,38 ----
+  	function avcDbText(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $s_table, $c_value, $c_name, $s_order = '', $empty = 'none')
+  	{
+! 		parent::__construct(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $s_table, $c_value, $c_name, $s_order, $empty);
+  	}
+  
+
+Index: page_permissions.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/page_permissions.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** page_permissions.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- page_permissions.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 31,39 ****
+  		$this->parent = 'page_modules';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, 'id', 0);
+! 		$this->controls[] = & new avcText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20);
+! 		$this->controls[] = & new avcText( &$this, 'info', $g_lang['info'], '', 0, 1, 1, $g_lang['info'], 1, 40);
+! 		$this->controls[] = & new avcDbSelect( &$this, 'module_id', $g_lang['permissions_module'], '', 1, 1, 1, $g_lang['permissions_module'], 1, 'u_module', 'id', 'name');
+! 		$this->controls[] = & new avcActions( &$this, '', '', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+  		$this->description = $g_lang['permissions_description'];
+--- 31,39 ----
+  		$this->parent = 'page_modules';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, 'id', 0);
+! 		$this->controls[] = new avcText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20);
+! 		$this->controls[] = new avcText( &$this, 'info', $g_lang['info'], '', 0, 1, 1, $g_lang['info'], 1, 40);
+! 		$this->controls[] = new avcDbSelect( &$this, 'module_id', $g_lang['permissions_module'], '', 1, 1, 1, $g_lang['permissions_module'], 1, 'u_module', 'id', 'name');
+! 		$this->controls[] = new avcActions( &$this, '', '', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+  		$this->description = $g_lang['permissions_description'];
+
+Index: avcdbselect.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avcdbselect.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avcdbselect.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avcdbselect.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 41,49 ****
+  	function avcDbSelect(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $s_table, $c_value, $c_name, $s_order = '', $empty = 'none')
+  	{
+- 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $s_table, $c_value, $c_name, $s_order, $empty);
+- 	}
+- 	
+- 	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $s_table, $c_value, $c_name, $s_order, $empty)
+- 	{
+  		avControl::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->visible = true;
+--- 41,44 ----
+***************
+*** 55,59 ****
+  		$this->empty = $empty;
+  	}
+! 
+  
+  	/*!
+--- 50,54 ----
+  		$this->empty = $empty;
+  	}
+! 	
+  
+  	/*!
+
+Index: avctextarea_html.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avctextarea_html.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avctextarea_html.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avctextarea_html.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 36,45 ****
+  	{
+  
+- 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $cols, $rows);
+- 
+- 	}
+- 	
+- 	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $cols, $rows)
+- 	{
+  		avControl::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->cols = $cols;
+--- 36,39 ----
+***************
+*** 47,52 ****
+  		$this->visible = true;
+  	}
+! 
+! 
+  	/*!
+  		show form control
+--- 41,45 ----
+  		$this->visible = true;
+  	}
+! 	
+  	/*!
+  		show form control
+
+Index: avcbrowser_type.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avcbrowser_type.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avcbrowser_type.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avcbrowser_type.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 65,74 ****
+  	function which_os($ua)
+      {
+! 	if (eregi("Mac", $ua))
+  	{
+  		$os = "MacOS";
+  		$osimg = "mac";
+  	}
+! 	else if (eregi("windows nt", $ua))
+  	{
+  		$os = "Windows NT";
+--- 65,74 ----
+  	function which_os($ua)
+      {
+! 	if (@eregi("Mac", $ua))
+  	{
+  		$os = "MacOS";
+  		$osimg = "mac";
+  	}
+! 	else if (@eregi("windows nt", $ua))
+  	{
+  		$os = "Windows NT";
+***************
+*** 76,110 ****
+  	}
+  	
+! 	else if (eregi("winnt", $ua))
+  	{
+  		$os = "Windows NT";
+  		$osimg = "windows";
+  	}
+! 	else if (eregi("windows 98", $ua))
+  	{
+  		$os = "Windows 98";
+  		$osimg = "windows";
+  	}
+! 	else if (eregi("win98", $ua))
+  	{
+  		$os = "Windows 98";
+  		$osimg = "windows";
+  	}
+! 	else if (eregi("windows 95", $ua))
+  	{
+  		$os = "Windows 95";
+  		$osimg = "windows";
+  	}
+! 	else if (eregi("win95", $ua))
+  	{
+  		$os = "Windows 95";
+  		$osimg = "windows";
+  	}
+! 	else if (eregi("Linux ([0-9.]+)", $ua, $regs))
+  	{
+  		$os = "Linux ".$regs[1];
+  		$osimg = "linux";
+  	}
+! 	else if (eregi("Linux", $ua, $regs))
+  	{
+  		$os = "Linux";
+--- 76,110 ----
+  	}
+  	
+! 	else if (@eregi("winnt", $ua))
+  	{
+  		$os = "Windows NT";
+  		$osimg = "windows";
+  	}
+! 	else if (@eregi("windows 98", $ua))
+  	{
+  		$os = "Windows 98";
+  		$osimg = "windows";
+  	}
+! 	else if (@eregi("win98", $ua))
+  	{
+  		$os = "Windows 98";
+  		$osimg = "windows";
+  	}
+! 	else if (@eregi("windows 95", $ua))
+  	{
+  		$os = "Windows 95";
+  		$osimg = "windows";
+  	}
+! 	else if (@eregi("win95", $ua))
+  	{
+  		$os = "Windows 95";
+  		$osimg = "windows";
+  	}
+! 	else if (@eregi("Linux ([0-9.]+)", $ua, $regs))
+  	{
+  		$os = "Linux ".$regs[1];
+  		$osimg = "linux";
+  	}
+! 	else if (@eregi("Linux", $ua, $regs))
+  	{
+  		$os = "Linux";
+***************
+*** 112,126 ****
+  	}
+  
+! 	else if (eregi("mdk for ([0-9]\.[0-9])", $ua, $regs))
+  	{
+  		$os = "Linux MDK ".$regs[1];
+  		$osimg = "linux";
+  	}
+! 	else if (eregi("mdk", $ua, $regs))
+  	{
+  		$os = "Linux MDK";
+  		$osimg = "linux";
+  	}
+! 	else if (eregi("win|windows", $ua))
+  	{
+  		$os = "Windows";
+--- 112,126 ----
+  	}
+  
+! 	else if (@eregi("mdk for ([0-9]\.[0-9])", $ua, $regs))
+  	{
+  		$os = "Linux MDK ".$regs[1];
+  		$osimg = "linux";
+  	}
+! 	else if (@eregi("mdk", $ua, $regs))
+  	{
+  		$os = "Linux MDK";
+  		$osimg = "linux";
+  	}
+! 	else if (@eregi("win|windows", $ua))
+  	{
+  		$os = "Windows";
+***************
+*** 128,132 ****
+  	}
+  
+! 	else if (eregi("konqueror/(([0-9]*\.[0-9]*\.[0-9]*)|([0-9]*\.[0-9]*))", $ua, $regs))
+  	{
+  		$os = "Linux ?";
+--- 128,132 ----
+  	}
+  
+! 	else if (@eregi("konqueror/(([0-9]*\.[0-9]*\.[0-9]*)|([0-9]*\.[0-9]*))", $ua, $regs))
+  	{
+  		$os = "Linux ?";
+***************
+*** 143,164 ****
+  function which_browser($ua)
+  {
+! 	if (eregi("msie ([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Explorer ".$regs[1];
+  		$browserimg = "explorer";
+  	}
+! 	else if (eregi("konqueror/([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Konqueror ".$regs[1];
+  		$browserimg = "konqueror";
+  	}
+! 	else if (eregi("netscape([0-9]*/[0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Netscape ".$regs[1];
+  		$browserimg = "navigator";
+  	}
+! 	else if (eregi("^mozilla/([0-9].?.[0-9][0-9]|[0-9].?.[0-9]|[0-9])", $ua, $regs))
+  	{
+! 		if( eregi(" (m[0-9]*)", $ua, $regs2)|| eregi("gecko", $ua))
+  		{
+  			$browser = "Mozilla ".$regs[1];
+--- 143,164 ----
+  function which_browser($ua)
+  {
+! 	if (@eregi("msie ([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Explorer ".$regs[1];
+  		$browserimg = "explorer";
+  	}
+! 	else if (@eregi("konqueror/([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Konqueror ".$regs[1];
+  		$browserimg = "konqueror";
+  	}
+! 	else if (@eregi("netscape([0-9]*/[0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Netscape ".$regs[1];
+  		$browserimg = "navigator";
+  	}
+! 	else if (@eregi("^mozilla/([0-9].?.[0-9][0-9]|[0-9].?.[0-9]|[0-9])", $ua, $regs))
+  	{
+! 		if (@eregi(" (m[0-9]*)", $ua, $regs2)|| eregi("gecko", $ua))
+  		{
+  			$browser = "Mozilla ".$regs[1];
+***************
+*** 171,200 ****
+  		}
+  	}
+! 	else if (eregi("mozilla .([0-9]*)", $ua, $regs))
+  	{
+  		$browser = "Mozilla ".$regs[1];
+  		$browserimg = "mozilla";
+  	}
+! 	else if (eregi("Opera/([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Opera ".$regs[1];
+  		$browserimg = "opera";
+  	}
+! 	else if (eregi("Lynx/([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Lynx ".$regs[1];
+  		$browserimg = "lynx";
+  	}
+! 	else if (eregi("(^[a-zA-Z]+)/([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = $regs[1]." ".$regs[2];
+  		$browserimg = "question";
+  	}
+! 	else if (eregi("(^[a-zA-Z]+) ([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = $regs[1]." ".$regs[2];
+  		$browserimg = "question";
+  	}
+! 	else if (eregi("(^[a-zA-Z]+)", $ua, $regs))
+  	{
+  		$browser = $regs[1];
+--- 171,200 ----
+  		}
+  	}
+! 	else if (@eregi("mozilla .([0-9]*)", $ua, $regs))
+  	{
+  		$browser = "Mozilla ".$regs[1];
+  		$browserimg = "mozilla";
+  	}
+! 	else if (@eregi("Opera/([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Opera ".$regs[1];
+  		$browserimg = "opera";
+  	}
+! 	else if (@eregi("Lynx/([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = "Lynx ".$regs[1];
+  		$browserimg = "lynx";
+  	}
+! 	else if (@eregi("(^[a-zA-Z]+)/([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = $regs[1]." ".$regs[2];
+  		$browserimg = "question";
+  	}
+! 	else if (@eregi("(^[a-zA-Z]+) ([0-9.]+)", $ua, $regs))
+  	{
+  		$browser = $regs[1]." ".$regs[2];
+  		$browserimg = "question";
+  	}
+! 	else if (@eregi("(^[a-zA-Z]+)", $ua, $regs))
+  	{
+  		$browser = $regs[1];
+
+Index: page_language.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/page_language.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** page_language.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- page_language.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 31,47 ****
+  		$this->name = 'languages';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+  
+  		if (empty($link_table))
+  		{
+! 			$this->controls[] = & new avcText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20);
+  		}
+  		else
+  		{
+! 			$this->controls[] = & new avcLinkText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20, $link_table, $link_module);
+  		}
+  	
+! 		$this->controls[] = & new avcText( &$this, 'lang_name', $g_lang['info'], '', 1, 1, 1, $g_lang['info'], 1, 40);
+! 		$this->controls[] = & new avcActions( &$this, '', '', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+  		$this->description = $g_lang['languages_description'];
+--- 31,47 ----
+  		$this->name = 'languages';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+  
+  		if (empty($link_table))
+  		{
+! 			$this->controls[] = new avcText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20);
+  		}
+  		else
+  		{
+! 			$this->controls[] = new avcLinkText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20, $link_table, $link_module);
+  		}
+  	
+! 		$this->controls[] = new avcText( &$this, 'lang_name', $g_lang['info'], '', 1, 1, 1, $g_lang['info'], 1, 40);
+! 		$this->controls[] = new avcActions( &$this, '', '', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+  		$this->description = $g_lang['languages_description'];
+
+Index: page_user_log.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/page_user_log.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** page_user_log.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- page_user_log.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 46,56 ****
+  		$this->name = 'u_user_log';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 0, '', 0);
+! 		$this->controls[] = & new avcHidden( &$this, 'username', $g_lang['log.username'], '', 1, 1, 1, $g_lang['log.username'], 1, 20);
+! 		$this->controls[] = & new avcTimeStamp( &$this, 'logindate', $g_lang['log.logindate'], '', 0, 1, 1, $g_lang['log.logindate'], 1);
+! 		$this->controls[] = & new avcHidden( &$this, 'host', $g_lang['log.host'], '', 0, 1, 1, $g_lang['log.host'], 1);
+  
+! 		//$this->controls[] = & new avcHidden( &$this, 'browser', $g_lang['log.browser'], '', 0, 1, 1, $g_lang['log.browser'], 1, 20);
+! 		$this->controls[] = & new avcBrowser_type( &$this, 'browser', $g_lang['log.browser'], '', 0, 1, 1, $g_lang['log.browser'], 1, 20);
+  		$this->description = $g_lang['log.description'];
+  		
+--- 46,56 ----
+  		$this->name = 'u_user_log';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 0, '', 0);
+! 		$this->controls[] = new avcHidden( &$this, 'username', $g_lang['log.username'], '', 1, 1, 1, $g_lang['log.username'], 1, 20);
+! 		$this->controls[] = new avcTimeStamp( &$this, 'logindate', $g_lang['log.logindate'], '', 0, 1, 1, $g_lang['log.logindate'], 1);
+! 		$this->controls[] = new avcHidden( &$this, 'host', $g_lang['log.host'], '', 0, 1, 1, $g_lang['log.host'], 1);
+  
+! 		//$this->controls[] = new avcHidden( &$this, 'browser', $g_lang['log.browser'], '', 0, 1, 1, $g_lang['log.browser'], 1, 20);
+! 		$this->controls[] = new avcBrowser_type( &$this, 'browser', $g_lang['log.browser'], '', 0, 1, 1, $g_lang['log.browser'], 1, 20);
+  		$this->description = $g_lang['log.description'];
+  		
+
+Index: page_modules.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/page_modules.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** page_modules.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- page_modules.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 29,36 ****
+  		$this->name = 'u_module';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = & new avcLinkText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20, 'page_permissions');
+! 		$this->controls[] = & new avcText( &$this, 'info', $g_lang['info'], '', 1, 1, 1, $g_lang['info'], 1, 40);
+! 		$this->controls[] = & new avcActions( &$this, 'info', 'info', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+  		$this->description = $g_lang['modules_description'];
+--- 29,36 ----
+  		$this->name = 'u_module';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = new avcLinkText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20, 'page_permissions');
+! 		$this->controls[] = new avcText( &$this, 'info', $g_lang['info'], '', 1, 1, 1, $g_lang['info'], 1, 40);
+! 		$this->controls[] = new avcActions( &$this, 'info', 'info', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+  		$this->description = $g_lang['modules_description'];
+
+Index: avctextarea.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/avctextarea.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avctextarea.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- avctextarea.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 35,43 ****
+  	function avcTextArea(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $cols, $rows)
+  	{
+- 		$this->constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $cols, $rows);
+- 	}
+- 	
+- 	function constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order, $cols, $rows)
+- 	{
+  		avControl::constructor(&$table, $name, $description, $default, $required, $quered, $list, $header, $order);
+  		$this->cols = $cols;
+--- 35,38 ----
+
+Index: page_users.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/page_users.class.php,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -C 2 -d -r1.5 -r1.6
+*** page_users.class.php	4 Apr 2006 11:34:52 -0000	1.5
+--- page_users.class.php	4 Jul 2011 21:00:47 -0000	1.6
+***************
+*** 39,56 ****
+  		$this->parent = 'page_groups';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = & new avcText( &$this, 'username', $g_lang['users_username'], '', 1, 1, 1, $g_lang['login.username'], 1, 20);
+! 		$this->controls[] = & new avcPassword( &$this, 'password', $g_lang['users_password'], '', 1, 1, 0, $g_lang['users_password'],1, 15, 5);
+! 		$this->controls[] = & new avcDbSelect( &$this, 'group_id', $g_lang['users_group'], '', 1, 1, 1, $g_lang['users_group'], 1, 'u_group', 'id', 'name', '');
+! 		$this->controls[] = & new avcSelect( &$this, 'active', $g_lang['users_active'], '1', 0, 1, 1, $g_lang['users_active'], 1, array('0'=>'ne', '1'=>'taip'));
+! 		$this->controls[] = & new avcText( &$this, 'email', $g_lang['users_email'], '', 0, 1, 1, $g_lang['users_email'], 1, 20);
+! 		$this->controls[] = & new avcTimeStamp( &$this, 'lastlogin', $g_lang['users_lastlogin'], '', 0, 1, 1, $g_lang['users_lastlogin'], 1);
+! 		$this->controls[] = & new avcHidden( &$this, 'lasthost', $g_lang['users_lasthost'], '', 0, 1, 1, $g_lang['users_lasthost'], 1);
+! 		$this->controls[] = & new avcText( &$this, 'del_works_admin', 'Adminai tryn? darb?:', 0, 0, 1, 1, 'Tryn? adminai', 1, 20);
+! 		$this->controls[] = & new avcText( &$this, 'del_works_system', 'Automatas tryn? darb?:', 0, 0, 1, 1, 'Tryn? automatas', 1, 20);
+! 		$this->controls[] = & new avcActions( &$this, '', '', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+!     $this->controls[] = & new avcDatePlus( &$this, 'may_send_work_after', 'Darbai nuo', date('Y.m.d'), 1, 1, 0, 'temp', 1);
+!     $this->controls[] = & new avcDatePlus( &$this, 'may_comment_after', 'Komentarai nuo', date('Y.m.d'), 1, 1, 0, 'temp', 1);
+      
+  		$this->description = $g_lang['users_description'];
+--- 39,56 ----
+  		$this->parent = 'page_groups';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = new avcText( &$this, 'username', $g_lang['users_username'], '', 1, 1, 1, $g_lang['login.username'], 1, 20);
+! 		$this->controls[] = new avcPassword( &$this, 'password', $g_lang['users_password'], '', 1, 1, 0, $g_lang['users_password'],1, 15, 5);
+! 		$this->controls[] = new avcDbSelect( &$this, 'group_id', $g_lang['users_group'], '', 1, 1, 1, $g_lang['users_group'], 1, 'u_group', 'id', 'name', '');
+! 		$this->controls[] = new avcSelect( &$this, 'active', $g_lang['users_active'], '1', 0, 1, 1, $g_lang['users_active'], 1, array('0'=>'ne', '1'=>'taip'));
+! 		$this->controls[] = new avcText( &$this, 'email', $g_lang['users_email'], '', 0, 1, 1, $g_lang['users_email'], 1, 20);
+! 		$this->controls[] = new avcTimeStamp( &$this, 'lastlogin', $g_lang['users_lastlogin'], '', 0, 1, 1, $g_lang['users_lastlogin'], 1);
+! 		$this->controls[] = new avcHidden( &$this, 'lasthost', $g_lang['users_lasthost'], '', 0, 1, 1, $g_lang['users_lasthost'], 1);
+! 		$this->controls[] = new avcText( &$this, 'del_works_admin', 'Adminai tryn? darb?:', 0, 0, 1, 1, 'Tryn? adminai', 1, 20);
+! 		$this->controls[] = new avcText( &$this, 'del_works_system', 'Automatas tryn? darb?:', 0, 0, 1, 1, 'Tryn? automatas', 1, 20);
+! 		$this->controls[] = new avcActions( &$this, '', '', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+!     $this->controls[] = new avcDatePlus( &$this, 'may_send_work_after', 'Darbai nuo', date('Y.m.d'), 1, 1, 0, 'temp', 1);
+!     $this->controls[] = new avcDatePlus( &$this, 'may_comment_after', 'Komentarai nuo', date('Y.m.d'), 1, 1, 0, 'temp', 1);
+      
+  		$this->description = $g_lang['users_description'];
+
+Index: page_groups.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/class/page_groups.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** page_groups.class.php	4 Aug 2004 22:52:35 -0000	1.1
+--- page_groups.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 31,40 ****
+  		$this->name = 'u_group';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, 'id', 0);
+! 		$this->controls[] = & new avcLinkText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20, 'page_users');
+! 		$this->controls[] = & new avcText( &$this, 'info', $g_lang['info'], '', 1, 1, 1, $g_lang['info'], 1, 40);
+! 		$this->controls[] = & new avcText( &$this, 'menu', $g_lang['groups_menu'], '', 1, 1, 0, $g_lang['groups_menu'], 1, 40);
+! 		$this->controls[] = & new avcCheckGroup( &$this, 'permissions', $g_lang['groups_permissions']);
+! 		$this->controls[] = & new avcActions( &$this, '', '', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+  		$this->description = $g_lang['groups_description'];
+--- 31,40 ----
+  		$this->name = 'u_group';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, 'id', 0);
+! 		$this->controls[] = new avcLinkText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 20, 'page_users');
+! 		$this->controls[] = new avcText( &$this, 'info', $g_lang['info'], '', 1, 1, 1, $g_lang['info'], 1, 40);
+! 		$this->controls[] = new avcText( &$this, 'menu', $g_lang['groups_menu'], '', 1, 1, 0, $g_lang['groups_menu'], 1, 40);
+! 		$this->controls[] = new avcCheckGroup( &$this, 'permissions', $g_lang['groups_permissions']);
+! 		$this->controls[] = new avcActions( &$this, '', '', '', 0, 0, 1, $g_lang['list_rowactions'], 0);
+  
+  		$this->description = $g_lang['groups_description'];
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:50 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:50 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs process.php, 1.2,
+	1.3 site.ini.php, 1.3, 1.4
+Message-ID: <20110704210050.D7A98483382@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs
+In directory sheep:/tmp/cvs-serv31643/htdocs
+
+Modified Files:
+	process.php site.ini.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: process.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/process.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C 2 -d -r1.2 -r1.3
+*** process.php	25 Nov 2007 23:49:08 -0000	1.2
+--- process.php	4 Jul 2011 21:00:47 -0000	1.3
+***************
+*** 42,50 ****
+  $RELPATH = './';
+  
+- 
+  include_once($RELPATH . 'site.ini.php');
+  include_once($RELPATH . $LIBPATH . 'user_header.inc.php');
+  
+! if (substr($REQUEST_URI, - strlen('/process.php')) == '/process.php') redirect ('process.php/');
+  
+  //if ($_SERVER['HTTP_HOST'] != 'art.scene.lt') redirect('http://art.scene.lt/process.php/page.simple;menuname.address');
+--- 42,49 ----
+  $RELPATH = './';
+  
+  include_once($RELPATH . 'site.ini.php');
+  include_once($RELPATH . $LIBPATH . 'user_header.inc.php');
+  
+! if (substr($_SERVER['REQUEST_URI'] , - strlen('/process.php')) == '/process.php') redirect ('process.php/');
+  
+  //if ($_SERVER['HTTP_HOST'] != 'art.scene.lt') redirect('http://art.scene.lt/process.php/page.simple;menuname.address');
+***************
+*** 65,69 ****
+  }
+  
+! $g_tpl->set_var('SCRIPT_NAME', $GLOBALS['SCRIPT_NAME'] . '/');
+  
+  isset($page) || $page = $g_ini->read_var('site', 'DefaultPage');
+--- 64,68 ----
+  }
+  
+! $g_tpl->set_var('SCRIPT_NAME', $_SERVER['SCRIPT_NAME'] . '/');
+  
+  isset($page) || $page = $g_ini->read_var('site', 'DefaultPage');
+***************
+*** 98,102 ****
+  		if (empty($names[3])) { $names[3] = ''; }
+  
+! 		$table[$index]['table'] = & new $names[1]();
+  		$table[$index]['table_name'] = $names[1];
+  		$table[$index]['method'] = $names[2];
+--- 97,101 ----
+  		if (empty($names[3])) { $names[3] = ''; }
+  
+! 		$table[$index]['table'] = new $names[1]();
+  		$table[$index]['table_name'] = $names[1];
+  		$table[$index]['method'] = $names[2];
+***************
+*** 115,119 ****
+  	$ts = getmicrotime();
+  	$g_tpl->set_var($table[$index]['column'], $g_tpl->get_var_silent($table[$index]['column']) . $table[$index]['table']->$table[$index]['method']($table[$index]['param']) ); // :)
+! 	if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[".$table[$index]['table_name']."]: " . round((getmicrotime() - $ts),2);}	
+  }
+  
+--- 114,121 ----
+  	$ts = getmicrotime();
+  	$g_tpl->set_var($table[$index]['column'], $g_tpl->get_var_silent($table[$index]['column']) . $table[$index]['table']->$table[$index]['method']($table[$index]['param']) ); // :)
+! 	if (isset($GLOBALS['bench'])) { 
+! 		echo "<br>checkpoint[".$table[$index]['table_name']."-".$table[$index]['method']."]: " . 
+! 			round((getmicrotime() - $ts),2);
+! 	}	
+  }
+  
+
+Index: site.ini.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/site.ini.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C 2 -d -r1.3 -r1.4
+*** site.ini.php	21 Dec 2007 23:46:02 -0000	1.3
+--- site.ini.php	4 Jul 2011 21:00:47 -0000	1.4
+***************
+*** 12,16 ****
+  */
+  
+! error_reporting(E_ALL);
+  
+  
+--- 12,16 ----
+  */
+  
+! error_reporting(E_ALL & ~(E_NOTICE | E_DEPRECATED | E_STRICT));
+  
+  
+***************
+*** 28,31 ****
+--- 28,36 ----
+  //$bench = 1;
+  
++ foreach($_REQUEST as $key => $obj) {
++     if (!isset($GLOBALS[$key])) $GLOBALS[$key] = $obj;
++ }
++   $PHP_SELF = $_SERVER['PHP_SELF'];
++ 
+  include_once($RELPATH . $COREPATH . "averror.class.php");
+  include_once($RELPATH . $COREPATH . "avdb.class.php");
+***************
+*** 39,47 ****
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[includes]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_error = & new avError('report');
+  
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[error]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_ini = & new avIni($RELPATH . 'global.ini.php');
+  
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[ini]: " . round((getmicrotime() - $pradedam),2); }
+--- 44,52 ----
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[includes]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_error = new avError('report');
+  
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[error]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_ini = new avIni($RELPATH . 'global.ini.php');
+  
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[ini]: " . round((getmicrotime() - $pradedam),2); }
+***************
+*** 54,66 ****
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[lang]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_db = & new avDb();
+  
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[db]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_sess = & new avSession ();
+  
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[session]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_tpl = & new phemplate($RELPATH, 'keep');
+  $g_tpl->set_error_handler(&$g_error);
+  
+--- 59,71 ----
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[lang]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_db = new avDb();
+  
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[db]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_sess = new avSession ();
+  
+  if (isset($GLOBALS['bench'])) { echo "<br>checkpoint[session]: " . round((getmicrotime() - $pradedam),2); }
+  
+! $g_tpl = new phemplate($RELPATH, 'keep');
+  $g_tpl->set_error_handler(&$g_error);
+  
+***************
+*** 77,81 ****
+  if (empty($g_user_id) || !$g_sess->userID) { $g_user_id = false; }
+  
+! $g_usr = & new avUser($g_user_id);
+  
+  
+--- 82,86 ----
+  if (empty($g_user_id) || !$g_sess->userID) { $g_user_id = false; }
+  
+! $g_usr = new avUser($g_user_id);
+  
+  
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:50 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:50 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/news/class avnews.class.php, 1.1,
+	1.2 avcomments.class.php, 1.1, 1.2 news.class.php, 1.4,
+	1.5 avnewscategory.class.php, 1.1, 1.2
+Message-ID: <20110704210050.E38A8483383@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/news/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/news/class
+
+Modified Files:
+	avnews.class.php avcomments.class.php news.class.php 
+	avnewscategory.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avnews.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/news/class/avnews.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avnews.class.php	4 Aug 2004 22:46:27 -0000	1.1
+--- avnews.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 63,94 ****
+  
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = & new avcLinkText( &$this, 'subject', $g_lang['news_subject'], '', 1, 1, 1, $g_lang['news_subject'], 1, 50, 'avcomments');
+! 		$this->controls[] = & new avcTextArea( &$this, 'info', $g_lang['news_info'], '', 1, 1, 0, $g_lang['news_info'], 1, 50, 10);
+! 		$this->controls[] = & new avcTextArea_bbcode( &$this, 'full_text', $g_lang['news_full_text'], '', 0, 1, 0, '', 1, 40, 25);
+! 		$this->controls[] = & new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);
+  
+! 		$this->controls[] = & new avcText( &$this, 'keywords', $g_lang['news_keywords'], '', 0, 0, 1, $g_lang['news_keywords'], 1, 40, 'avcomments');
+  
+! 		$this->controls[] = & new avcDbSelect( &$this, 'category_id', $g_lang['news_category'], '', 1, 1, 1, $g_lang['news_category'], 1, 'avnewscategory', 'id', 'name');
+  
+! 		$this->controls[] = & new avcDbSelect( &$this, 'submiter', $g_lang['news_author'], $GLOBALS['g_user_id'], 1, 1, 1, $g_lang['news_author'], 1, 'u_users', 'id', 'username');
+  
+! //		$this->controls[] = & new avcImage( &$this, 'file', $g_lang['news_image'], '', 0, 1, 0, $g_lang['news_image'], 1, $g_ini->read_var('avnews', 'image_dir'), $g_ini->read_var('avnews', 'image_url'), 110, 210);
+  
+! 		$this->controls[] = & new avcText( &$this, 'file', 'Paveiksliukas', '', 0, 1, 1, 'Failas', 1, 40);
+  
+  		
+! //		$this->controls[] = & new avcHidden( &$this, 'visible', 'Patvirtinta', 0, 0, 1, 1, 'Patvirtinta', 1);
+  
+  
+  		if ('list' == $page) // is_permission('avnews_auth') ||
+  		{
+! 			$this->controls[] = & new avcDbSelect( &$this, 'authorizer', 'Tvirtintojas', $GLOBALS['g_user_id'], 1, 1, 1, 'Tvirtintojas', 1, 'u_users', 'id', 'username');
+! 			$this->controls[] = & new avcDate( &$this, 'auth_date', 'Tvirtinimo data', date('Y.m.d'), 1, 1, 1, 'Tvirt. data', 1);
+! 			$this->controls[] = & new avcSelect( &$this, 'visible', 'Patvirtinta', 1, 0, 1, 1, 'Patvirtinta', 1, array('0'=>'ne', '1'=>'taip'));
+  		}
+  
+! 		$this->controls[] = & new avcActions( &$this, 'actions', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  		if (empty($pid))
+--- 63,94 ----
+  
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = new avcLinkText( &$this, 'subject', $g_lang['news_subject'], '', 1, 1, 1, $g_lang['news_subject'], 1, 50, 'avcomments');
+! 		$this->controls[] = new avcTextArea( &$this, 'info', $g_lang['news_info'], '', 1, 1, 0, $g_lang['news_info'], 1, 50, 10);
+! 		$this->controls[] = new avcTextArea_bbcode( &$this, 'full_text', $g_lang['news_full_text'], '', 0, 1, 0, '', 1, 40, 25);
+! 		$this->controls[] = new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);
+  
+! 		$this->controls[] = new avcText( &$this, 'keywords', $g_lang['news_keywords'], '', 0, 0, 1, $g_lang['news_keywords'], 1, 40, 'avcomments');
+  
+! 		$this->controls[] = new avcDbSelect( &$this, 'category_id', $g_lang['news_category'], '', 1, 1, 1, $g_lang['news_category'], 1, 'avnewscategory', 'id', 'name');
+  
+! 		$this->controls[] = new avcDbSelect( &$this, 'submiter', $g_lang['news_author'], $GLOBALS['g_user_id'], 1, 1, 1, $g_lang['news_author'], 1, 'u_users', 'id', 'username');
+  
+! //		$this->controls[] = new avcImage( &$this, 'file', $g_lang['news_image'], '', 0, 1, 0, $g_lang['news_image'], 1, $g_ini->read_var('avnews', 'image_dir'), $g_ini->read_var('avnews', 'image_url'), 110, 210);
+  
+! 		$this->controls[] = new avcText( &$this, 'file', 'Paveiksliukas', '', 0, 1, 1, 'Failas', 1, 40);
+  
+  		
+! //		$this->controls[] = new avcHidden( &$this, 'visible', 'Patvirtinta', 0, 0, 1, 1, 'Patvirtinta', 1);
+  
+  
+  		if ('list' == $page) // is_permission('avnews_auth') ||
+  		{
+! 			$this->controls[] = new avcDbSelect( &$this, 'authorizer', 'Tvirtintojas', $GLOBALS['g_user_id'], 1, 1, 1, 'Tvirtintojas', 1, 'u_users', 'id', 'username');
+! 			$this->controls[] = new avcDate( &$this, 'auth_date', 'Tvirtinimo data', date('Y.m.d'), 1, 1, 1, 'Tvirt. data', 1);
+! 			$this->controls[] = new avcSelect( &$this, 'visible', 'Patvirtinta', 1, 0, 1, 1, 'Patvirtinta', 1, array('0'=>'ne', '1'=>'taip'));
+  		}
+  
+! 		$this->controls[] = new avcActions( &$this, 'actions', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  		if (empty($pid))
+
+Index: avnewscategory.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/news/class/avnewscategory.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avnewscategory.class.php	4 Aug 2004 22:46:27 -0000	1.1
+--- avnewscategory.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 45,60 ****
+  		$this->name = 'avnewscategory';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+  		
+! 		$this->controls[] = & new avcLinkText( &$this, 'name', $g_lang['news_subject'], '', 1, 1, 1, $g_lang['news_subject'], 1, 40, 'avnews');
+  		
+! 		$this->controls[] = & new avcText( &$this, 'info', $g_lang['news_info'], '', 1, 1, 1, $g_lang['news_info'], 1, 60);
+  		
+! 		$this->controls[] = & new avcImage( &$this, 'file', $g_lang['news_image'], '', 0, 1, 0, $g_lang['news_image'], 1, 'd:\localhost\avms\files', '../files/');
+  
+! 		$this->controls[] = & new avcText( &$this, 'sort_number', $g_lang['menuitem_sort'], '1',  
+                  0, 1, 1, $g_lang['menuitem_sort'], 1 , 5); 
+  		
+! 		$this->controls[] = & new avcActions( &$this, 'actions', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  
+--- 45,60 ----
+  		$this->name = 'avnewscategory';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+  		
+! 		$this->controls[] = new avcLinkText( &$this, 'name', $g_lang['news_subject'], '', 1, 1, 1, $g_lang['news_subject'], 1, 40, 'avnews');
+  		
+! 		$this->controls[] = new avcText( &$this, 'info', $g_lang['news_info'], '', 1, 1, 1, $g_lang['news_info'], 1, 60);
+  		
+! 		$this->controls[] = new avcImage( &$this, 'file', $g_lang['news_image'], '', 0, 1, 0, $g_lang['news_image'], 1, 'd:\localhost\avms\files', '../files/');
+  
+! 		$this->controls[] = new avcText( &$this, 'sort_number', $g_lang['menuitem_sort'], '1',  
+                  0, 1, 1, $g_lang['menuitem_sort'], 1 , 5); 
+  		
+! 		$this->controls[] = new avcActions( &$this, 'actions', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  
+
+Index: news.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/news/class/news.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C 2 -d -r1.4 -r1.5
+*** news.class.php	26 Jul 2008 21:33:28 -0000	1.4
+--- news.class.php	4 Jul 2011 21:00:47 -0000	1.5
+***************
+*** 286,290 ****
+  		if (!empty($GLOBALS['g_user_id']))
+  		{
+! 			$this->tpl->set_var('url', $GLOBALS['REQUEST_URI']);
+  			$this->tpl->process('post_comment', 'post_comment_block');
+  		}
+--- 286,290 ----
+  		if (!empty($GLOBALS['g_user_id']))
+  		{
+! 			$this->tpl->set_var('url', $_SERVER['REQUEST_URI']);
+  			$this->tpl->process('post_comment', 'post_comment_block');
+  		}
+
+Index: avcomments.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/news/class/avcomments.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avcomments.class.php	4 Aug 2004 22:46:27 -0000	1.1
+--- avcomments.class.php	4 Jul 2011 21:00:47 -0000	1.2
+***************
+*** 47,61 ****
+  
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, 'id', 0);
+! 		$this->controls[] = & new avcText( &$this, 'subject', 'subjectas', '', 1, 1, 1, 'subjectas', 1, 20);
+! 		$this->controls[] = & new avcTextArea( &$this, 'info', 'info', '', 1, 1, 1, 'info', 1, 40, 5);
+! 		$this->controls[] = & new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);
+  
+! 		$this->controls[] = & new avcDbSelect( &$this, 'parent_id', 'tetukas', '', 1, 1, 1, $g_lang['news_category'], 1, 'avnews', 'id', 'subject');
+  		
+! 		$this->controls[] = & new avcDbSelect( &$this, 'user_id', 'useris', '', 1, 1, 1, 'useris', 1, 'u_users', 'id', 'username');
+  		
+! 		$this->controls[] = & new avcHidden( &$this, 'table_name', '', $this->parent, 0, 1);		
+! 		$this->controls[] = & new avcActions( &$this, '', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  		$this->description = 'Komentarai';
+--- 47,61 ----
+  
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, 'id', 0);
+! 		$this->controls[] = new avcText( &$this, 'subject', 'subjectas', '', 1, 1, 1, 'subjectas', 1, 20);
+! 		$this->controls[] = new avcTextArea( &$this, 'info', 'info', '', 1, 1, 1, 'info', 1, 40, 5);
+! 		$this->controls[] = new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);
+  
+! 		$this->controls[] = new avcDbSelect( &$this, 'parent_id', 'tetukas', '', 1, 1, 1, $g_lang['news_category'], 1, 'avnews', 'id', 'subject');
+  		
+! 		$this->controls[] = new avcDbSelect( &$this, 'user_id', 'useris', '', 1, 1, 1, 'useris', 1, 'u_users', 'id', 'username');
+  		
+! 		$this->controls[] = new avcHidden( &$this, 'table_name', '', $this->parent, 0, 1);		
+! 		$this->controls[] = new avcActions( &$this, '', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  		$this->description = 'Komentarai';
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:50 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:50 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class avworks.class.php,
+	1.4, 1.5 darbai.class.php, 1.28,
+	1.29 avworks_delete_log.class.php, 1.4,
+	1.5 avworkcategory.class.php, 1.2, 1.3 avcomments.class.php,
+	1.2, 1.3
+Message-ID: <20110704210051.0090A483384@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/darbai/class
+
+Modified Files:
+	avworks.class.php darbai.class.php 
+	avworks_delete_log.class.php avworkcategory.class.php 
+	avcomments.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avworks_delete_log.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/avworks_delete_log.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C 2 -d -r1.4 -r1.5
+*** avworks_delete_log.class.php	8 Nov 2006 22:54:52 -0000	1.4
+--- avworks_delete_log.class.php	4 Jul 2011 21:00:48 -0000	1.5
+***************
+*** 58,75 ****
+  		$this->name = 'avworks_delete_log';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 0, '', 0);
+! 		$this->controls[] = & new avcDbText( &$this, 'admin_id', 'Trynikas', '', 1, 1, 1, 'Trynikas', 1, 'u_users', 'id', 'username');
+  		
+! 		$this->controls[] = & new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);		
+  
+  
+! 		$this->controls[] = & new avcDbSelect( &$this, 'work_category', 'Kategorija', '', 1, 1, 1, 'Kategorija', 1, 'avworkcategory', 'id', 'name');
+! 		$this->controls[] = & new avcDbText( &$this, 'work_submiter', 'Autorius', $GLOBALS['g_user_id'], 1, 1, 1, 'Autorius', 1, 'u_users', 'id', 'username');
+! 		$this->controls[] = & new avcHidden( &$this, 'work_subject', 'Pavadinimas', '', 0, 1, 1, 'Pavadinimas', 1);
+! 		$this->controls[] = & new avcDate( &$this, 'work_posted', 'Atsiustas', date('Y.m.d'), 1, 1, 1, 'Atsiustas', 1);		
+  
+! 		$this->controls[] = & new avcHidden( &$this, 'work_votecount', 'Balsai', '', 0, 1, 1, 'Balsai', 1);
+! 		$this->controls[] = & new avcHidden( &$this, 'work_summark', 'Suma', 0, 0, 1, 1, 'Suma', 1);
+! 		$this->controls[] = & new avcHidden( &$this, 'work_avgmark', 'Vid.', 0, 0, 1, 1, 'Vid.', 1);
+  
+  		$this->description = 'Darb? trynimai';
+--- 58,75 ----
+  		$this->name = 'avworks_delete_log';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 0, '', 0);
+! 		$this->controls[] = new avcDbText( &$this, 'admin_id', 'Trynikas', '', 1, 1, 1, 'Trynikas', 1, 'u_users', 'id', 'username');
+  		
+! 		$this->controls[] = new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);		
+  
+  
+! 		$this->controls[] = new avcDbSelect( &$this, 'work_category', 'Kategorija', '', 1, 1, 1, 'Kategorija', 1, 'avworkcategory', 'id', 'name');
+! 		$this->controls[] = new avcDbText( &$this, 'work_submiter', 'Autorius', $GLOBALS['g_user_id'], 1, 1, 1, 'Autorius', 1, 'u_users', 'id', 'username');
+! 		$this->controls[] = new avcHidden( &$this, 'work_subject', 'Pavadinimas', '', 0, 1, 1, 'Pavadinimas', 1);
+! 		$this->controls[] = new avcDate( &$this, 'work_posted', 'Atsiustas', date('Y.m.d'), 1, 1, 1, 'Atsiustas', 1);		
+  
+! 		$this->controls[] = new avcHidden( &$this, 'work_votecount', 'Balsai', '', 0, 1, 1, 'Balsai', 1);
+! 		$this->controls[] = new avcHidden( &$this, 'work_summark', 'Suma', 0, 0, 1, 1, 'Suma', 1);
+! 		$this->controls[] = new avcHidden( &$this, 'work_avgmark', 'Vid.', 0, 0, 1, 1, 'Vid.', 1);
+  
+  		$this->description = 'Darb? trynimai';
+
+Index: darbai.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai.class.php,v
+retrieving revision 1.28
+retrieving revision 1.29
+diff -C 2 -d -r1.28 -r1.29
+*** darbai.class.php	27 Nov 2008 02:05:34 -0000	1.28
+--- darbai.class.php	4 Jul 2011 21:00:48 -0000	1.29
+***************
+*** 25,29 ****
+  	{
+  		avColumn::constructor();
+! 		$this->sql =& new darbai_sql(&$this->db);
+  	}
+  
+--- 25,29 ----
+  	{
+  		avColumn::constructor();
+! 		$this->sql = new darbai_sql(&$this->db);
+  	}
+  
+***************
+*** 276,280 ****
+  		  if ($g_usr->can_i_comment())
+  		  {
+! 			   $this->tpl->set_var('url', $GLOBALS['REQUEST_URI']);
+  			   $this->tpl->process('post_comment', 'post_comment_block');
+  			}
+--- 276,280 ----
+  		  if ($g_usr->can_i_comment())
+  		  {
+! 			   $this->tpl->set_var('url', $_SERVER['REQUEST_URI']);
+  			   $this->tpl->process('post_comment', 'post_comment_block');
+  			}
+
+Index: avworks.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/avworks.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C 2 -d -r1.4 -r1.5
+*** avworks.class.php	30 Nov 2004 23:14:46 -0000	1.4
+--- avworks.class.php	4 Jul 2011 21:00:48 -0000	1.5
+***************
+*** 68,90 ****
+  
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = & new avcLinkText( &$this, 'subject', $g_lang['news_subject'], '', 1, 1, 1, $g_lang['news_subject'], 1, 50, 'avcomments');
+! 		$this->controls[] = & new avcTextArea_bbcode( &$this, 'info', 'Apra?ymas', '', 1, 1, 0, 'Apra?ymas', 1, 50, 10);
+! 		$this->controls[] = & new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);
+  
+  
+! 		$this->controls[] = & new avcDbSelect( &$this, 'category_id', $g_lang['news_category'], '', 1, 1, 1, $g_lang['news_category'], 1, 'avworkcategory', 'id', 'name');
+! 		$this->controls[] = & new avcDbText( &$this, 'submiter', $g_lang['news_author'], $GLOBALS['g_user_id'], 1, 1, 1, $g_lang['news_author'], 1, 'u_users', 'id', 'username');
+  
+  
+! 		$this->controls[] = & new avcImage( &$this, 'thumbnail', 'Thumbnail', '', 0, 1, 0, $g_lang['news_image'], 1, $g_ini->read_var('avworks', 'thumbnails_dir'), $g_ini->read_var('avworks', 'thumbnails_url'), 110, 210);
+  
+! 		$this->controls[] = & new avcHidden( &$this, 'file', 'Failas', '', 0, 1, 0, 'Failas', 1);
+! 		$this->controls[] = & new avcHidden( &$this, 'views', 'Per?i?ros', 0, 0, 1, 1, 'Per?i?ros', 1);
+! 		$this->controls[] = & new avcHidden( &$this, 'score', 'Score', 0, 0, 1, 1, 'Score', 1);
+  
+! 		$this->controls[] = & new avcText( &$this, 'color', 'Spalva', '', 0, 1, 1, 'Spalva', 1, 60);
+  
+! 		$this->controls[] = & new avcActions( &$this, 'actions', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  		$this->description = 'Darbai';
+--- 68,90 ----
+  
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = new avcLinkText( &$this, 'subject', $g_lang['news_subject'], '', 1, 1, 1, $g_lang['news_subject'], 1, 50, 'avcomments');
+! 		$this->controls[] = new avcTextArea_bbcode( &$this, 'info', 'Apra?ymas', '', 1, 1, 0, 'Apra?ymas', 1, 50, 10);
+! 		$this->controls[] = new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);
+  
+  
+! 		$this->controls[] = new avcDbSelect( &$this, 'category_id', $g_lang['news_category'], '', 1, 1, 1, $g_lang['news_category'], 1, 'avworkcategory', 'id', 'name');
+! 		$this->controls[] = new avcDbText( &$this, 'submiter', $g_lang['news_author'], $GLOBALS['g_user_id'], 1, 1, 1, $g_lang['news_author'], 1, 'u_users', 'id', 'username');
+  
+  
+! 		$this->controls[] = new avcImage( &$this, 'thumbnail', 'Thumbnail', '', 0, 1, 0, $g_lang['news_image'], 1, $g_ini->read_var('avworks', 'thumbnails_dir'), $g_ini->read_var('avworks', 'thumbnails_url'), 110, 210);
+  
+! 		$this->controls[] = new avcHidden( &$this, 'file', 'Failas', '', 0, 1, 0, 'Failas', 1);
+! 		$this->controls[] = new avcHidden( &$this, 'views', 'Per?i?ros', 0, 0, 1, 1, 'Per?i?ros', 1);
+! 		$this->controls[] = new avcHidden( &$this, 'score', 'Score', 0, 0, 1, 1, 'Score', 1);
+  
+! 		$this->controls[] = new avcText( &$this, 'color', 'Spalva', '', 0, 1, 1, 'Spalva', 1, 60);
+  
+! 		$this->controls[] = new avcActions( &$this, 'actions', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  		$this->description = 'Darbai';
+
+Index: avworkcategory.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/avworkcategory.class.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C 2 -d -r1.2 -r1.3
+*** avworkcategory.class.php	18 Sep 2004 10:29:45 -0000	1.2
+--- avworkcategory.class.php	4 Jul 2011 21:00:48 -0000	1.3
+***************
+*** 46,61 ****
+  		$this->name = 'avworkcategory';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+  		
+! 		$this->controls[] = & new avcLinkText( &$this, 'name', $g_lang['news_subject'], '', 1, 1, 1, $g_lang['news_subject'], 1, 40, 'avworks');
+  		
+! 		$this->controls[] = & new avcText( &$this, 'info', $g_lang['news_info'], '', 1, 1, 1, $g_lang['news_info'], 1, 60);
+  		
+! 		$this->controls[] = & new avcImage( &$this, 'file', $g_lang['news_image'], '', 0, 1, 0, $g_lang['news_image'], 1, 'd:\localhost\avms\files', '../files/');
+  
+! 		$this->controls[] = & new avcText( &$this, 'sort_number', $g_lang['menuitem_sort'], '1',  
+                  0, 1, 1, $g_lang['menuitem_sort'], 1 , 5); 
+  		
+! 		$this->controls[] = & new avcActions( &$this, 'actions', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  
+--- 46,61 ----
+  		$this->name = 'avworkcategory';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+  		
+! 		$this->controls[] = new avcLinkText( &$this, 'name', $g_lang['news_subject'], '', 1, 1, 1, $g_lang['news_subject'], 1, 40, 'avworks');
+  		
+! 		$this->controls[] = new avcText( &$this, 'info', $g_lang['news_info'], '', 1, 1, 1, $g_lang['news_info'], 1, 60);
+  		
+! 		$this->controls[] = new avcImage( &$this, 'file', $g_lang['news_image'], '', 0, 1, 0, $g_lang['news_image'], 1, 'd:\localhost\avms\files', '../files/');
+  
+! 		$this->controls[] = new avcText( &$this, 'sort_number', $g_lang['menuitem_sort'], '1',  
+                  0, 1, 1, $g_lang['menuitem_sort'], 1 , 5); 
+  		
+! 		$this->controls[] = new avcActions( &$this, 'actions', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  
+
+Index: avcomments.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/avcomments.class.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C 2 -d -r1.2 -r1.3
+*** avcomments.class.php	18 Sep 2004 10:29:45 -0000	1.2
+--- avcomments.class.php	4 Jul 2011 21:00:48 -0000	1.3
+***************
+*** 48,62 ****
+  
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, 'id', 0);
+! 		$this->controls[] = & new avcText( &$this, 'subject', 'subjectas', '', 1, 1, 1, 'subjectas', 1, 20);
+! 		$this->controls[] = & new avcTextArea( &$this, 'info', 'info', '', 1, 1, 1, 'info', 1, 40, 5);
+! 		$this->controls[] = & new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);
+  
+! 		$this->controls[] = & new avcDbSelect( &$this, 'parent_id', 'tetukas', '', 1, 1, 1, $g_lang['news_category'], 1, 'avnews', 'id', 'subject');
+  		
+! 		$this->controls[] = & new avcDbSelect( &$this, 'user_id', 'useris', '', 1, 1, 1, 'useris', 1, 'u_users', 'id', 'username');
+  		
+! 		$this->controls[] = & new avcHidden( &$this, 'table_name', '', $this->parent, 0, 1);		
+! 		$this->controls[] = & new avcActions( &$this, '', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  		$this->description = 'Komentarai';
+--- 48,62 ----
+  
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, 'id', 0);
+! 		$this->controls[] = new avcText( &$this, 'subject', 'subjectas', '', 1, 1, 1, 'subjectas', 1, 20);
+! 		$this->controls[] = new avcTextArea( &$this, 'info', 'info', '', 1, 1, 1, 'info', 1, 40, 5);
+! 		$this->controls[] = new avcDate( &$this, 'posted', $g_lang['news_date'], date('Y.m.d'), 1, 1, 1, $g_lang['news_date'], 1);
+  
+! 		$this->controls[] = new avcDbSelect( &$this, 'parent_id', 'tetukas', '', 1, 1, 1, $g_lang['news_category'], 1, 'avnews', 'id', 'subject');
+  		
+! 		$this->controls[] = new avcDbSelect( &$this, 'user_id', 'useris', '', 1, 1, 1, 'useris', 1, 'u_users', 'id', 'username');
+  		
+! 		$this->controls[] = new avcHidden( &$this, 'table_name', '', $this->parent, 0, 1);		
+! 		$this->controls[] = new avcActions( &$this, '', '', '', 0, 0, 1, 'Veiksmai', 0);
+  
+  		$this->description = 'Komentarai';
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:51 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:51 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/lib util.lib.php,1.10,1.11
+Message-ID: <20110704210051.11E4C483386@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/lib
+In directory sheep:/tmp/cvs-serv31643/htdocs/lib
+
+Modified Files:
+	util.lib.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: util.lib.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/lib/util.lib.php,v
+retrieving revision 1.10
+retrieving revision 1.11
+diff -C 2 -d -r1.10 -r1.11
+*** util.lib.php	27 Nov 2008 02:05:35 -0000	1.10
+--- util.lib.php	4 Jul 2011 21:00:48 -0000	1.11
+***************
+*** 61,65 ****
+  function htmlchars($s)
+  {
+! 	$s = ereg_replace("'","&#039;", htmlspecialchars($s));
+  	return $s;
+  }
+--- 61,65 ----
+  function htmlchars($s)
+  {
+! 	$s = @ereg_replace("'","&#039;", htmlspecialchars($s));
+  	return $s;
+  }
+***************
+*** 68,72 ****
+  function clean_username($name)
+  {
+! 	return ereg_replace("[^0-9a-zA-Z_]","",$name);
+  }
+  
+--- 68,72 ----
+  function clean_username($name)
+  {
+! 	return @ereg_replace("[^0-9a-zA-Z_]","",$name);
+  }
+  
+***************
+*** 75,79 ****
+  function clean_name($name)
+  {
+! 	return ereg_replace("[^0-9a-zA-Z_.]","",$name);
+  }
+  
+--- 75,79 ----
+  function clean_name($name)
+  {
+! 	return preg_replace("/[^0-9a-zA-Z_.]/","",$name);
+  }
+  
+***************
+*** 81,85 ****
+  function clean_number($name)
+  {
+! 	return ereg_replace("[^0-9]","",$name);
+  }
+  
+--- 81,85 ----
+  function clean_number($name)
+  {
+! 	return @ereg_replace("[^0-9]","",$name);
+  }
+  
+***************
+*** 87,91 ****
+  function clean_hex($name)
+  {
+! 	return ereg_replace("[^0-9a-fA-F]","",$name);
+  }
+  
+--- 87,91 ----
+  function clean_hex($name)
+  {
+! 	return @ereg_replace("[^0-9a-fA-F]","",$name);
+  }
+  
+***************
+*** 95,99 ****
+  {
+  	$email_regular_expression = "^([-!#\$%&'*+./0-9=?A-Z^_`a-z{|}~ ])+@([-!#\$%&'*+/0-9=?A-Z^_`a-z{|}~ ]+\\.)+[a-zA-Z]{2,4}\$";
+! 	return (eregi($email_regular_expression, $email) != 0);
+  }
+  
+--- 95,99 ----
+  {
+  	$email_regular_expression = "^([-!#\$%&'*+./0-9=?A-Z^_`a-z{|}~ ])+@([-!#\$%&'*+/0-9=?A-Z^_`a-z{|}~ ]+\\.)+[a-zA-Z]{2,4}\$";
+! 	return (@eregi($email_regular_expression, $email) != 0);
+  }
+  
+***************
+*** 106,110 ****
+  function html_build_date($name, $date = false)
+  {
+! 	$tmp = split('[-. ]', $date);
+  
+  	for ($i = 0; $i < 3; $i++)
+--- 106,110 ----
+  function html_build_date($name, $date = false)
+  {
+! 	$tmp = preg_split('/[-. ]/', $date);
+  
+  	for ($i = 0; $i < 3; $i++)
+***************
+*** 317,321 ****
+  {
+  	
+! 	//$url = substr(strrchr($GLOBALS['REQUEST_URI'],'/'),1);
+  	
+  	$url = get_query();
+--- 317,321 ----
+  {
+  	
+! 	//$url = substr(strrchr($_SERVER['REQUEST_URI'],'/'),1);
+  	
+  	$url = get_query();
+***************
+*** 354,362 ****
+  function get_query()
+  {
+! 	$request = $GLOBALS['REQUEST_URI'];
+  	
+! 	if ( is_int(strpos($request, $GLOBALS['SCRIPT_NAME'])) )
+  	{
+! 		$request = str_replace($GLOBALS['SCRIPT_NAME'], '', $request);
+  
+  		if ($request) 
+--- 354,362 ----
+  function get_query()
+  {
+! 	$request = $_SERVER['REQUEST_URI'];
+  	
+! 	if ( is_int(strpos($request, $_SERVER['SCRIPT_NAME'])) )
+  	{
+! 		$request = str_replace($_SERVER['SCRIPT_NAME'], '', $request);
+  
+  		if ($request) 
+***************
+*** 370,374 ****
+  	} else
+  	{
+! 		if ( strlen($request) > (strlen(dirname($GLOBALS['SCRIPT_NAME'])) + 1) )
+  		{	
+  			return  substr($request, 2 + strlen(dirname($request)), strlen($request));
+--- 370,374 ----
+  	} else
+  	{
+! 		if ( strlen($request) > (strlen(dirname($_SERVER['SCRIPT_NAME'])) + 1) )
+  		{	
+  			return  substr($request, 2 + strlen(dirname($request)), strlen($request));
+***************
+*** 492,496 ****
+  	$article = str_replace("[i]","<i>",$article);
+  	$article = str_replace("[/i]","</i>",$article);
+! 	$article=eregi_replace("\\[img=([^\\[]*)\\]","<img src=\"\\1\">",$article);
+  
+  
+--- 492,496 ----
+  	$article = str_replace("[i]","<i>",$article);
+  	$article = str_replace("[/i]","</i>",$article);
+! 	$article=@eregi_replace("\\[img=([^\\[]*)\\]","<img src=\"\\1\">",$article);
+  
+  
+***************
+*** 517,523 ****
+  
+  
+! 	$article=eregi_replace("\\[icq=([^\\[]*)\\]([^\\[]*)\\[/icq\\]","<a href=\"http://wwp.icq.com/scripts/Search.dll?to=\\1\">\\2</a>",$article);
+! 	$article=eregi_replace("\\[colour=([^\\[]*)\\]([^\\[]*)\\[/colour\\]","<font color=\\1>\\2</font>",$article);
+! 	$article=eregi_replace("quote\\]","quote]",$article);  // make lower case
+  	$article=str_replace("[quote]\r\n","<blockquote><smallfont>",$article);
+  	$article=str_replace("[quote]","<blockquote><smallfont>",$article);
+--- 517,523 ----
+  
+  
+! 	$article=@eregi_replace("\\[icq=([^\\[]*)\\]([^\\[]*)\\[/icq\\]","<a href=\"http://wwp.icq.com/scripts/Search.dll?to=\\1\">\\2</a>",$article);
+! 	$article=@eregi_replace("\\[colour=([^\\[]*)\\]([^\\[]*)\\[/colour\\]","<font color=\\1>\\2</font>",$article);
+! 	$article=@eregi_replace("quote\\]","quote]",$article);  // make lower case
+  	$article=str_replace("[quote]\r\n","<blockquote><smallfont>",$article);
+  	$article=str_replace("[quote]","<blockquote><smallfont>",$article);
+***************
+*** 543,551 ****
+  	$article = str_replace("</i>","[/i]",$article);
+  
+! 	$article=eregi_replace("\\<img src=\"([^>\[]*)\"\\>" ,"[img=\\1]",$article);
+  
+  	$article=preg_replace("/\\<a target=\"_new\" href=\"(.*?)\"\\>([^<\[]*)<\/a>/i","[url=\\1]\\2[/url]",$article);
+! 	$article=eregi_replace("\\<font color=([^>\[]*)\\>([^<\[]*)</font>" ,"[colour=\\1]\\2[/colour]",$article);
+! 	$article=eregi_replace("\\<a href=\"mailto:([^\\[]*)\"\\>([^<\[]*)</a>","[email=\\1]\\2[/email]",$article);
+  	$article=str_replace("<blockquote><smallfont>","[quote]",$article);
+  	$article=str_replace("</smallfont></blockquote>","[/quote]",$article);
+--- 543,551 ----
+  	$article = str_replace("</i>","[/i]",$article);
+  
+! 	$article=@eregi_replace("\\<img src=\"([^>\[]*)\"\\>" ,"[img=\\1]",$article);
+  
+  	$article=preg_replace("/\\<a target=\"_new\" href=\"(.*?)\"\\>([^<\[]*)<\/a>/i","[url=\\1]\\2[/url]",$article);
+! 	$article=@eregi_replace("\\<font color=([^>\[]*)\\>([^<\[]*)</font>" ,"[colour=\\1]\\2[/colour]",$article);
+! 	$article=@eregi_replace("\\<a href=\"mailto:([^\\[]*)\"\\>([^<\[]*)</a>","[email=\\1]\\2[/email]",$article);
+  	$article=str_replace("<blockquote><smallfont>","[quote]",$article);
+  	$article=str_replace("</smallfont></blockquote>","[/quote]",$article);
+***************
+*** 579,583 ****
+  function get_language_select($current)
+  {
+! 	$handle = opendir($GLOBALS['RELPATH'] . 'lang/');
+  	readdir($handle); // .
+  	readdir($handle); // ..
+--- 579,584 ----
+  function get_language_select($current)
+  {
+! 	global $RELPATH;
+! 	$handle = opendir($RELPATH . 'lang/');
+  	readdir($handle); // .
+  	readdir($handle); // ..
+***************
+*** 601,605 ****
+  function get_theme_select($current)
+  {
+! 	$handle = opendir($GLOBALS['RELPATH'] . 'control/tpl/');
+  	readdir($handle); // .
+  	readdir($handle); // ..
+--- 602,607 ----
+  function get_theme_select($current)
+  {
+! 	global $RELPATH;
+! 	$handle = opendir($RELPATH . 'control/tpl/');
+  	readdir($handle); // .
+  	readdir($handle); // ..
+***************
+*** 613,617 ****
+  	while( $file = readdir($handle) )
+  	{
+! 		if (is_dir($GLOBALS['RELPATH'] . 'control/tpl/' . $file))
+  		{
+  			$out[$index]['value'] = $file;
+--- 615,619 ----
+  	while( $file = readdir($handle) )
+  	{
+! 		if (is_dir($RELPATH . 'control/tpl/' . $file))
+  		{
+  			$out[$index]['value'] = $file;
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:51 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:51 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/control/usage usage.class.php,
+	1.1, 1.2
+Message-ID: <20110704210051.19741483387@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/control/usage
+In directory sheep:/tmp/cvs-serv31643/htdocs/control/usage
+
+Modified Files:
+	usage.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: usage.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/usage/usage.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** usage.class.php	4 Aug 2004 22:53:25 -0000	1.1
+--- usage.class.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 22,31 ****
+  	function usage($startyear = '2001')
+  	{
+! 		global $g_db, $g_tpl;
+  		$this->startyear = $startyear;
+  
+  		$this->db = & $g_db;
+  		//$this->tpl = & $g_tpl;
+! 		$this->tpl = new avTemplate($GLOBALS['RELPATH']);
+  
+  	}
+--- 22,31 ----
+  	function usage($startyear = '2001')
+  	{
+! 		global $g_db, $g_tpl, $RELPATH;
+  		$this->startyear = $startyear;
+  
+  		$this->db = & $g_db;
+  		//$this->tpl = & $g_tpl;
+! 		$this->tpl = new avTemplate($RELPATH);
+  
+  	}
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:50 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:50 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/control ini_edit.php, 1.1,
+	1.2 index.php, 1.1, 1.2 settings_edit.php, 1.1,
+	1.2 control.php, 1.1, 1.2 admin.php, 1.3, 1.4
+Message-ID: <20110704210051.0A720483385@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/control
+In directory sheep:/tmp/cvs-serv31643/htdocs/control
+
+Modified Files:
+	ini_edit.php index.php settings_edit.php control.php admin.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: control.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/control.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** control.php	4 Aug 2004 22:53:25 -0000	1.1
+--- control.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 33,37 ****
+  include_once($RELPATH . $module . '/class/' . $table . '.class.php');
+  
+! $handler = & new $table();
+  
+  if (empty($pid)) 
+--- 33,37 ----
+  include_once($RELPATH . $module . '/class/' . $table . '.class.php');
+  
+! $handler = new $table();
+  
+  if (empty($pid)) 
+***************
+*** 51,55 ****
+  
+  	$g_tpl->set_var('back', $parent->back());
+- 	//$g_tpl->set_var('back', "<a class='border' href='$PHP_SELF?module=$parent_module&table=$parent_name&page=list'>". $parent->controls[1]->value .'</a> :: ');
+  }
+  
+--- 51,54 ----
+***************
+*** 105,109 ****
+  				{
+  					$handler->change();
+! 					redirect($PHP_SELF . "?module=$module&table=$table&offset=$offset&order=$order&search=$search&pid=$pid&page=list");
+  				}
+  			}
+--- 104,108 ----
+  				{
+  					$handler->change();
+! 					redirect($_SERVER['PHP_SELF'] . "?module=$module&table=$table&offset=$offset&order=$order&search=$search&pid=$pid&page=list");
+  				}
+  			}
+
+Index: ini_edit.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/ini_edit.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** ini_edit.php	4 Aug 2004 22:53:25 -0000	1.1
+--- ini_edit.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 18,22 ****
+  
+  $g_tpl->set_var('table_inner_name', 'ini_edit');
+! $g_ini = & new avIni($RELPATH . 'global.ini.php', true);
+  
+  if (isset($submit))
+--- 18,22 ----
+  
+  $g_tpl->set_var('table_inner_name', 'ini_edit');
+! $g_ini = new avIni($RELPATH . 'global.ini.php', true);
+  
+  if (isset($submit))
+
+Index: settings_edit.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/settings_edit.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** settings_edit.php	4 Aug 2004 22:53:25 -0000	1.1
+--- settings_edit.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 23,27 ****
+  			setcookie("lang", $language, time() + 360000000, "/");
+  		}
+! 		redirect($GLOBALS['SCRIPT_NAME']);
+  	}
+  }
+--- 23,27 ----
+  			setcookie("lang", $language, time() + 360000000, "/");
+  		}
+! 		redirect($_SERVER['SCRIPT_NAME']);
+  	}
+  }
+
+Index: admin.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/admin.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C 2 -d -r1.3 -r1.4
+*** admin.php	9 Oct 2006 14:04:09 -0000	1.3
+--- admin.php	4 Jul 2011 21:00:48 -0000	1.4
+***************
+*** 42,46 ****
+  	case 'usage':
+  		include_once('usage/usage.class.php');
+! 		$usage = & new usage();
+  		$g_tpl->set_var('temp', $usage->show_output());
+  		$g_tpl->process('form', 'temp');
+--- 42,46 ----
+  	case 'usage':
+  		include_once('usage/usage.class.php');
+! 		$usage = new usage();
+  		$g_tpl->set_var('temp', $usage->show_output());
+  		$g_tpl->process('form', 'temp');
+
+Index: index.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/control/index.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** index.php	4 Aug 2004 22:53:25 -0000	1.1
+--- index.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 41,45 ****
+  		else 
+  		{
+! 			$g_usr = & new avUser();
+  
+  			$rez = $g_usr->login_user($user_name, $user_password);
+--- 41,45 ----
+  		else 
+  		{
+! 			$g_usr = new avUser();
+  
+  			$rez = $g_usr->login_user($user_name, $user_password);
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:51 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:51 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/content/class menuitem.class.php,
+	1.1, 1.2 avmenuitem.class.php, 1.1, 1.2
+Message-ID: <20110704210051.24F48483388@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/content/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/content/class
+
+Modified Files:
+	menuitem.class.php avmenuitem.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avmenuitem.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/content/class/avmenuitem.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avmenuitem.class.php	4 Aug 2004 22:51:57 -0000	1.1
+--- avmenuitem.class.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 64,119 ****
+  
+           
+!         $this->controls[] = & new avcId( &$this, 'id', 'id', '',  
+                  0, 1, 1, 'id', 0 ); 
+           
+  		if (!empty($GLOBALS['pid']))
+  		{
+! 	        $this->controls[] = & new avcText( &$this, 'name', $g_lang['menuitem_name'], '',  
+  		            0, 1, 1, $g_lang['menuitem_name'], 1 , 40); 
+  		}
+  		else
+  		{
+! 	        $this->controls[] = & new avcLinkText( &$this, 'name', $g_lang['menuitem_name'], '',  
+  		            0, 1, 1, $g_lang['menuitem_name'], 1 , 40, 'avmenuitem'); 
+  		}
+  
+! 		$this->controls[] = & new avcText( &$this, 'iname', $g_lang['menuitem_iname'], '',  
+  	            0, 1, 1, $g_lang['menuitem_iname'], 1 , 40); 
+  
+! 	    $this->controls[] = & new avcSelect( &$this, 'page', $g_lang['menuitem_page'], '',  
+  	            0, 1, 1, $g_lang['menuitem_page'], 1 , $this->list_pages()); 
+  			 
+!         $this->controls[] = & new avcImage( &$this, 'file', $g_lang['menuitem_image'], '',  
+                  0, 1, 0, 'file', 1 , $g_ini->read_var('avnews', 'image_dir'), $g_ini->read_var('avnews', 'image_url'), 110, 210); 
+           
+!         $this->controls[] = & new avcSelect( &$this, 'type', $g_lang['menuitem_type'], '2',  
+                  0, 1, 1, $g_lang['menuitem_type'], 1, array('1'=>'nuoroda', '2'=>'html', '3'=>'blokas', '4'=>'failas', '5'=>'komponentas') ); 
+           
+!         $this->controls[] = & new avcText( &$this, 'link', $g_lang['menuitem_link'], '',  
+                  0, 1, 0, $g_lang['menuitem_link'], 1 , 40); 
+           
+!         $this->controls[] = & new avcTextArea( &$this, 'html', $g_lang['menuitem_html'], '',  
+                  0, 1, 0, $g_lang['menuitem_html'], 1 , 60, 20); 
+           
+!         $this->controls[] = & new avcDbSelect( &$this, 'block_id', $g_lang['menuitem_block'], '',  
+                  0, 1, 0, $g_lang['menuitem_block'], 1 , 'avblock', 'name', 'title', '', '0'); 
+           
+!         $this->controls[] = & new avcText( &$this, 'include', $g_lang['menuitem_include'], '',  
+                  0, 1, 0, $g_lang['menuitem_include'], 1 , 40); 
+           
+!         $this->controls[] = & new avcText( &$this, 'column_id', $g_lang['menuitem_component'], '',  
+                  0, 1, 0, $g_lang['menuitem_component'], 1 , 40); 
+           
+!         $this->controls[] = & new avcDbSelect( &$this, 'pid', $g_lang['menuitem_parent'], '',  
+                  0, 1, 1, $g_lang['menuitem_parent'], 1 , 'menuitem', 'id', 'name', '', '0'); 
+  
+!         $this->controls[] = & new avcText( &$this, 'sort_number', $g_lang['menuitem_sort'], '1',  
+                  0, 1, 1, $g_lang['menuitem_sort'], 1 , 5); 
+  		
+! 		$this->controls[] = & new avcSelect( &$this, 'visible', $g_lang['menuitem_visible'], 1, 0, 1, 1, 
+  		$g_lang['menuitem_visible'], 1, array('0'=>'ne', '1'=>'taip'));
+  
+           
+!         $this->controls[] = & new avcActions( &$this, '', '', '',  
+                  0, 0, 1, $g_lang['action'], 0 ); 
+           
+--- 64,119 ----
+  
+           
+!         $this->controls[] = new avcId( &$this, 'id', 'id', '',  
+                  0, 1, 1, 'id', 0 ); 
+           
+  		if (!empty($GLOBALS['pid']))
+  		{
+! 	        $this->controls[] = new avcText( &$this, 'name', $g_lang['menuitem_name'], '',  
+  		            0, 1, 1, $g_lang['menuitem_name'], 1 , 40); 
+  		}
+  		else
+  		{
+! 	        $this->controls[] = new avcLinkText( &$this, 'name', $g_lang['menuitem_name'], '',  
+  		            0, 1, 1, $g_lang['menuitem_name'], 1 , 40, 'avmenuitem'); 
+  		}
+  
+! 		$this->controls[] = new avcText( &$this, 'iname', $g_lang['menuitem_iname'], '',  
+  	            0, 1, 1, $g_lang['menuitem_iname'], 1 , 40); 
+  
+! 	    $this->controls[] = new avcSelect( &$this, 'page', $g_lang['menuitem_page'], '',  
+  	            0, 1, 1, $g_lang['menuitem_page'], 1 , $this->list_pages()); 
+  			 
+!         $this->controls[] = new avcImage( &$this, 'file', $g_lang['menuitem_image'], '',  
+                  0, 1, 0, 'file', 1 , $g_ini->read_var('avnews', 'image_dir'), $g_ini->read_var('avnews', 'image_url'), 110, 210); 
+           
+!         $this->controls[] = new avcSelect( &$this, 'type', $g_lang['menuitem_type'], '2',  
+                  0, 1, 1, $g_lang['menuitem_type'], 1, array('1'=>'nuoroda', '2'=>'html', '3'=>'blokas', '4'=>'failas', '5'=>'komponentas') ); 
+           
+!         $this->controls[] = new avcText( &$this, 'link', $g_lang['menuitem_link'], '',  
+                  0, 1, 0, $g_lang['menuitem_link'], 1 , 40); 
+           
+!         $this->controls[] = new avcTextArea( &$this, 'html', $g_lang['menuitem_html'], '',  
+                  0, 1, 0, $g_lang['menuitem_html'], 1 , 60, 20); 
+           
+!         $this->controls[] = new avcDbSelect( &$this, 'block_id', $g_lang['menuitem_block'], '',  
+                  0, 1, 0, $g_lang['menuitem_block'], 1 , 'avblock', 'name', 'title', '', '0'); 
+           
+!         $this->controls[] = new avcText( &$this, 'include', $g_lang['menuitem_include'], '',  
+                  0, 1, 0, $g_lang['menuitem_include'], 1 , 40); 
+           
+!         $this->controls[] = new avcText( &$this, 'column_id', $g_lang['menuitem_component'], '',  
+                  0, 1, 0, $g_lang['menuitem_component'], 1 , 40); 
+           
+!         $this->controls[] = new avcDbSelect( &$this, 'pid', $g_lang['menuitem_parent'], '',  
+                  0, 1, 1, $g_lang['menuitem_parent'], 1 , 'menuitem', 'id', 'name', '', '0'); 
+  
+!         $this->controls[] = new avcText( &$this, 'sort_number', $g_lang['menuitem_sort'], '1',  
+                  0, 1, 1, $g_lang['menuitem_sort'], 1 , 5); 
+  		
+! 		$this->controls[] = new avcSelect( &$this, 'visible', $g_lang['menuitem_visible'], 1, 0, 1, 1, 
+  		$g_lang['menuitem_visible'], 1, array('0'=>'ne', '1'=>'taip'));
+  
+           
+!         $this->controls[] = new avcActions( &$this, '', '', '',  
+                  0, 0, 1, $g_lang['action'], 0 ); 
+           
+
+Index: menuitem.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/content/class/menuitem.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** menuitem.class.php	4 Aug 2004 22:51:57 -0000	1.1
+--- menuitem.class.php	4 Jul 2011 21:00:48 -0000	1.2
+***************
+*** 49,53 ****
+  		$names = explode('-', $this->info['column_id']);
+  		include_once($RELPATH . $names[0] . '/class/' . $names[1] . '.class.php');
+! 		$this->component = & new $names[1]('component');
+  	}
+  
+--- 49,53 ----
+  		$names = explode('-', $this->info['column_id']);
+  		include_once($RELPATH . $names[0] . '/class/' . $names[1] . '.class.php');
+! 		$this->component = new $names[1]('component');
+  	}
+  
+***************
+*** 98,102 ****
+  			else
+  			{
+! 				$list[$i]['url'] = $GLOBALS['SCRIPT_NAME'] . '/page.' . $list[$i]['page'] . ';menuitem.' . $list[$i]['id'];
+  			}
+  		}
+--- 98,102 ----
+  			else
+  			{
+! 				$list[$i]['url'] = $_SERVER['SCRIPT_NAME'] . '/page.' . $list[$i]['page'] . ';menuitem.' . $list[$i]['id'];
+  			}
+  		}
+***************
+*** 155,159 ****
+  			else
+  			{
+! 				$list[$i]['url'] = $GLOBALS['SCRIPT_NAME'] . '/page.' . $GLOBALS['page'] . ';menuitem.' . $list[$i]['id'];
+  			}
+  		}
+--- 155,159 ----
+  			else
+  			{
+! 				$list[$i]['url'] = $_SERVER['SCRIPT_NAME'] . '/page.' . $GLOBALS['page'] . ';menuitem.' . $list[$i]['id'];
+  			}
+  		}
+***************
+*** 214,218 ****
+  					include_once($RELPATH . 'blocks/class/block.class.php');
+  
+! 					$table = & new block();
+  					
+  					return $table->show($this->info['block_id']);
+--- 214,218 ----
+  					include_once($RELPATH . 'blocks/class/block.class.php');
+  
+! 					$table =  new block();
+  					
+  					return $table->show($this->info['block_id']);
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:51 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:51 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/blocks/class avblock.class.php,
+	1.4, 1.5
+Message-ID: <20110704210051.2CE74483389@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/blocks/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/blocks/class
+
+Modified Files:
+	avblock.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avblock.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/blocks/class/avblock.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C 2 -d -r1.4 -r1.5
+*** avblock.class.php	10 Jan 2005 09:38:12 -0000	1.4
+--- avblock.class.php	4 Jul 2011 21:00:48 -0000	1.5
+***************
+*** 46,62 ****
+  		$this->name = 'avblock';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = & new avcText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 40);
+! 		$this->controls[] = & new avcText( &$this, 'title', $g_lang['blocks_title'], '', 1, 1, 1, $g_lang['blocks_title'], 1, 40);
+  		
+  
+! 		$this->controls[] = & new avcTextArea( &$this, 'html', $g_lang['blocks_html'], '', 1, 1, 0, $g_lang['blocks_html'], 1, 70, 40);	
+  		
+  		
+! 		$this->controls[] = & new avcText( &$this, 'template', $g_lang['blocks_template'], 'block.html', 1, 1, 1, $g_lang['blocks_template'], 1, 40);
+  		
+! 		$this->controls[] = & new avcSelect( &$this, 'visible', $g_lang['blocks_visible'], 1, 0, 1, 1, $g_lang['blocks_visible'], 1, array('0'=>$g_lang['no'], '1'=>$g_lang['yes']));
+  
+! 		$this->controls[] = & new avcActions( &$this, 'actions', '', '', 0, 0, 1, $g_lang['action'], 0);
+  
+  
+--- 46,62 ----
+  		$this->name = 'avblock';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = new avcText( &$this, 'name', $g_lang['name'], '', 1, 1, 1, $g_lang['name'], 1, 40);
+! 		$this->controls[] = new avcText( &$this, 'title', $g_lang['blocks_title'], '', 1, 1, 1, $g_lang['blocks_title'], 1, 40);
+  		
+  
+! 		$this->controls[] = new avcTextArea( &$this, 'html', $g_lang['blocks_html'], '', 1, 1, 0, $g_lang['blocks_html'], 1, 70, 40);	
+  		
+  		
+! 		$this->controls[] = new avcText( &$this, 'template', $g_lang['blocks_template'], 'block.html', 1, 1, 1, $g_lang['blocks_template'], 1, 40);
+  		
+! 		$this->controls[] = new avcSelect( &$this, 'visible', $g_lang['blocks_visible'], 1, 0, 1, 1, $g_lang['blocks_visible'], 1, array('0'=>$g_lang['no'], '1'=>$g_lang['yes']));
+  
+! 		$this->controls[] = new avcActions( &$this, 'actions', '', '', 0, 0, 1, $g_lang['action'], 0);
+  
+  
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:51 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:51 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/users/class messages.class.php,
+	1.3, 1.4 login.class.php, 1.17, 1.18
+Message-ID: <20110704210051.32EC748338A@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/users/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/users/class
+
+Modified Files:
+	messages.class.php login.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: login.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/users/class/login.class.php,v
+retrieving revision 1.17
+retrieving revision 1.18
+diff -C 2 -d -r1.17 -r1.18
+*** login.class.php	26 Jul 2008 21:27:02 -0000	1.17
+--- login.class.php	4 Jul 2011 21:00:48 -0000	1.18
+***************
+*** 141,145 ****
+  		global $g_usr, $g_user_id, $g_user_name, $oldpass, $newpass, $newpass2, $email, $lastname, $webpage, $icq, $mail_news, $mail_comments, $mail_works;
+  		
+! 		if (empty($g_user_id)) { redirect($GLOBALS['SCRIPT_NAME'] . '/'); }
+  
+  		if (empty($email)) // get info from db
+--- 141,145 ----
+  		global $g_usr, $g_user_id, $g_user_name, $oldpass, $newpass, $newpass2, $email, $lastname, $webpage, $icq, $mail_news, $mail_comments, $mail_works;
+  		
+! 		if (empty($g_user_id)) { redirect($_SERVER['SCRIPT_NAME'] . '/'); }
+  
+  		if (empty($email)) // get info from db
+
+Index: messages.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/users/class/messages.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C 2 -d -r1.3 -r1.4
+*** messages.class.php	23 Sep 2004 21:44:08 -0000	1.3
+--- messages.class.php	4 Jul 2011 21:00:48 -0000	1.4
+***************
+*** 102,106 ****
+  				$this->tpl->set_var('subject', $subject);
+  				$this->tpl->set_var('error_str', $this->error);
+! 				$this->tpl->set_var('url', $GLOBALS['REQUEST_URI']);
+  				return $this->tpl->process('out', 'send_msg');
+  			}
+--- 102,106 ----
+  				$this->tpl->set_var('subject', $subject);
+  				$this->tpl->set_var('error_str', $this->error);
+! 				$this->tpl->set_var('url', $_SERVER['REQUEST_URI']);
+  				return $this->tpl->process('out', 'send_msg');
+  			}
+***************
+*** 196,200 ****
+  
+  		$this->tpl->set_var('error_str', $this->error);
+! 		$this->tpl->set_var('url', $GLOBALS['REQUEST_URI']);
+  
+  		return $this->tpl->process('out', 'reply_msg');
+--- 196,200 ----
+  
+  		$this->tpl->set_var('error_str', $this->error);
+! 		$this->tpl->set_var('url', $_SERVER['REQUEST_URI']);
+  
+  		return $this->tpl->process('out', 'reply_msg');
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:51 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:51 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/faq/class faq.class.php, 1.2,
+	1.3 avfaq.class.php, 1.1, 1.2
+Message-ID: <20110704210051.38ED748338B@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/faq/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/faq/class
+
+Modified Files:
+	faq.class.php avfaq.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avfaq.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/faq/class/avfaq.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avfaq.class.php	4 Aug 2004 22:48:42 -0000	1.1
+--- avfaq.class.php	4 Jul 2011 21:00:49 -0000	1.2
+***************
+*** 55,70 ****
+  		$this->parent_module = 'control';
+  
+! 		$this->controls[] = & new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = & new avcTextArea( &$this, 'question', $g_lang['faq_question'], '', 1, 1, 1, $g_lang['faq_question'], 0, 40, 5);
+! 		$this->controls[] = & new avcTextArea_bbcode( &$this, 'answer', $g_lang['faq_answer'], '', 0, 1, 1, $g_lang['faq_answer'], 0, 40, 10);
+! 		$this->controls[] = & new avcDate( &$this, 'posted', $g_lang['date'], date('Y.m.d'), 1, 1, 1, $g_lang['date'], 1);
+  
+! 		$this->controls[] = & new avcText( &$this, 'name', $g_lang['faq_name'], '', 0, 1, 1, $g_lang['faq_name'], 1, 40);
+! 		$this->controls[] = & new avcText( &$this, 'email', $g_lang['faq_email'], '', 0, 1, 0, '', 1, 40);
+  
+! //		$this->controls[] = & new avcDbSelect( &$this, 'lang_id', 'lang', '', 1, 1, 1, 'Kalba', 1, 'languages', 'id', 'lang_name');
+  
+! 		$this->controls[] = & new avcSelect( &$this, 'visible', $g_lang['faq_visible'], 0, 0, 1, 1, $g_lang['faq_visible'], 1, array('0'=>$g_lang['no'], '1'=>$g_lang['yes']));
+! 		$this->controls[] = & new avcActions( &$this, 'actions', '', '', 0, 0, 1, $g_lang['action'], 0);
+  
+  
+--- 55,70 ----
+  		$this->parent_module = 'control';
+  
+! 		$this->controls[] = new avcId( &$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this->controls[] = new avcTextArea( &$this, 'question', $g_lang['faq_question'], '', 1, 1, 1, $g_lang['faq_question'], 0, 40, 5);
+! 		$this->controls[] = new avcTextArea_bbcode( &$this, 'answer', $g_lang['faq_answer'], '', 0, 1, 1, $g_lang['faq_answer'], 0, 40, 10);
+! 		$this->controls[] = new avcDate( &$this, 'posted', $g_lang['date'], date('Y.m.d'), 1, 1, 1, $g_lang['date'], 1);
+  
+! 		$this->controls[] = new avcText( &$this, 'name', $g_lang['faq_name'], '', 0, 1, 1, $g_lang['faq_name'], 1, 40);
+! 		$this->controls[] = new avcText( &$this, 'email', $g_lang['faq_email'], '', 0, 1, 0, '', 1, 40);
+  
+! //		$this->controls[] = new avcDbSelect( &$this, 'lang_id', 'lang', '', 1, 1, 1, 'Kalba', 1, 'languages', 'id', 'lang_name');
+  
+! 		$this->controls[] = new avcSelect( &$this, 'visible', $g_lang['faq_visible'], 0, 0, 1, 1, $g_lang['faq_visible'], 1, array('0'=>$g_lang['no'], '1'=>$g_lang['yes']));
+! 		$this->controls[] = new avcActions( &$this, 'actions', '', '', 0, 0, 1, $g_lang['action'], 0);
+  
+  
+
+Index: faq.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/faq/class/faq.class.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C 2 -d -r1.2 -r1.3
+*** faq.class.php	26 Nov 2005 16:21:45 -0000	1.2
+--- faq.class.php	4 Jul 2011 21:00:49 -0000	1.3
+***************
+*** 62,66 ****
+  		$this->tpl->set_loop('list', $list);
+  		
+! 		$this->tpl->set_var('url', $GLOBALS['REQUEST_URI']);
+  		$this->tpl->set_var('menuitem', $GLOBALS['menuitem']);
+  		$this->tpl->set_file('faq', 'faq/tpl/faq_list.html', 1);
+--- 62,66 ----
+  		$this->tpl->set_loop('list', $list);
+  		
+! 		$this->tpl->set_var('url', $_SERVER['REQUEST_URI']);
+  		$this->tpl->set_var('menuitem', $GLOBALS['menuitem']);
+  		$this->tpl->set_file('faq', 'faq/tpl/faq_list.html', 1);
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:00:51 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:00:51 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/core avuser.class.php, 1.4,
+	1.5 averror.class.php, 1.5, 1.6 avnavigator.class.php, 1.1,
+	1.2 avini.class.php, 1.3, 1.4
+Message-ID: <20110704210051.6116B48338C@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/core
+In directory sheep:/tmp/cvs-serv31643/htdocs/core
+
+Modified Files:
+	avuser.class.php averror.class.php avnavigator.class.php 
+	avini.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avuser.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/avuser.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C 2 -d -r1.4 -r1.5
+*** avuser.class.php	5 Feb 2006 15:28:18 -0000	1.4
+--- avuser.class.php	4 Jul 2011 21:00:49 -0000	1.5
+***************
+*** 133,137 ****
+  			
+  			//Inserted to logging users who logins into administrator site
+! 			$sql = "INSERT INTO u_user_log (username,logindate,host,browser) VALUES ('{$tmp['username']}',NOW(),'{$host}','{$GLOBALS['HTTP_USER_AGENT']}')";
+  			$this->db->query($sql);			
+  			
+--- 133,137 ----
+  			
+  			//Inserted to logging users who logins into administrator site
+! 			$sql = "INSERT INTO u_user_log (username,logindate,host,browser) VALUES ('{$tmp['username']}',NOW(),'{$host}','{$_SERVER['HTTP_USER_AGENT']}')";
+  			$this->db->query($sql);			
+  			
+***************
+*** 178,182 ****
+  			
+  			//Inserted to logging users who logins into administrator site
+! 			$sql = "INSERT INTO u_user_log (username,logindate,host,browser) VALUES ('{$tmp['username']}',NOW(),'[auto]$host','{$GLOBALS['HTTP_USER_AGENT']}')";
+  			$this->db->query($sql);			
+  			
+--- 178,182 ----
+  			
+  			//Inserted to logging users who logins into administrator site
+! 			$sql = "INSERT INTO u_user_log (username,logindate,host,browser) VALUES ('{$tmp['username']}',NOW(),'[auto]$host','{$_SERVER['HTTP_USER_AGENT']}')";
+  			$this->db->query($sql);			
+  			
+***************
+*** 196,205 ****
+  	function get_info($id)
+  	{
+  		
+  		if (!$id) { return false; }
+  		$this->db->query("SELECT *, 
+!               DATE_FORMAT(lastlogin, '$GLOBALS[SQL_DATE_FORMAT_LONG]') AS lastlogin,
+! 		          DATE_FORMAT(may_comment_after, '$GLOBALS[SQL_DATE_FORMAT_SHORT]') AS may_comment_after,
+! 		          DATE_FORMAT(may_send_work_after, '$GLOBALS[SQL_DATE_FORMAT_SHORT]') AS may_send_work_after
+  							FROM $this->table_name 
+  							WHERE id='$id'");
+--- 196,206 ----
+  	function get_info($id)
+  	{
++ 		global $SQL_DATE_FORMAT_LONG, $SQL_DATE_FORMAT_SHORT;
+  		
+  		if (!$id) { return false; }
+  		$this->db->query("SELECT *, 
+!               DATE_FORMAT(lastlogin, '$SQL_DATE_FORMAT_LONG') AS lastlogin,
+! 		          DATE_FORMAT(may_comment_after, '$SQL_DATE_FORMAT_SHORT') AS may_comment_after,
+! 		          DATE_FORMAT(may_send_work_after, '$SQL_DATE_FORMAT_SHORT') AS may_send_work_after
+  							FROM $this->table_name 
+  							WHERE id='$id'");
+***************
+*** 214,223 ****
+  	function get_user_info($id = false)
+  	{
+  		
+  		if (!$id) { $id = $this->id; }
+! 		$this->db->query("SELECT *, DATE_FORMAT(reg_date, '$GLOBALS[SQL_DATE_FORMAT_LONG]') AS reg_date, 
+!               DATE_FORMAT(lastlogin, '$GLOBALS[SQL_DATE_FORMAT_LONG]') AS lastlogin,
+! 		          DATE_FORMAT(may_comment_after, '$GLOBALS[SQL_DATE_FORMAT_SHORT]') AS may_comment_after,
+! 		          DATE_FORMAT(may_send_work_after, '$GLOBALS[SQL_DATE_FORMAT_SHORT]') AS may_send_work_after
+  							FROM u_user_info, $this->table_name u
+  							WHERE uid='$id' AND u.id='$id'");
+--- 215,225 ----
+  	function get_user_info($id = false)
+  	{
++ 		global $SQL_DATE_FORMAT_LONG, $SQL_DATE_FORMAT_SHORT;
+  		
+  		if (!$id) { $id = $this->id; }
+! 		$this->db->query("SELECT *, DATE_FORMAT(reg_date, '$SQL_DATE_FORMAT_LONG') AS reg_date, 
+!               DATE_FORMAT(lastlogin, '$SQL_DATE_FORMAT_LONG') AS lastlogin,
+! 		          DATE_FORMAT(may_comment_after, '$SQL_DATE_FORMAT_SHORT') AS may_comment_after,
+! 		          DATE_FORMAT(may_send_work_after, '$SQL_DATE_FORMAT_SHORT') AS may_send_work_after
+  							FROM u_user_info, $this->table_name u
+  							WHERE uid='$id' AND u.id='$id'");
+
+Index: averror.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/averror.class.php,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -C 2 -d -r1.5 -r1.6
+*** averror.class.php	26 Jul 2008 21:08:11 -0000	1.5
+--- averror.class.php	4 Jul 2011 21:00:49 -0000	1.6
+***************
+*** 83,86 ****
+--- 83,89 ----
+  	<br><br>";
+  
++ 	// echo $text;
++ 	// debug_print_backtrace();	
++ 
+  	if (isset($GLOBALS['bench'])) { echo $text; }
+  	else { 
+
+Index: avini.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/avini.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C 2 -d -r1.3 -r1.4
+*** avini.class.php	26 Nov 2005 16:18:29 -0000	1.3
+--- avini.class.php	4 Jul 2011 21:00:49 -0000	1.4
+***************
+*** 118,122 ****
+          $this->GROUPS=array();
+          $contents = fread($fp, filesize($inifilename)); 
+!         $ini_data = split( "\n",$contents); 
+           
+          while( list($key, $data) = each($ini_data) ) 
+--- 118,122 ----
+          $this->GROUPS=array();
+          $contents = fread($fp, filesize($inifilename)); 
+!         $ini_data = explode( "\n",$contents); 
+           
+          while( list($key, $data) = each($ini_data) ) 
+***************
+*** 144,148 ****
+              $data = substr( $data, 0, strlen($data) - 1 );
+  
+!         if( ereg( "\[([[:alnum:]]+)\]", $data, $out ) )
+          {
+              $this->CURRENT_GROUP = strtolower( $out[1] ); 
+--- 144,148 ----
+              $data = substr( $data, 0, strlen($data) - 1 );
+  
+!         if( preg_match( '/\[(.+)\]/', $data, $out ) )
+          {
+              $this->CURRENT_GROUP = strtolower( $out[1] ); 
+***************
+*** 150,154 ****
+          elseif (!empty($data)) 
+          {
+!             $split_data = split( "=", $data ); 
+              $this->GROUPS[ $this->CURRENT_GROUP ][ $split_data[0] ] = $split_data[1]; 
+          }
+--- 150,154 ----
+          elseif (!empty($data)) 
+          {
+!             $split_data = explode( "=", $data ); 
+              $this->GROUPS[ $this->CURRENT_GROUP ][ $split_data[0] ] = $split_data[1]; 
+          }
+***************
+*** 345,357 ****
+        If the ini-file object does not exist it is created before returning.
+      */
+!     function &globalINI( $file = false )
+      {
+! 		global $RELPATH;
+  		empty($file) && $file = $RELPATH . 'global.ini.php';
+!         $ini =& $GLOBALS['g_ini'];
+  
+          if ( get_class( $ini ) != 'avini' )
+          {
+!             $ini = & new avIni( $file );
+          }
+          return $ini;
+--- 345,357 ----
+        If the ini-file object does not exist it is created before returning.
+      */
+!     static function &globalINI( $file = false )
+      {
+! 		global $RELPATH, $g_ini;
+  		empty($file) && $file = $RELPATH . 'global.ini.php';
+!         $ini =& $g_ini;
+  
+          if ( get_class( $ini ) != 'avini' )
+          {
+!             $ini =  new avIni( $file );
+          }
+          return $ini;
+
+Index: avnavigator.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/avnavigator.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avnavigator.class.php	4 Aug 2004 22:51:40 -0000	1.1
+--- avnavigator.class.php	4 Jul 2011 21:00:49 -0000	1.2
+***************
+*** 10,14 ****
+  	}
+  
+! 	function show($offset, $count, $ipp, $class, &$caller, $function, $step = false, $window = false)
+  	{
+  
+--- 10,14 ----
+  	}
+  
+! 	static function show($offset, $count, $ipp, $class, &$caller, $function, $step = false, $window = false)
+  	{
+  
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:20:12 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:20:12 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class
+	darbai_submit.class.php, 1.19, 1.20
+Message-ID: <20110704212013.3E8E1480CB4@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv1414/htdocs/darbai/class
+
+Modified Files:
+	darbai_submit.class.php 
+Log Message:
+file upload php5
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.19
+retrieving revision 1.20
+diff -C 2 -d -r1.19 -r1.20
+*** darbai_submit.class.php	25 Jun 2011 12:15:09 -0000	1.19
+--- darbai_submit.class.php	4 Jul 2011 21:20:10 -0000	1.20
+***************
+*** 123,126 ****
+--- 123,128 ----
+  		}
+  
++ 		$work = $_FILES['work'];
++ 		
+  		if (empty($work) || 'none' == $work)
+  		{
+***************
+*** 141,146 ****
+  
+  
+! 		$work_name = $GLOBALS['work_name'];
+! 		$work_size = $GLOBALS['work_size'];
+  
+  		$work_types = array('gif', 'jpg', 'png', 'swf');
+--- 143,148 ----
+  
+  
+! 		$work_name = $_FILES['work']['name'];
+! 		$work_size = $_FILES['work']['size'];
+  
+  		$work_types = array('gif', 'jpg', 'png', 'swf');
+***************
+*** 154,159 ****
+  		if ($thumbnail != '' && $thumbnail != 'none')
+  		{
+! 			$thumb_name = $GLOBALS['thumbnail_name'];
+! 			$thumb_size = $GLOBALS['thumbnail_size'];
+  
+  			$thumb_types = array('gif', 'jpg', 'png');
+--- 156,161 ----
+  		if ($thumbnail != '' && $thumbnail != 'none')
+  		{
+! 			$thumb_name = $_FILES['thumbnail']['name'];
+! 			$thumb_size = $_FILES['thumbnail']['size'];
+  
+  			$thumb_types = array('gif', 'jpg', 'png');
+***************
+*** 173,177 ****
+  		}
+  
+! 		if ( ($this->flash_category != $category) && ($work_size > 307200) )
+  		{
+  			$this->error .= 'per didelis darbo failas, limitas 300kb<br>';
+--- 175,179 ----
+  		}
+  
+! 		if ( ($this->flash_category != $category) && ($work_size > 30720000) )
+  		{
+  			$this->error .= 'per didelis darbo failas, limitas 300kb<br>';
+***************
+*** 190,193 ****
+--- 192,196 ----
+  		}
+  		
++ 		$work = $_FILES['work']['tmp_name'];
+  		copy($work, $work_dest);
+  		unlink($work);
+***************
+*** 199,202 ****
+--- 202,206 ----
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
++ 			$thumbnail = $_FILES['thumbnail']['tmp_name'];
+  			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+  			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -resize ". $this->thumb_x ."x". $this->thumb_y ." $thumbnail jpg:$thumb_dest";
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:21:04 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:21:04 +0000
+Subject: [artscene-cvs] art.scene.v2/scripts/sql cleanup_users.sql,1.1,1.2
+Message-ID: <20110704212104.E1A6A48134D@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/scripts/sql
+In directory sheep:/tmp/cvs-serv2017/scripts/sql
+
+Modified Files:
+	cleanup_users.sql 
+Log Message:
+sql support scripts
+
+Index: cleanup_users.sql
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/scripts/sql/cleanup_users.sql,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** cleanup_users.sql	25 Jun 2011 14:19:58 -0000	1.1
+--- cleanup_users.sql	4 Jul 2011 21:21:02 -0000	1.2
+***************
+*** 7,9 ****
+  		auto_login = ''
+  ;
+! 		
+\ No newline at end of file
+--- 7,25 ----
+  		auto_login = ''
+  ;
+! 
+! 
+! INSERT INTO avworks_stat (subject, work_id)
+! 	SELECT subject, id
+! 	FROM avworks;
+! 
+! UPDATE avworks_stat st, avworks w
+! 	SET st.submiter = w.submiter
+! 	WHERE st.work_id = w.id;
+! 		
+! INSERT INTO u_user_info (uid) 
+! 	SELECT u_users.id
+! 	FROM u_users;
+! 	
+! 	
+! ALTER TABLE `u_user_info` ADD UNIQUE  `uid` (  `uid` );
+! 
+
+
+
+From pukomuko at sheep.berlios.de  Mon Jul  4 23:21:19 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Mon, 04 Jul 2011 21:21:19 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs process_maintenance.php, NONE,
+	1.1
+Message-ID: <20110704212119.D014548134D@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs
+In directory sheep:/tmp/cvs-serv2384/htdocs
+
+Added Files:
+	process_maintenance.php 
+Log Message:
+maintenance page
+
+--- NEW FILE: process_maintenance.php ---
+<?php
+/*!
+	prints out redirection page
+	header, javascript, link
+*/
+function redirect($page)
+{
+	header("Location: $page");
+	
+	?> 
+	<html><head><title>redirect</title>
+	<meta http-equiv="Refresh" content="0; URL=<? echo $page ?>">
+	</head>
+
+	<body>
+	<script language="JavaScript">
+	<!--
+	window.location = '<? echo $page ?>';
+	//-->
+	</script>
+	<a href="<? echo $page ?>"><b>spauskit ??ia / enter here</b></a>
+	
+	</body>
+	</html>
+	<?
+	exit;
+}
+
+$process = 'process.php';
+
+if (substr($_SERVER['REQUEST_URI'] , - strlen("/$process")) == "/$process") redirect ("$process/");
+
+
+?><!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<title> art.scene.v2 </title>
+	<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+	<link href="../css/artv2.css" rel="stylesheet" type="text/css">
+	<LINK REL="SHORTCUT ICON" HREF="http://art.scene.lt/favicon.ico">
+</head>
+
+<body topmargin=0 leftmargin=0 marginheight=0 marginwidth=0>
+
+<table width="100%" border=0 cellpadding=0 cellspacing=0 height=""><tr> <!-- outter layout -->
+	<td class="table-light" valign="top" align="left" width="769">
+	
+	
+	<table width="100%" border=0 cellpadding=0 cellspacing=0> <!-- logo virsus -->
+	<tr>
+		<td class="border-out" valign="top" align="left"><img src="../design_images/art.scene.logo.top.gif" width="374" height="10" border=0 alt=""></td>
+	</tr>
+	</table> <!-- logo virsus -->
+	
+	<table width="100%" border=0 cellpadding=0 cellspacing=0> <!-- header -->
+	<tr>
+		<td valign="top" align="left"><a href="../process/"><img src="../design_images/art.scene.logo.bottom.gif" width="377" height="59" border=0 alt=""></a><br>&nbsp;
+
+		
+		</td>
+		<td valign="bottom" align="right" rowspan=3><img src="../dot.gif" width="1" height="5" border=0 alt=""><br>
+
+
+		<img src="../design_images/header.bottom.right2.gif" width="262" height="45" border=0 alt=""><!-- <img src="../design_images/header.bottom.right.gif" width="262" height="103" border=0 alt=""> --></td>
+	</tr>
+	<tr>
+		<td valign="bottom">
+		
+		    <table><tr><td>&nbsp;</td><td>
+			??iuo metu vyksta serverio atnaujinimo darbai.<br>
+			ateikite u?? valandos, rytoj, poryt.<br>
+			b??tinai prane??kite apie pasteb??tas klaidas, kai artscena atsigaus!<br>
+			<a href="mailto:art at scene.lt">art at scene.lt</a>
+
+            </td></tr></table>
+
+		</td>
+	</tr>
+	<tr>
+		<td valign="bottom">
+
+			
+			
+
+		</td>
+	</tr>
+	</table> <!-- header -->
+
+	<table width="100%" border=0 cellpadding=0 cellspacing=0> <!-- linija -->
+	<tr>
+		<td class="border-out" valign="top" align="left"><img src="../dot.gif" width="769" height="10" border=0 alt=""></td>
+	</tr>
+	</table> <!-- linija -->
+	
+	
+
+	</td><!-- vidines celles pabaiga -->
+
+	<td class="border-out" valign="top" align="left" width="*"><table width="100%" cellpadding=0 cellspacing=0 border=0>
+	<tr>
+		<td width="99%" class="border-out"><img src="../dot.gif" width="1" height="10" border=0 alt=""></td>
+		<td rowspan="5" width="106" valign="top"><img src="../design_images/top.right.gif" width="106" height="64" border=0 alt=""></td>
+	</tr>
+	<tr>
+		<td class="table-light"><img src="../dot.gif" width="1" height="14" border=0 alt=""></td>
+	</tr>
+	<tr>
+		<td class="border-out"><img src="../dot.gif" width="1" height="8" border=0 alt=""></td>
+	</tr>
+	<tr>
+		<td class="table-light"><img src="../dot.gif" width="1" height="1" border=0 alt=""></td>
+	</tr>
+	<tr>
+		<td class="border-out"><img src="../dot.gif" width="1" height="30" border=0 alt=""></td>
+	</tr>
+
+	</table>
+
+	
+	
+	</td><!-- isorine celle -->
+
+	<td  class="border-out" valign="top" width="7" background="../design_images/right.background.gif"><img src="../design_images/top.right.right.gif" width="7" height="64" border=0 alt=""></td>
+
+
+</tr>
+
+
+
+
+</table> <!-- outter layout -->
+
+
+
+</body>
+</html>
+
+
+

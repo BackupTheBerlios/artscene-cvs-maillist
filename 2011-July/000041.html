@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.19, 1.20
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_submit.class.php%2C%201.19%2C%201.20&In-Reply-To=%3C20110704212013.3E8E1480CB4%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000040.html">
+   <LINK REL="Next"  HREF="000042.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.19, 1.20</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_submit.class.php%2C%201.19%2C%201.20&In-Reply-To=%3C20110704212013.3E8E1480CB4%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.19, 1.20">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 23:20:12 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000040.html">[artscene-cvs] art.scene.v2/htdocs/core avuser.class.php, 1.4,	1.5 averror.class.php, 1.5, 1.6 avnavigator.class.php, 1.1,	1.2 avini.class.php, 1.3, 1.4
+</A></li>
+        <LI>Next message: <A HREF="000042.html">[artscene-cvs] art.scene.v2/scripts/sql cleanup_users.sql,1.1,1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#41">[ date ]</a>
+              <a href="thread.html#41">[ thread ]</a>
+              <a href="subject.html#41">[ subject ]</a>
+              <a href="author.html#41">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv1414/htdocs/darbai/class
+
+Modified Files:
+	darbai_submit.class.php 
+Log Message:
+file upload php5
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.19
+retrieving revision 1.20
+diff -C 2 -d -r1.19 -r1.20
+*** darbai_submit.class.php	25 Jun 2011 12:15:09 -0000	1.19
+--- darbai_submit.class.php	4 Jul 2011 21:20:10 -0000	1.20
+***************
+*** 123,126 ****
+--- 123,128 ----
+  		}
+  
++ 		$work = $_FILES['work'];
++ 		
+  		if (empty($work) || 'none' == $work)
+  		{
+***************
+*** 141,146 ****
+  
+  
+! 		$work_name = $GLOBALS['work_name'];
+! 		$work_size = $GLOBALS['work_size'];
+  
+  		$work_types = array('gif', 'jpg', 'png', 'swf');
+--- 143,148 ----
+  
+  
+! 		$work_name = $_FILES['work']['name'];
+! 		$work_size = $_FILES['work']['size'];
+  
+  		$work_types = array('gif', 'jpg', 'png', 'swf');
+***************
+*** 154,159 ****
+  		if ($thumbnail != '' &amp;&amp; $thumbnail != 'none')
+  		{
+! 			$thumb_name = $GLOBALS['thumbnail_name'];
+! 			$thumb_size = $GLOBALS['thumbnail_size'];
+  
+  			$thumb_types = array('gif', 'jpg', 'png');
+--- 156,161 ----
+  		if ($thumbnail != '' &amp;&amp; $thumbnail != 'none')
+  		{
+! 			$thumb_name = $_FILES['thumbnail']['name'];
+! 			$thumb_size = $_FILES['thumbnail']['size'];
+  
+  			$thumb_types = array('gif', 'jpg', 'png');
+***************
+*** 173,177 ****
+  		}
+  
+! 		if ( ($this-&gt;flash_category != $category) &amp;&amp; ($work_size &gt; 307200) )
+  		{
+  			$this-&gt;error .= 'per didelis darbo failas, limitas 300kb&lt;br&gt;';
+--- 175,179 ----
+  		}
+  
+! 		if ( ($this-&gt;flash_category != $category) &amp;&amp; ($work_size &gt; 30720000) )
+  		{
+  			$this-&gt;error .= 'per didelis darbo failas, limitas 300kb&lt;br&gt;';
+***************
+*** 190,193 ****
+--- 192,196 ----
+  		}
+  		
++ 		$work = $_FILES['work']['tmp_name'];
+  		copy($work, $work_dest);
+  		unlink($work);
+***************
+*** 199,202 ****
+--- 202,206 ----
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
++ 			$thumbnail = $_FILES['thumbnail']['tmp_name'];
+  			$thumb_dest = $this-&gt;ini-&gt;read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+  			$exec_src = $this-&gt;ini-&gt;read_var('avworks', 'convert_exec') .&quot; -resize &quot;. $this-&gt;thumb_x .&quot;x&quot;. $this-&gt;thumb_y .&quot; $thumbnail jpg:$thumb_dest&quot;;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000040.html">[artscene-cvs] art.scene.v2/htdocs/core avuser.class.php, 1.4,	1.5 averror.class.php, 1.5, 1.6 avnavigator.class.php, 1.1,	1.2 avini.class.php, 1.3, 1.4
+</A></li>
+	<LI>Next message: <A HREF="000042.html">[artscene-cvs] art.scene.v2/scripts/sql cleanup_users.sql,1.1,1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#41">[ date ]</a>
+              <a href="thread.html#41">[ thread ]</a>
+              <a href="subject.html#41">[ subject ]</a>
+              <a href="author.html#41">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

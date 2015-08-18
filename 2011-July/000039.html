@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/faq/class faq.class.php, 1.2,	1.3 avfaq.class.php, 1.1, 1.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/faq/class%20faq.class.php%2C%201.2%2C%0A%091.3%20avfaq.class.php%2C%201.1%2C%201.2&In-Reply-To=%3C20110704210051.38ED748338B%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000038.html">
+   <LINK REL="Next"  HREF="000040.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/faq/class faq.class.php, 1.2,	1.3 avfaq.class.php, 1.1, 1.2</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/faq/class%20faq.class.php%2C%201.2%2C%0A%091.3%20avfaq.class.php%2C%201.1%2C%201.2&In-Reply-To=%3C20110704210051.38ED748338B%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/faq/class faq.class.php, 1.2,	1.3 avfaq.class.php, 1.1, 1.2">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 23:00:51 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000038.html">[artscene-cvs] art.scene.v2/htdocs/users/class messages.class.php,	1.3, 1.4 login.class.php, 1.17, 1.18
+</A></li>
+        <LI>Next message: <A HREF="000040.html">[artscene-cvs] art.scene.v2/htdocs/core avuser.class.php, 1.4,	1.5 averror.class.php, 1.5, 1.6 avnavigator.class.php, 1.1,	1.2 avini.class.php, 1.3, 1.4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#39">[ date ]</a>
+              <a href="thread.html#39">[ thread ]</a>
+              <a href="subject.html#39">[ subject ]</a>
+              <a href="author.html#39">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/faq/class
+In directory sheep:/tmp/cvs-serv31643/htdocs/faq/class
+
+Modified Files:
+	faq.class.php avfaq.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avfaq.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/faq/class/avfaq.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avfaq.class.php	4 Aug 2004 22:48:42 -0000	1.1
+--- avfaq.class.php	4 Jul 2011 21:00:49 -0000	1.2
+***************
+*** 55,70 ****
+  		$this-&gt;parent_module = 'control';
+  
+! 		$this-&gt;controls[] = &amp; new avcId( &amp;$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this-&gt;controls[] = &amp; new avcTextArea( &amp;$this, 'question', $g_lang['faq_question'], '', 1, 1, 1, $g_lang['faq_question'], 0, 40, 5);
+! 		$this-&gt;controls[] = &amp; new avcTextArea_bbcode( &amp;$this, 'answer', $g_lang['faq_answer'], '', 0, 1, 1, $g_lang['faq_answer'], 0, 40, 10);
+! 		$this-&gt;controls[] = &amp; new avcDate( &amp;$this, 'posted', $g_lang['date'], date('Y.m.d'), 1, 1, 1, $g_lang['date'], 1);
+  
+! 		$this-&gt;controls[] = &amp; new avcText( &amp;$this, 'name', $g_lang['faq_name'], '', 0, 1, 1, $g_lang['faq_name'], 1, 40);
+! 		$this-&gt;controls[] = &amp; new avcText( &amp;$this, 'email', $g_lang['faq_email'], '', 0, 1, 0, '', 1, 40);
+  
+! //		$this-&gt;controls[] = &amp; new avcDbSelect( &amp;$this, 'lang_id', 'lang', '', 1, 1, 1, 'Kalba', 1, 'languages', 'id', 'lang_name');
+  
+! 		$this-&gt;controls[] = &amp; new avcSelect( &amp;$this, 'visible', $g_lang['faq_visible'], 0, 0, 1, 1, $g_lang['faq_visible'], 1, array('0'=&gt;$g_lang['no'], '1'=&gt;$g_lang['yes']));
+! 		$this-&gt;controls[] = &amp; new avcActions( &amp;$this, 'actions', '', '', 0, 0, 1, $g_lang['action'], 0);
+  
+  
+--- 55,70 ----
+  		$this-&gt;parent_module = 'control';
+  
+! 		$this-&gt;controls[] = new avcId( &amp;$this, 'id', '', '0', 0, 1, 1, '', 0);
+! 		$this-&gt;controls[] = new avcTextArea( &amp;$this, 'question', $g_lang['faq_question'], '', 1, 1, 1, $g_lang['faq_question'], 0, 40, 5);
+! 		$this-&gt;controls[] = new avcTextArea_bbcode( &amp;$this, 'answer', $g_lang['faq_answer'], '', 0, 1, 1, $g_lang['faq_answer'], 0, 40, 10);
+! 		$this-&gt;controls[] = new avcDate( &amp;$this, 'posted', $g_lang['date'], date('Y.m.d'), 1, 1, 1, $g_lang['date'], 1);
+  
+! 		$this-&gt;controls[] = new avcText( &amp;$this, 'name', $g_lang['faq_name'], '', 0, 1, 1, $g_lang['faq_name'], 1, 40);
+! 		$this-&gt;controls[] = new avcText( &amp;$this, 'email', $g_lang['faq_email'], '', 0, 1, 0, '', 1, 40);
+  
+! //		$this-&gt;controls[] = new avcDbSelect( &amp;$this, 'lang_id', 'lang', '', 1, 1, 1, 'Kalba', 1, 'languages', 'id', 'lang_name');
+  
+! 		$this-&gt;controls[] = new avcSelect( &amp;$this, 'visible', $g_lang['faq_visible'], 0, 0, 1, 1, $g_lang['faq_visible'], 1, array('0'=&gt;$g_lang['no'], '1'=&gt;$g_lang['yes']));
+! 		$this-&gt;controls[] = new avcActions( &amp;$this, 'actions', '', '', 0, 0, 1, $g_lang['action'], 0);
+  
+  
+
+Index: faq.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/faq/class/faq.class.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C 2 -d -r1.2 -r1.3
+*** faq.class.php	26 Nov 2005 16:21:45 -0000	1.2
+--- faq.class.php	4 Jul 2011 21:00:49 -0000	1.3
+***************
+*** 62,66 ****
+  		$this-&gt;tpl-&gt;set_loop('list', $list);
+  		
+! 		$this-&gt;tpl-&gt;set_var('url', $GLOBALS['REQUEST_URI']);
+  		$this-&gt;tpl-&gt;set_var('menuitem', $GLOBALS['menuitem']);
+  		$this-&gt;tpl-&gt;set_file('faq', 'faq/tpl/faq_list.html', 1);
+--- 62,66 ----
+  		$this-&gt;tpl-&gt;set_loop('list', $list);
+  		
+! 		$this-&gt;tpl-&gt;set_var('url', $_SERVER['REQUEST_URI']);
+  		$this-&gt;tpl-&gt;set_var('menuitem', $GLOBALS['menuitem']);
+  		$this-&gt;tpl-&gt;set_file('faq', 'faq/tpl/faq_list.html', 1);
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000038.html">[artscene-cvs] art.scene.v2/htdocs/users/class messages.class.php,	1.3, 1.4 login.class.php, 1.17, 1.18
+</A></li>
+	<LI>Next message: <A HREF="000040.html">[artscene-cvs] art.scene.v2/htdocs/core avuser.class.php, 1.4,	1.5 averror.class.php, 1.5, 1.6 avnavigator.class.php, 1.1,	1.2 avini.class.php, 1.3, 1.4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#39">[ date ]</a>
+              <a href="thread.html#39">[ thread ]</a>
+              <a href="subject.html#39">[ subject ]</a>
+              <a href="author.html#39">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

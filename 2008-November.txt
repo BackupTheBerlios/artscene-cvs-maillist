@@ -1,0 +1,303 @@
+From nobody at sheep.berlios.de  Mon Nov 24 22:04:27 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Mon, 24 Nov 2008 22:04:27 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/lib util.lib.php,1.8,1.9
+Message-ID: <20081124210427.F1D2527215@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/lib
+In directory sheep:/tmp/cvs-serv31233
+
+Modified Files:
+	util.lib.php 
+Log Message:
+atsibodo erroras
+nelabai suprantu is kur.
+
+lyg ir kai istrina zmogu, jo niekas neislogina, ir vaiksto tada tokie ID be jokios informacijos.
+reik padaryti, kad kai trina useri, tai ji islogintu.
+
+Index: util.lib.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/lib/util.lib.php,v
+retrieving revision 1.8
+retrieving revision 1.9
+diff -C2 -d -r1.8 -r1.9
+*** util.lib.php	23 May 2006 13:08:39 -0000	1.8
+--- util.lib.php	24 Nov 2008 21:04:25 -0000	1.9
+***************
+*** 610,613 ****
+--- 610,614 ----
+  function strtotimelt($date)
+  {
++   if (empty($date)) return strtotime("+1 week");
+    $date = str_replace(".",'-', $date);
+    return strtotime($date);
+
+
+
+From nobody at sheep.berlios.de  Tue Nov 25 07:15:54 2008
+From: nobody at sheep.berlios.de (lthnnpwr)
+Date: Tue, 25 Nov 2008 07:15:54 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,
+	1.25, 1.26
+Message-ID: <20081125061554.E502B40E23@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv21084
+
+Modified Files:
+	darbai.class.php 
+Log Message:
+ilg? ?od?i? skaidymas komentuojant
+
+Index: darbai.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai.class.php,v
+retrieving revision 1.25
+retrieving revision 1.26
+diff -C2 -d -r1.25 -r1.26
+*** darbai.class.php	9 Aug 2008 21:13:53 -0000	1.25
+--- darbai.class.php	25 Nov 2008 06:15:50 -0000	1.26
+***************
+*** 475,479 ****
+      }
+  		if ($this->error) return true;
+! 
+  		$comment = do_ubb($comment);
+  		$subject = htmlchars($subject);
+--- 475,479 ----
+      }
+  		if ($this->error) return true;
+! 		$comment = wordwrap($comment, 40, " ", true); // [alias] skaidom ilgus piktybi?kus ?od?ius
+  		$comment = do_ubb($comment);
+  		$subject = htmlchars($subject);
+***************
+*** 538,541 ****
+--- 538,543 ----
+  		$error = false;
+  
++ 		header('Content-Type: text/html; charset=windows-1257'); // |alias| negra?iai darau, bet kitaip nei?eina -- ir perkeliu virs visu pranesimu
++ 
+  		if (empty($parent_id) || empty($g_user_id))
+  		{
+***************
+*** 573,577 ****
+  		// TODO: ar perskai?iuoti AVG ?
+  		$this->db->clear_cache_tables('avworkvotes');
+- 		header('Content-Type: text/html; charset=windows-1257'); // |alias| negra?iai darau, bet kitaip nei?eina
+  		$this->tpl->set_var('message', 'A?i?, kad balsuoji.');
+  		echo $this->tpl->process('', 'temp', 1);
+--- 575,578 ----
+
+
+
+From nobody at sheep.berlios.de  Thu Nov 27 02:17:47 2008
+From: nobody at sheep.berlios.de (lthnnpwr)
+Date: Thu, 27 Nov 2008 02:17:47 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,
+	1.26, 1.27 darbai_submit.class.php, 1.15, 1.16
+Message-ID: <20081127011747.A9659F948@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv7058
+
+Modified Files:
+	darbai.class.php darbai_submit.class.php 
+Log Message:
+komentaruose pamazinau maksimalu zodzio ilgi nuo 40 iki 30 simboliu - visgi kazin ar geros valios zmogus daznai naudoja kazka ilgesnio nei "besipasikiskekopusteliaudami".
+ir pridejau dalyka, apie kuri buvau visai pamirses - nauju darbu pavadinimas ir aprasymas taip pat filtruojami, atitinkamai maksimalus zodziai 20 ir 30 simboliu ilgio, kitu atveju skaidoma tarpais.
+
+Index: darbai.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai.class.php,v
+retrieving revision 1.26
+retrieving revision 1.27
+diff -C2 -d -r1.26 -r1.27
+*** darbai.class.php	25 Nov 2008 06:15:50 -0000	1.26
+--- darbai.class.php	27 Nov 2008 01:17:45 -0000	1.27
+***************
+*** 475,479 ****
+      }
+  		if ($this->error) return true;
+! 		$comment = wordwrap($comment, 40, " ", true); // [alias] skaidom ilgus piktybi?kus ?od?ius
+  		$comment = do_ubb($comment);
+  		$subject = htmlchars($subject);
+--- 475,479 ----
+      }
+  		if ($this->error) return true;
+! 		$comment = wordwrap($comment, 30, " ", true); // [alias] skaidom ilgus piktybi?kus ?od?ius
+  		$comment = do_ubb($comment);
+  		$subject = htmlchars($subject);
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.15
+retrieving revision 1.16
+diff -C2 -d -r1.15 -r1.16
+*** darbai_submit.class.php	27 Jul 2008 17:54:22 -0000	1.15
+--- darbai_submit.class.php	27 Nov 2008 01:17:45 -0000	1.16
+***************
+*** 200,204 ****
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+  			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+! 			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -sample ". $this->thumb_x ."x". $this->thumb_y ." $thumbnail jpg:$thumb_dest";
+  			exec($exec_src);
+  
+--- 200,204 ----
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+  			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+! 			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -resize ". $this->thumb_x ."x". $this->thumb_y ." $thumbnail jpg:$thumb_dest";
+  			exec($exec_src);
+  
+***************
+*** 270,276 ****
+  		isset($color) || $color = '';
+  		isset($info) || $info = '';
+! 
+! 		$info = do_ubb($info);
+! 		$subject = htmlchars($subject);
+  		$color = clean_hex($color);
+  
+--- 270,277 ----
+  		isset($color) || $color = '';
+  		isset($info) || $info = '';
+! 		
+! 		//wordwrap($comment, 30, " ", true)
+! 		$info = wordwrap(do_ubb($info), 30, " ", true);
+! 		$subject = wordwrap(htmlchars($subject), 20, " ", true);
+  		$color = clean_hex($color);
+  
+
+
+
+From nobody at sheep.berlios.de  Thu Nov 27 03:05:44 2008
+From: nobody at sheep.berlios.de (lthnnpwr)
+Date: Thu, 27 Nov 2008 03:05:44 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,
+	1.27, 1.28 darbai_submit.class.php, 1.16, 1.17
+Message-ID: <20081127020544.297DF3F9F8@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv12493/darbai/class
+
+Modified Files:
+	darbai.class.php darbai_submit.class.php 
+Log Message:
+papildymas:
+klase smartWrap($text,30), is esmes pakeicianti standartine php wordwrap, tik su galimybe wrapinti linkus, ju href'us paliekant ramybeje - taip vizualiai linkas luzta, bet href'as islieka 'clickable'.
+
+Index: darbai.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai.class.php,v
+retrieving revision 1.27
+retrieving revision 1.28
+diff -C2 -d -r1.27 -r1.28
+*** darbai.class.php	27 Nov 2008 01:17:45 -0000	1.27
+--- darbai.class.php	27 Nov 2008 02:05:34 -0000	1.28
+***************
+*** 475,480 ****
+      }
+  		if ($this->error) return true;
+- 		$comment = wordwrap($comment, 30, " ", true); // [alias] skaidom ilgus piktybi?kus ?od?ius
+  		$comment = do_ubb($comment);
+  		$subject = htmlchars($subject);
+  
+--- 475,480 ----
+      }
+  		if ($this->error) return true;
+  		$comment = do_ubb($comment);
++ 		$comment = smartWrap($comment, 30); // [alias] skaidom ilgus piktybi?kus ?od?ius
+  		$subject = htmlchars($subject);
+  
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.16
+retrieving revision 1.17
+diff -C2 -d -r1.16 -r1.17
+*** darbai_submit.class.php	27 Nov 2008 01:17:45 -0000	1.16
+--- darbai_submit.class.php	27 Nov 2008 02:05:34 -0000	1.17
+***************
+*** 271,277 ****
+  		isset($info) || $info = '';
+  		
+! 		//wordwrap($comment, 30, " ", true)
+! 		$info = wordwrap(do_ubb($info), 30, " ", true);
+! 		$subject = wordwrap(htmlchars($subject), 20, " ", true);
+  		$color = clean_hex($color);
+  
+--- 271,278 ----
+  		isset($info) || $info = '';
+  		
+! 		//wordwrap($comment, 30, " ", true) // senas variantas
+! 		//smartWrap($text,30); // naujas variantas
+! 		$info = smartWrap(do_ubb($info), 30);
+! 		$subject = wordwrap(htmlchars($subject), 20, " ", true); // cia html'o nebus, todel standartinis wordwrap
+  		$color = clean_hex($color);
+  
+
+
+
+From nobody at sheep.berlios.de  Thu Nov 27 03:05:44 2008
+From: nobody at sheep.berlios.de (lthnnpwr)
+Date: Thu, 27 Nov 2008 03:05:44 +0100 (CET)
+Subject: [artscene-cvs] art.scene.v2/htdocs/lib util.lib.php,1.9,1.10
+Message-ID: <20081127020544.1BB5A26710@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/lib
+In directory sheep:/tmp/cvs-serv12493/lib
+
+Modified Files:
+	util.lib.php 
+Log Message:
+papildymas:
+klase smartWrap($text,30), is esmes pakeicianti standartine php wordwrap, tik su galimybe wrapinti linkus, ju href'us paliekant ramybeje - taip vizualiai linkas luzta, bet href'as islieka 'clickable'.
+
+Index: util.lib.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/lib/util.lib.php,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C2 -d -r1.9 -r1.10
+*** util.lib.php	24 Nov 2008 21:04:25 -0000	1.9
+--- util.lib.php	27 Nov 2008 02:05:35 -0000	1.10
+***************
+*** 381,384 ****
+--- 381,412 ----
+  
+  
++ /** smart wrap - ignoring the anchor's hrefs */
++ function smartWrap($text,$max){
++ 	$text = explode(" ",$text);
++ 	$out = "";
++ 	foreach ($text as $value){
++ 	    if (strlen($value) > $max)
++ 	    {   
++ 	        $length = strlen($value);
++ 	       
++ 	        $repeats = $length / $max;
++ 			
++ 			// jei ne link'o href fragmentas - skaidom
++ 			if(!preg_match('/href=/i',$value))	       
++ 	        for ($i=0; $i<$repeats; $i++){       
++ 	            $str = substr ($value,($i*$max),$max);
++ 	            $out .= "".$str." ";
++ 	        } else {
++ 				// jei href'as - paliekam ji ramybeje
++ 				$out .= $value;
++ 			}
++ 	       
++ 	    } else {
++ 			// sumuojam
++ 		    $out .= $value." ";   
++ 	    }   
++ 	}
++ 	return $out;
++ }
+  
+  
+
+
+

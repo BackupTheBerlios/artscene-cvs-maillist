@@ -1,0 +1,128 @@
+From pukomuko at sheep.berlios.de  Sat Jun 25 14:12:50 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Sat, 25 Jun 2011 12:12:50 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/tpl workitem.html, 1.9,
+	1.10
+Message-ID: <20110625121250.923B4480FEA@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/tpl
+In directory sheep:/tmp/cvs-serv29829/htdocs/darbai/tpl
+
+Modified Files:
+	workitem.html 
+Log Message:
+paslepiau balsuotoju sarasa po mygtuku
+
+Index: workitem.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/tpl/workitem.html,v
+retrieving revision 1.9
+retrieving revision 1.10
+diff -C 2 -d -r1.9 -r1.10
+*** workitem.html	9 Aug 2008 19:57:16 -0000	1.9
+--- workitem.html	25 Jun 2011 12:12:47 -0000	1.10
+***************
+*** 126,129 ****
+--- 126,137 ----
+  </td>
+  <td valign="top"><br>
++ 
++ 	<script>
++ 		function showVotes() {
++ 			$('#votesTable').show('slow');
++ 		}
++ 	</script>
++ 	<div id="showVotes"><a id="showVotesLink" class="news-title" name="showVotesLink" href="#showVotesLink" onClick="showVotes(); return false;">baluotojai</a></div>
++ 	<div id="votesTable">
+  	<table border=0 cellspacing=1 cellpadding=1 width="100%">
+  	<loop name="voting">
+***************
+*** 138,141 ****
+--- 146,150 ----
+  	</loop name="voting">
+  	</table>
++ 	</div>
+  </td></tr>
+  </table>
+
+
+
+From pukomuko at sheep.berlios.de  Sat Jun 25 14:15:12 2011
+From: pukomuko at sheep.berlios.de (pukomuko at BerliOS)
+Date: Sat, 25 Jun 2011 12:15:12 +0000
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class
+	darbai_submit.class.php, 1.18, 1.19
+Message-ID: <20110625121513.0894A480FEA@sheep.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv30528/htdocs/darbai/class
+
+Modified Files:
+	darbai_submit.class.php 
+Log Message:
+senas nesukomitintas uploadinimo taisykliu pakeitimas: reikia tureti devinis senus darbus, jei nori ideti daugiau nei viena darba per diena.
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.18
+retrieving revision 1.19
+diff -C 2 -d -r1.18 -r1.19
+*** darbai_submit.class.php	19 Apr 2009 21:35:35 -0000	1.18
+--- darbai_submit.class.php	25 Jun 2011 12:15:09 -0000	1.19
+***************
+*** 43,59 ****
+  		global  $g_user_id, $g_usr;
+  
+- 		// administratoriai gali d?ti darbus be limito.
+- 		if (in_array($g_usr->group_id, array(1)))
+- 		{
+- 			return false;
+- 		}
+- 		
+  		$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_ADD(posted, INTERVAL 1 DAY) > NOW()");
+  		if ($tmp['kiekis'] > 2 ) return 'per ?ias 24 valandas jau ?d?jai tris darbus, lauk rytdienos.';
+  
+! 		// tiems kurie neturi dviej? darb? senesni? u? savait?
+  		$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_SUB(NOW(), INTERVAL 7 DAY) > posted ");
+! 		if ($tmp['kiekis'] < 2 ) 
+! 		{
+  			$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND  DATE_ADD(posted, INTERVAL 18 HOUR) > NOW()");
+  			if ($tmp['kiekis'] > 0 ) return 'per ?ias 18 valand? jau ?d?jai vien? darb?, lauk rytdienos.';
+--- 43,52 ----
+  		global  $g_user_id, $g_usr;
+  
+  		$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_ADD(posted, INTERVAL 1 DAY) > NOW()");
+  		if ($tmp['kiekis'] > 2 ) return 'per ?ias 24 valandas jau ?d?jai tris darbus, lauk rytdienos.';
+  
+! 		// tiems kurie neturi devyni? darb? senesni? u? savait?
+  		$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_SUB(NOW(), INTERVAL 7 DAY) > posted ");
+! 		if ($tmp['kiekis'] < 9 ) {
+  			$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND  DATE_ADD(posted, INTERVAL 18 HOUR) > NOW()");
+  			if ($tmp['kiekis'] > 0 ) return 'per ?ias 18 valand? jau ?d?jai vien? darb?, lauk rytdienos.';
+***************
+*** 63,67 ****
+  		{
+  		  return "darbus gal?si si?sti tik nuo " . $g_usr->may_send_work_after;
+! 		}
+  		return false;
+  	}
+--- 56,60 ----
+  		{
+  		  return "darbus gal?si si?sti tik nuo " . $g_usr->may_send_work_after;
+!     }
+  		return false;
+  	}
+***************
+*** 315,317 ****
+  }
+  
+! ?>
+--- 308,310 ----
+  }
+  
+! ?>
+\ No newline at end of file
+
+
+

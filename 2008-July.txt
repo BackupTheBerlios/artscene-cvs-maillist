@@ -1,0 +1,1478 @@
+From nobody at sheep.berlios.de  Sat Jul 26 23:06:59 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:06:59 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/core avsession.class.php, 1.1,
+	1.2
+Message-ID: <20080726210659.4D1AF146C3F@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/core
+In directory sheep:/tmp/cvs-serv835/htdocs/core
+
+Modified Files:
+	avsession.class.php 
+Log Message:
+kitas globalsas
+
+Index: avsession.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/avsession.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1 -r1.2
+*** avsession.class.php	4 Aug 2004 22:51:40 -0000	1.1
+--- avsession.class.php	26 Jul 2008 21:06:56 -0000	1.2
+***************
+*** 234,238 ****
+  
+  		$this->db->query("INSERT INTO $this->session_table 
+! 					VALUES ('$sesscode', ".time().", '".$GLOBALS['REMOTE_ADDR']."', NULL, '$GLOBALS[REQUEST_URI]')");
+  		
+  		setcookie("session",$sesscode, false, "/");
+--- 234,238 ----
+  
+  		$this->db->query("INSERT INTO $this->session_table 
+! 					VALUES ('$sesscode', ".time().", '".$_SERVER['REMOTE_ADDR']."', NULL, '$_SERVER[REQUEST_URI]')");
+  		
+  		setcookie("session",$sesscode, false, "/");
+
+
+
+From nobody at sheep.berlios.de  Sat Jul 26 23:08:13 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:08:13 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.4,1.5
+Message-ID: <20080726210813.6DAB4142B4F@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/core
+In directory sheep:/tmp/cvs-serv922/htdocs/core
+
+Modified Files:
+	averror.class.php 
+Log Message:
+kitas globalsas
+
+Index: averror.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/averror.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** averror.class.php	21 Dec 2007 23:23:23 -0000	1.4
+--- averror.class.php	26 Jul 2008 21:08:11 -0000	1.5
+***************
+*** 72,76 ****
+    global $g_user_id, $g_user_name;
+  	if (!error_reporting()) return false;
+! 	$errpage = $GLOBALS['REQUEST_URI'];
+  	$text = "<br>
+  	<b>atsipra?ome, bet sistemoje ?vyko klaida</b>:<br>
+--- 72,76 ----
+    global $g_user_id, $g_user_name;
+  	if (!error_reporting()) return false;
+! 	$errpage = $_SERVER["REQUEST_URI"];
+  	$text = "<br>
+  	<b>atsipra?ome, bet sistemoje ?vyko klaida</b>:<br>
+***************
+*** 85,89 ****
+  	if (isset($GLOBALS['bench'])) { echo $text; }
+  	else { 
+! 		mail('salna at ktl.mii.lt', 'klaida ant art.scene.lt', $text);
+  		echo "<b>atsipra?ome, bet sistemoje ?vyko klaida</b>: ";
+  		echo "<font color='#CC0000'>$errno</font><br>";		
+--- 85,89 ----
+  	if (isset($GLOBALS['bench'])) { echo $text; }
+  	else { 
+! 		mail('pukomuko at gmail.com', 'klaida ant art.scene.lt', $text);
+  		echo "<b>atsipra?ome, bet sistemoje ?vyko klaida</b>: ";
+  		echo "<font color='#CC0000'>$errno</font><br>";		
+
+
+
+From nobody at sheep.berlios.de  Sat Jul 26 23:12:05 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:12:05 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class
+	darbai_list.class.php, 1.4, 1.5
+Message-ID: <20080726211205.2C41814D9B6@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv1504/htdocs/darbai/class
+
+Modified Files:
+	darbai_list.class.php 
+Log Message:
+Id kazko nesutampa
+
+Index: darbai_list.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_list.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+
+
+
+From nobody at sheep.berlios.de  Sat Jul 26 23:24:00 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:24:00 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class
+	darbai_cleanup.class.php, 1.15, 1.16
+Message-ID: <20080726212400.4640ED0BC@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv3102/htdocs/darbai/class
+
+Modified Files:
+	darbai_cleanup.class.php 
+Log Message:
+cia uzkomentuoti kazkokie tm eksperimentai su skaitliukais
+
+Index: darbai_cleanup.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_cleanup.class.php,v
+retrieving revision 1.15
+retrieving revision 1.16
+diff -C2 -d -r1.15 -r1.16
+*** darbai_cleanup.class.php	17 Nov 2006 21:44:02 -0000	1.15
+--- darbai_cleanup.class.php	26 Jul 2008 21:23:58 -0000	1.16
+***************
+*** 91,95 ****
+  			$this->db->query("INSERT INTO avcomments (subject, info, posted, parent_id, table_name, user_id, new) 
+  				VALUES ('$subject', '$comment', NOW(), $parent_id, 'u_users',1, 1)");
+! 				
+  
+  		    // gales siusti darba tik sekancia diena 
+--- 91,142 ----
+  			$this->db->query("INSERT INTO avcomments (subject, info, posted, parent_id, table_name, user_id, new) 
+  				VALUES ('$subject', '$comment', NOW(), $parent_id, 'u_users',1, 1)");
+! 
+! 			// $this->db->query("UPDATE $tbl SET c_last_post=NOW() , c_count=c_count+1 WHERE id=$parent_id");
+! 			// $this->db->query("UPDATE $tbl t, avcomments c SET t.c_last_post=MAX(c.posted), t.c_count=COUNT(c.id) 
+! 			//	WHERE t.id=$parent_id AND c.parent_id=t.id";
+! 
+! 			// CREATE TEMPORARY TABLE tmpCount AS
+! 			// SELECT u.id AS id, MAX(c.posted) AS c_last_post, COUNT(c.id) AS c_count 
+! 			//	FROM avcomments c LEFT JOIN u_users u ON u.id=c.parent_id WHERE table_name='u_users' GROUP BY id;
+! 			// UPDATE u_users u, tmpCount c SET u.c_last_post=c.c_last_post, u.c_count=c.c_count WHERE c.id=u.id;
+! 			// DROP TEMPORARY TABLE tmpCount; 
+! 			// 
+! 
+! 
+! 
+! 			// // refreshinti skaitliukus 1 teiblui //
+! 			// CREATE TEMPORARY TABLE tmpCount AS
+! 			// SELECT z.id AS id, MAX(c.posted) AS c_last_post, COUNT(c.id) AS c_count
+! 			// 	FROM avcomments c LEFT JOIN avworks z ON z.id=c.parent_id WHERE table_name='avworks' GROUP BY id;
+! 			// UPDATE avworks z, tmpCount c SET z.c_last_post=c.c_last_post, z.c_count=c.c_count WHERE c.id=z.id;
+! 			// DROP TEMPORARY TABLE tmpCount;
+! 			//
+! 
+! 			/* // refreshinti viena //
+! 			   SELECT @last:=MAX(c.posted), @count:=COUNT(c.id) FROM avcomments c 
+! 			   	WHERE table_name='u_users' AND c.parent_id=4600;
+! 			   UPDATE u_users SET c_last_post=@last, c_count=@count WHERE id=4600;
+! 			   
+! 			   $this->db->update_cc_one('avcomments','u_users',4600);
+! 
+! 			   // +1 comment //
+! 			   
+! 			   UPDATE $table SET c_last_post=@now, c_count=c_count+1;
+! 
+! 
+! 			*/
+! 
+! 			/* // gauti paskutinius komentuotus darbus
+! 			   SELECT w.id AS id, w.subject, w.submiter AS user_id, w.thumbnail, 
+! 			   		DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, u.username AS username, 
+! 					DATE_FORMAT(w.c_last_post, '%Y.%m.%d %H:%i') as last_post 
+! 				FROM avworks w LEFT JOIN u_users u ON u.id=w.submiter 
+! 				GROUP BY w.id 
+! 				ORDER BY w.c_last_post 
+! 				DESC LIMIT 10;
+! 
+! 			*/
+! 
+! 
+  
+  		    // gales siusti darba tik sekancia diena 
+
+
+
+From nobody at sheep.berlios.de  Sat Jul 26 23:24:45 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:24:45 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,
+	1.22, 1.23
+Message-ID: <20080726212445.6BF2413B417@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv3141/htdocs/darbai/class
+
+Modified Files:
+	darbai.class.php 
+Log Message:
+countas ant id greiciau nei zvaigzdute?
+
+Index: darbai.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai.class.php,v
+retrieving revision 1.22
+retrieving revision 1.23
+diff -C2 -d -r1.22 -r1.23
+*** darbai.class.php	7 Mar 2006 21:16:27 -0000	1.22
+--- darbai.class.php	26 Jul 2008 21:24:43 -0000	1.23
+***************
+*** 436,444 ****
+  
+  		// ar turim darba senesni uz savaite
+! 		$tmp = $this->db->get_array("SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND category_id!=5 AND DATE_SUB(NOW(), INTERVAL 7 DAY) > posted ");
+  		if ($tmp['kiekis'] < 1 ) {
+  
+  			// ar turim tris fotkes senesnes uz savaite
+! 			$tmp = $this->db->get_array("SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND category_id=5 AND DATE_SUB(NOW(), INTERVAL 7 DAY) > posted ");
+  			if ($tmp['kiekis'] < 3 ) return false;
+  		}
+--- 436,444 ----
+  
+  		// ar turim darba senesni uz savaite
+! 		$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND category_id!=5 AND DATE_SUB(NOW(), INTERVAL 7 DAY) > posted ");
+  		if ($tmp['kiekis'] < 1 ) {
+  
+  			// ar turim tris fotkes senesnes uz savaite
+! 			$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND category_id=5 AND DATE_SUB(NOW(), INTERVAL 7 DAY) > posted ");
+  			if ($tmp['kiekis'] < 3 ) return false;
+  		}
+
+
+
+From nobody at sheep.berlios.de  Sat Jul 26 23:25:51 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:25:51 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class
+	darbai_submit.class.php, 1.13, 1.14
+Message-ID: <20080726212551.7133C14B3D4@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv3187/htdocs/darbai/class
+
+Modified Files:
+	darbai_submit.class.php 
+Log Message:
+sorry uiron, bet subfolderius reik permastyti
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.13
+retrieving revision 1.14
+diff -C2 -d -r1.13 -r1.14
+*** darbai_submit.class.php	30 Mar 2006 14:52:55 -0000	1.13
+--- darbai_submit.class.php	26 Jul 2008 21:25:49 -0000	1.14
+***************
+*** 43,53 ****
+  		global  $g_user_id, $g_usr;
+  
+! 		$tmp = $this->db->get_array("SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_ADD(posted, INTERVAL 1 DAY) > NOW()");
+  		if ($tmp['kiekis'] > 2 ) return 'per ?ias 24 valandas jau ?d?jai tris darbus, lauk rytdienos.';
+  
+  		// tiems kurie neturi devyni? darb? senesni? u? savait?
+! 		$tmp = $this->db->get_array("SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_SUB(NOW(), INTERVAL 7 DAY) > posted ");
+  		if ($tmp['kiekis'] < 9 ) {
+! 			$tmp = $this->db->get_array("SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND  DATE_ADD(posted, INTERVAL 18 HOUR) > NOW()");
+  			if ($tmp['kiekis'] > 0 ) return 'per ?ias 18 valand? jau ?d?jai vien? darb?, lauk rytdienos.';
+  		}
+--- 43,53 ----
+  		global  $g_user_id, $g_usr;
+  
+! 		$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_ADD(posted, INTERVAL 1 DAY) > NOW()");
+  		if ($tmp['kiekis'] > 2 ) return 'per ?ias 24 valandas jau ?d?jai tris darbus, lauk rytdienos.';
+  
+  		// tiems kurie neturi devyni? darb? senesni? u? savait?
+! 		$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_SUB(NOW(), INTERVAL 7 DAY) > posted ");
+  		if ($tmp['kiekis'] < 9 ) {
+! 			$tmp = $this->db->get_array("SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND  DATE_ADD(posted, INTERVAL 18 HOUR) > NOW()");
+  			if ($tmp['kiekis'] > 0 ) return 'per ?ias 18 valand? jau ?d?jai vien? darb?, lauk rytdienos.';
+  		}
+***************
+*** 143,148 ****
+  		$work_name = $GLOBALS['work_name'];
+  		$work_size = $GLOBALS['work_size'];
+- 		
+- 		$work_subfolder = date('Y-m').'/';
+  
+  		$work_types = array('gif', 'jpg', 'png', 'swf');
+--- 143,146 ----
+***************
+*** 184,202 ****
+  		// kopijuojam darba!
+  		$work_name = clean_name($work_name);
+! 		$work_dest = $this->ini->read_var('avworks', 'works_dir').$work_subfolder;
+  
+! 		while (file_exists($work_dest.$work_name)) 
+  		{ 
+  			$work_name = "_".$work_name;
+  		}
+- 
+- 		// TODO: antras mkDir parametras - teisiu flagai, po defaultu padarys 777
+- 		if (!is_dir($work_dest) && !mkdir($work_dest)) {
+- 			// einam lauk, jei neturim kur d?ti darbo.
+- 			$this->error .= 'turim problem? i?saugant darb? serveryje, nesusikuria reikiamas folderis.<br>';
+- 			return true;
+- 		}
+- 		
+- 		$work_dest .= $work_name;
+  		
+  		copy($work, $work_dest);
+--- 182,192 ----
+  		// kopijuojam darba!
+  		$work_name = clean_name($work_name);
+! 		$work_dest = $this->ini->read_var('avworks', 'works_dir') . $work_name;
+  
+! 		while (file_exists($work_dest)) 
+  		{ 
+  			$work_name = "_".$work_name;
++ 			$work_dest = $this->ini->read_var('avworks', 'works_dir') . $work_name;
+  		}
+  		
+  		copy($work, $work_dest);
+***************
+*** 209,219 ****
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+! 			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir').$work_subfolder;
+! 			if (!is_dir($thumb_dest) && !mkdir($thumb_dest)) {
+! 				$this->error .= 'turim problem? i?saugant darb? serveryje, nesusikuria reikiamas folderis.<br>';
+! 			}
+! 			$thumb_dest .= $work_name.'.jpg';
+! 
+! 
+  			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -sample ". $this->thumb_x ."x". $this->thumb_y ." $thumbnail jpg:$thumb_dest";
+  			exec($exec_src);
+--- 199,203 ----
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+! 			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+  			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -sample ". $this->thumb_x ."x". $this->thumb_y ." $thumbnail jpg:$thumb_dest";
+  			exec($exec_src);
+***************
+*** 245,254 ****
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+! 			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir').$work_subfolder;
+! 			if (!is_dir($thumb_dest) && !mkdir($thumb_dest)) {
+! 				$this->error .= 'turim problem? i?saugant darb? serveryje, nesusikuria reikiamas folderis.<br>';
+! 			}
+! 			$thumb_dest .= $work_name.'.jpg';
+! 
+  			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -sample ". $this->thumb_x ."x". $this->thumb_y ." $work_dest jpg:$thumb_dest";
+  			exec($exec_src);
+--- 229,233 ----
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+! 			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+  			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -sample ". $this->thumb_x ."x". $this->thumb_y ." $work_dest jpg:$thumb_dest";
+  			exec($exec_src);
+***************
+*** 280,289 ****
+  		}
+  
+- 
+- 		$thumb_subfolder=$work_subfolder;
+  		// jei problemos, dedam default
+  		if ($this->error || empty($thumbnail_name))
+  		{
+- 			$thumb_subfolder='';
+  			$thumbnail_name = 'nothumbnail.gif';
+  		}
+--- 259,265 ----
+***************
+*** 300,304 ****
+  
+  		$this->db->query("INSERT INTO avworks (subject, info, posted, thumbnail, file, submiter, category_id, color, file_size)
+! 							VALUES ('$subject', '$info', NOW(), '$thumb_subfolder$thumbnail_name', '$work_subfolder$work_name', $g_user_id, $category, '$color', $work_size)");
+  
+  		// TODO: update avworks_stat
+--- 276,280 ----
+  
+  		$this->db->query("INSERT INTO avworks (subject, info, posted, thumbnail, file, submiter, category_id, color, file_size)
+! 							VALUES ('$subject', '$info', NOW(), '$thumbnail_name', '$work_name', $g_user_id, $category, '$color', $work_size)");
+  
+  		// TODO: update avworks_stat
+
+
+
+From nobody at sheep.berlios.de  Sat Jul 26 23:27:05 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:27:05 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/users/class login.class.php, 1.16,
+	1.17
+Message-ID: <20080726212705.189AD144C63@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/users/class
+In directory sheep:/tmp/cvs-serv3237/htdocs/users/class
+
+Modified Files:
+	login.class.php 
+Log Message:
+countas ant id greiciau nei zvaigzdute?
+
+Index: login.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/users/class/login.class.php,v
+retrieving revision 1.16
+retrieving revision 1.17
+diff -C2 -d -r1.16 -r1.17
+*** login.class.php	5 Feb 2006 15:34:08 -0000	1.16
+--- login.class.php	26 Jul 2008 21:27:02 -0000	1.17
+***************
+*** 56,60 ****
+  
+  			$this->tpl->set_var('error', $this->error);
+! 			$this->tpl->set_var('url', $GLOBALS['REQUEST_URI']);
+  
+  			$this->tpl->set_file('temp', 'users/tpl/login_form.html');
+--- 56,60 ----
+  
+  			$this->tpl->set_var('error', $this->error);
+! 			$this->tpl->set_var('url', $_SERVER['REQUEST_URI']);
+  
+  			$this->tpl->set_file('temp', 'users/tpl/login_form.html');
+***************
+*** 286,293 ****
+  		if (!$info) redirect('/process.php/page.simple;menuname.nouser');
+  
+! 		$tmp = $this->db->get_array("SELECT COUNT(id) AS count FROM avcomments WHERE user_id='$user'");
+  		$info['comments'] = $tmp['count'];
+  
+! 		$tmp = $this->db->get_array("SELECT COUNT(id) AS count, sum(mark) AS sum_mark FROM avworkvotes WHERE user_id='$user'");
+  		$info['votes'] = $tmp['count'];
+  		$info['sum_mark'] = $tmp['sum_mark'] ? $tmp['sum_mark'] : 0;
+--- 286,293 ----
+  		if (!$info) redirect('/process.php/page.simple;menuname.nouser');
+  
+! 		$tmp = $this->db->get_array("SELECT COUNT(*) AS count FROM avcomments WHERE user_id='$user'");
+  		$info['comments'] = $tmp['count'];
+  
+! 		$tmp = $this->db->get_array("SELECT COUNT(*) AS count, sum(mark) AS sum_mark FROM avworkvotes WHERE user_id='$user'");
+  		$info['votes'] = $tmp['count'];
+  		$info['sum_mark'] = $tmp['sum_mark'] ? $tmp['sum_mark'] : 0;
+***************
+*** 718,720 ****
+  
+  
+! ?>
+--- 718,720 ----
+  
+  
+! ?>
+\ No newline at end of file
+
+
+
+From nobody at sheep.berlios.de  Sat Jul 26 23:33:31 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:33:31 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/news/class news.class.php, 1.3,
+	1.4
+Message-ID: <20080726213331.27C3914A132@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/news/class
+In directory sheep:/tmp/cvs-serv4306/htdocs/news/class
+
+Modified Files:
+	news.class.php 
+Log Message:
+tm optimizuotas selektas
+
+Index: news.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/news/class/news.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** news.class.php	22 Dec 2005 12:11:37 -0000	1.3
+--- news.class.php	26 Jul 2008 21:33:28 -0000	1.4
+***************
+*** 188,192 ****
+  		if ($search) { $where .= " AND (n.subject LIKE '%$search%' OR n.info LIKE '%$search%' OR n.full_text LIKE '%$search%') "; }
+  
+! 		$statement = "SELECT n.id AS id, n.subject AS subject, n.info AS info, n.file AS file, DATE_FORMAT(n.posted, '%Y.%m.%d') AS posted, LENGTH(n.full_text) AS read_more, category_id,
+  			u.id AS user_id, u.username AS username,
+  			nc.name AS category,
+--- 188,192 ----
+  		if ($search) { $where .= " AND (n.subject LIKE '%$search%' OR n.info LIKE '%$search%' OR n.full_text LIKE '%$search%') "; }
+  
+! /*		$statement = "SELECT n.id AS id, n.subject AS subject, n.info AS info, n.file AS file, DATE_FORMAT(n.posted, '%Y.%m.%d') AS posted, LENGTH(n.full_text) AS read_more, category_id,
+  			u.id AS user_id, u.username AS username,
+  			nc.name AS category,
+***************
+*** 197,200 ****
+--- 197,214 ----
+  			ORDER BY n.posted DESC, id DESC 
+  			$limit";
++ */
++ 		// optimizuojam optimizuojam, nemiegam /tm
++ 		$statement = "SELECT n.id AS id, n.subject AS subject, n.info AS info, n.file AS file, DATE_FORMAT(n.posted, '%Y.%m.%d') AS posted, LENGTH(n.full_text) AS read_more, category_id,
++ 			u.id AS user_id, u.username AS username,
++ 			nc.name AS category,
++ 			COUNT(c.id) AS comments
++ 			FROM avnews n 
++ 				LEFT JOIN avcomments c ON (c.table_name='avnews' AND c.parent_id=n.id)
++ 				LEFT JOIN u_users u ON n.submiter=u.id
++ 				LEFT JOIN avnewscategory nc ON n.category_id=nc.id 
++ 			WHERE n.visible=1 $where  
++ 			GROUP BY n.id
++ 			ORDER BY n.posted DESC, id DESC 
++ 			$limit";
+  			
+  		$result = $this->db->cached_select('newslist', $statement, array('avnews', 'avcomments', 'u_users', 'avnewscategory'), 9000);
+***************
+*** 449,451 ****
+  
+  
+! ?>
+--- 463,465 ----
+  
+  
+! ?>
+\ No newline at end of file
+
+
+
+From nobody at sheep.berlios.de  Sat Jul 26 23:39:48 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sat, 26 Jul 2008 23:39:48 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs .cvsignore,NONE,1.1
+Message-ID: <20080726213948.9C8B9147A74@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs
+In directory sheep:/tmp/cvs-serv4946
+
+Added Files:
+	.cvsignore 
+Log Message:
+
+
+--- NEW FILE: .cvsignore ---
+news_files
+
+
+From nobody at sheep.berlios.de  Sun Jul 27 02:14:17 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sun, 27 Jul 2008 02:14:17 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/scripts/sql create_tables.sql,1.4,1.5
+Message-ID: <20080727001417.D749851189@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/scripts/sql
+In directory sheep:/tmp/cvs-serv29611/scripts/sql
+
+Modified Files:
+	create_tables.sql 
+Log Message:
+nauja struktura
+
+Index: create_tables.sql
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/scripts/sql/create_tables.sql,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** create_tables.sql	29 Sep 2004 00:54:19 -0000	1.4
+--- create_tables.sql	27 Jul 2008 00:14:14 -0000	1.5
+***************
+*** 4,14 ****
+  -- 
+  -- Host: localhost
+! -- Generation Time: Sep 24, 2004 at 01:22 AM
+! -- Server version: 4.0.21
+! -- PHP Version: 4.3.8-12
+  -- 
+  -- Database : `artscene`
+  -- 
+- -- $Id$
+  
+  -- --------------------------------------------------------
+--- 4,13 ----
+  -- 
+  -- Host: localhost
+! -- Generation Time: Jul 27, 2008 at 03:11 AM
+! -- Server version: 4.0.27
+! -- PHP Version: 4.4.4-8+etch6
+  -- 
+  -- Database : `artscene`
+  -- 
+  
+  -- --------------------------------------------------------
+***************
+*** 19,23 ****
+  
+  DROP TABLE IF EXISTS `avblock`;
+! CREATE TABLE IF NOT EXISTS `avblock` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(100) NOT NULL default '',
+--- 18,22 ----
+  
+  DROP TABLE IF EXISTS `avblock`;
+! CREATE TABLE `avblock` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(100) NOT NULL default '',
+***************
+*** 36,40 ****
+  
+  DROP TABLE IF EXISTS `avcomments`;
+! CREATE TABLE IF NOT EXISTS `avcomments` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(200) NOT NULL default '',
+--- 35,39 ----
+  
+  DROP TABLE IF EXISTS `avcomments`;
+! CREATE TABLE `avcomments` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(200) NOT NULL default '',
+***************
+*** 48,52 ****
+    KEY `parent_id` (`parent_id`),
+    KEY `table_name` (`table_name`),
+!   KEY `avcomment_double` (`table_name`,`parent_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 47,53 ----
+    KEY `parent_id` (`parent_id`),
+    KEY `table_name` (`table_name`),
+!   KEY `user_id` (`user_id`),
+!   KEY `posted` (`posted`),
+!   KEY `avcomment_double` (`table_name`(3),`parent_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 58,62 ****
+  
+  DROP TABLE IF EXISTS `avfaq`;
+! CREATE TABLE IF NOT EXISTS `avfaq` (
+    `id` int(11) NOT NULL auto_increment,
+    `question` text NOT NULL,
+--- 59,63 ----
+  
+  DROP TABLE IF EXISTS `avfaq`;
+! CREATE TABLE `avfaq` (
+    `id` int(11) NOT NULL auto_increment,
+    `question` text NOT NULL,
+***************
+*** 77,81 ****
+  
+  DROP TABLE IF EXISTS `avnews`;
+! CREATE TABLE IF NOT EXISTS `avnews` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(255) NOT NULL default '',
+--- 78,82 ----
+  
+  DROP TABLE IF EXISTS `avnews`;
+! CREATE TABLE `avnews` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(255) NOT NULL default '',
+***************
+*** 92,96 ****
+    PRIMARY KEY  (`id`),
+    KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 93,99 ----
+    PRIMARY KEY  (`id`),
+    KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`),
+!   KEY `visible` (`visible`),
+!   KEY `tripple` (`visible`,`posted`,`id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 102,106 ****
+  
+  DROP TABLE IF EXISTS `avnewscategory`;
+! CREATE TABLE IF NOT EXISTS `avnewscategory` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+--- 105,109 ----
+  
+  DROP TABLE IF EXISTS `avnewscategory`;
+! CREATE TABLE `avnewscategory` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+***************
+*** 118,122 ****
+  
+  DROP TABLE IF EXISTS `avworkcategory`;
+! CREATE TABLE IF NOT EXISTS `avworkcategory` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+--- 121,125 ----
+  
+  DROP TABLE IF EXISTS `avworkcategory`;
+! CREATE TABLE `avworkcategory` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+***************
+*** 134,138 ****
+  
+  DROP TABLE IF EXISTS `avworks`;
+! CREATE TABLE IF NOT EXISTS `avworks` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(255) NOT NULL default '',
+--- 137,141 ----
+  
+  DROP TABLE IF EXISTS `avworks`;
+! CREATE TABLE `avworks` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(255) NOT NULL default '',
+***************
+*** 147,153 ****
+    `color` varchar(20) NOT NULL default '',
+    `file_size` int(11) NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+    KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 150,215 ----
+    `color` varchar(20) NOT NULL default '',
+    `file_size` int(11) NOT NULL default '0',
++   `c_count` int(11) NOT NULL default '0',
++   `c_last_post` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`),
+    KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`),
+!   KEY `posted` (`posted`),
+!   KEY `c_last_post` (`c_last_post`)
+! ) TYPE=MyISAM PACK_KEYS=1;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `avworks_delete_log`
+! -- 
+! 
+! DROP TABLE IF EXISTS `avworks_delete_log`;
+! CREATE TABLE `avworks_delete_log` (
+!   `id` int(11) unsigned NOT NULL auto_increment,
+!   `admin_id` int(11) unsigned NOT NULL default '0',
+!   `posted` timestamp(14) NOT NULL,
+!   `work_submiter` int(11) NOT NULL default '0',
+!   `work_subject` varchar(255) NOT NULL default '',
+!   `work_posted` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `work_votecount` int(11) NOT NULL default '0',
+!   `work_summark` float NOT NULL default '0',
+!   `work_avgmark` float NOT NULL default '0',
+!   `work_category` int(11) NOT NULL default '0',
+!   PRIMARY KEY  (`id`)
+! ) TYPE=MyISAM;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `avworks_stat`
+! -- 
+! 
+! DROP TABLE IF EXISTS `avworks_stat`;
+! CREATE TABLE `avworks_stat` (
+!   `id` int(11) unsigned NOT NULL auto_increment,
+!   `subject` varchar(255) NOT NULL default '',
+!   `info` text NOT NULL,
+!   `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `thumbnail` varchar(255) NOT NULL default '',
+!   `file` varchar(255) NOT NULL default '',
+!   `submiter` int(11) unsigned NOT NULL default '0',
+!   `category_id` int(11) unsigned NOT NULL default '0',
+!   `views` int(11) unsigned NOT NULL default '0',
+!   `color` varchar(20) NOT NULL default '',
+!   `file_size` int(11) NOT NULL default '0',
+!   `work_id` int(11) unsigned NOT NULL default '0',
+!   `submiter_name` varchar(255) NOT NULL default '',
+!   `category_name` varchar(255) NOT NULL default '',
+!   `vote_count` int(11) NOT NULL default '0',
+!   `vote_sum` int(11) NOT NULL default '0',
+!   `vote_avg` float NOT NULL default '0',
+!   `comment_count` int(11) NOT NULL default '0',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `work_id` (`work_id`),
+!   KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`),
+!   KEY `vote_sum` (`vote_sum`),
+!   KEY `vote_avg` (`vote_avg`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 159,163 ****
+  
+  DROP TABLE IF EXISTS `avworkvotes`;
+! CREATE TABLE IF NOT EXISTS `avworkvotes` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `mark` tinyint(4) NOT NULL default '0',
+--- 221,225 ----
+  
+  DROP TABLE IF EXISTS `avworkvotes`;
+! CREATE TABLE `avworkvotes` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `mark` tinyint(4) NOT NULL default '0',
+***************
+*** 166,170 ****
+    `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`),
+!   KEY `work_id` (`work_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 228,234 ----
+    `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`),
+!   KEY `work_id` (`work_id`),
+!   KEY `user_id` (`user_id`),
+!   KEY `posted` (`posted`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 176,180 ****
+  
+  DROP TABLE IF EXISTS `forum_list`;
+! CREATE TABLE IF NOT EXISTS `forum_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(255) NOT NULL default '',
+--- 240,244 ----
+  
+  DROP TABLE IF EXISTS `forum_list`;
+! CREATE TABLE `forum_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(255) NOT NULL default '',
+***************
+*** 191,195 ****
+  
+  DROP TABLE IF EXISTS `forum_post_list`;
+! CREATE TABLE IF NOT EXISTS `forum_post_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `thread_id` int(11) NOT NULL default '0',
+--- 255,259 ----
+  
+  DROP TABLE IF EXISTS `forum_post_list`;
+! CREATE TABLE `forum_post_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `thread_id` int(11) NOT NULL default '0',
+***************
+*** 210,214 ****
+  
+  DROP TABLE IF EXISTS `forum_thread_list`;
+! CREATE TABLE IF NOT EXISTS `forum_thread_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `forum_id` int(11) NOT NULL default '0',
+--- 274,278 ----
+  
+  DROP TABLE IF EXISTS `forum_thread_list`;
+! CREATE TABLE `forum_thread_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `forum_id` int(11) NOT NULL default '0',
+***************
+*** 218,221 ****
+--- 282,286 ----
+    `created_on` datetime NOT NULL default '0000-00-00 00:00:00',
+    `sticky` enum('Y','N') NOT NULL default 'N',
++   `vip` tinyint(1) NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+    KEY `forum_id` (`forum_id`),
+***************
+*** 230,234 ****
+  
+  DROP TABLE IF EXISTS `hirez`;
+! CREATE TABLE IF NOT EXISTS `hirez` (
+    `filename` varchar(60) NOT NULL default '',
+    `thumbnail` varchar(60) NOT NULL default '',
+--- 295,299 ----
+  
+  DROP TABLE IF EXISTS `hirez`;
+! CREATE TABLE `hirez` (
+    `filename` varchar(60) NOT NULL default '',
+    `thumbnail` varchar(60) NOT NULL default '',
+***************
+*** 251,255 ****
+  
+  DROP TABLE IF EXISTS `hirez_talk`;
+! CREATE TABLE IF NOT EXISTS `hirez_talk` (
+    `author` varchar(60) NOT NULL default '',
+    `email` varchar(60) default NULL,
+--- 316,320 ----
+  
+  DROP TABLE IF EXISTS `hirez_talk`;
+! CREATE TABLE `hirez_talk` (
+    `author` varchar(60) NOT NULL default '',
+    `email` varchar(60) default NULL,
+***************
+*** 259,263 ****
+    `id` int(10) unsigned NOT NULL auto_increment,
+    PRIMARY KEY  (`id`),
+!   KEY `hid` (`hid`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 324,329 ----
+    `id` int(10) unsigned NOT NULL auto_increment,
+    PRIMARY KEY  (`id`),
+!   KEY `hid` (`hid`),
+!   KEY `hid_id` (`hid`,`id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 265,289 ****
+  
+  -- 
+- -- Table structure for table `languages`
+- -- 
+- 
+- DROP TABLE IF EXISTS `languages`;
+- CREATE TABLE IF NOT EXISTS `languages` (
+-   `id` tinyint(4) NOT NULL auto_increment,
+-   `name` varchar(4) NOT NULL default '',
+-   `lang_name` varchar(255) NOT NULL default '',
+-   PRIMARY KEY  (`id`),
+-   UNIQUE KEY `id` (`id`),
+-   KEY `id_2` (`id`)
+- ) TYPE=ISAM PACK_KEYS=1;
+- 
+- -- --------------------------------------------------------
+- 
+- -- 
+  -- Table structure for table `menuitem`
+  -- 
+  
+  DROP TABLE IF EXISTS `menuitem`;
+! CREATE TABLE IF NOT EXISTS `menuitem` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(255) NOT NULL default '',
+--- 331,339 ----
+  
+  -- 
+  -- Table structure for table `menuitem`
+  -- 
+  
+  DROP TABLE IF EXISTS `menuitem`;
+! CREATE TABLE `menuitem` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(255) NOT NULL default '',
+***************
+*** 306,374 ****
+  
+  -- 
+! -- Table structure for table `polls`
+! -- 
+! 
+! DROP TABLE IF EXISTS `polls`;
+! CREATE TABLE IF NOT EXISTS `polls` (
+!   `id` int(11) NOT NULL auto_increment,
+!   `name` varchar(255) NOT NULL default '',
+!   `posted` date NOT NULL default '0000-00-00',
+!   `lang_id` tinyint(4) NOT NULL default '0',
+!   `file` varchar(255) NOT NULL default '',
+!   `visible` tinyint(4) NOT NULL default '0',
+!   `lastip` varchar(30) NOT NULL default '',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `id` (`id`),
+!   KEY `id_2` (`id`)
+! ) TYPE=ISAM PACK_KEYS=1;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `polls_answers`
+! -- 
+! 
+! DROP TABLE IF EXISTS `polls_answers`;
+! CREATE TABLE IF NOT EXISTS `polls_answers` (
+!   `id` int(11) NOT NULL auto_increment,
+!   `quid` int(11) NOT NULL default '0',
+!   `name` varchar(255) NOT NULL default '',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `id` (`id`),
+!   KEY `id_2` (`id`)
+! ) TYPE=ISAM PACK_KEYS=1;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `polls_questions`
+! -- 
+! 
+! DROP TABLE IF EXISTS `polls_questions`;
+! CREATE TABLE IF NOT EXISTS `polls_questions` (
+!   `id` int(11) NOT NULL auto_increment,
+!   `poll_id` int(11) NOT NULL default '0',
+!   `name` varchar(255) NOT NULL default '',
+!   `sort` tinyint(4) NOT NULL default '0',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `id` (`id`),
+!   KEY `id_2` (`id`)
+! ) TYPE=ISAM PACK_KEYS=1;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `polls_votes`
+  -- 
+  
+! DROP TABLE IF EXISTS `polls_votes`;
+! CREATE TABLE IF NOT EXISTS `polls_votes` (
+!   `id` int(11) NOT NULL auto_increment,
+!   `uin` varchar(32) NOT NULL default '',
+!   `answer` int(11) NOT NULL default '0',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `id` (`id`),
+!   KEY `id_2` (`id`)
+! ) TYPE=ISAM PACK_KEYS=1;
+  
+  -- --------------------------------------------------------
+--- 356,374 ----
+  
+  -- 
+! -- Table structure for table `puko_comments`
+  -- 
+  
+! DROP TABLE IF EXISTS `puko_comments`;
+! CREATE TABLE `puko_comments` (
+!   `id` int(10) unsigned NOT NULL auto_increment,
+!   `subject` varchar(200) NOT NULL default '',
+!   `info` text NOT NULL,
+!   `name` varchar(100) NOT NULL default '',
+!   `email` varchar(100) NOT NULL default '',
+!   `ip` varchar(40) NOT NULL default '',
+!   `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `pid` int(10) unsigned NOT NULL default '0',
+!   PRIMARY KEY  (`id`)
+! ) TYPE=MyISAM;
+  
+  -- --------------------------------------------------------
+***************
+*** 379,383 ****
+  
+  DROP TABLE IF EXISTS `u_group`;
+! CREATE TABLE IF NOT EXISTS `u_group` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+--- 379,383 ----
+  
+  DROP TABLE IF EXISTS `u_group`;
+! CREATE TABLE `u_group` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+***************
+*** 394,398 ****
+  
+  DROP TABLE IF EXISTS `u_module`;
+! CREATE TABLE IF NOT EXISTS `u_module` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+--- 394,398 ----
+  
+  DROP TABLE IF EXISTS `u_module`;
+! CREATE TABLE `u_module` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+***************
+*** 408,412 ****
+  
+  DROP TABLE IF EXISTS `u_permission`;
+! CREATE TABLE IF NOT EXISTS `u_permission` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+--- 408,412 ----
+  
+  DROP TABLE IF EXISTS `u_permission`;
+! CREATE TABLE `u_permission` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+***************
+*** 423,427 ****
+  
+  DROP TABLE IF EXISTS `u_permission_link`;
+! CREATE TABLE IF NOT EXISTS `u_permission_link` (
+    `id` int(11) NOT NULL auto_increment,
+    `group_id` int(11) NOT NULL default '0',
+--- 423,427 ----
+  
+  DROP TABLE IF EXISTS `u_permission_link`;
+! CREATE TABLE `u_permission_link` (
+    `id` int(11) NOT NULL auto_increment,
+    `group_id` int(11) NOT NULL default '0',
+***************
+*** 437,441 ****
+  
+  DROP TABLE IF EXISTS `u_query_cache`;
+! CREATE TABLE IF NOT EXISTS `u_query_cache` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+--- 437,441 ----
+  
+  DROP TABLE IF EXISTS `u_query_cache`;
+! CREATE TABLE `u_query_cache` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+***************
+*** 454,458 ****
+  
+  DROP TABLE IF EXISTS `u_session`;
+! CREATE TABLE IF NOT EXISTS `u_session` (
+    `id` varchar(20) NOT NULL default '',
+    `LastAction` int(10) NOT NULL default '0',
+--- 454,458 ----
+  
+  DROP TABLE IF EXISTS `u_session`;
+! CREATE TABLE `u_session` (
+    `id` varchar(20) NOT NULL default '',
+    `LastAction` int(10) NOT NULL default '0',
+***************
+*** 470,474 ****
+  
+  DROP TABLE IF EXISTS `u_session_vars`;
+! CREATE TABLE IF NOT EXISTS `u_session_vars` (
+    `name` varchar(30) NOT NULL default '',
+    `session` varchar(20) NOT NULL default '',
+--- 470,474 ----
+  
+  DROP TABLE IF EXISTS `u_session_vars`;
+! CREATE TABLE `u_session_vars` (
+    `name` varchar(30) NOT NULL default '',
+    `session` varchar(20) NOT NULL default '',
+***************
+*** 483,509 ****
+  
+  -- 
+- -- Table structure for table `u_usage`
+- -- 
+- 
+- DROP TABLE IF EXISTS `u_usage`;
+- CREATE TABLE IF NOT EXISTS `u_usage` (
+-   `id` int(11) unsigned NOT NULL auto_increment,
+-   `timehit` timestamp(14) NOT NULL,
+-   `ip` char(30) NOT NULL default '',
+-   `user` char(40) NOT NULL default '',
+-   `agent` char(100) NOT NULL default '',
+-   `page` char(255) NOT NULL default '',
+-   `referrer` char(255) NOT NULL default '',
+-   PRIMARY KEY  (`id`)
+- ) TYPE=ISAM PACK_KEYS=1;
+- 
+- -- --------------------------------------------------------
+- 
+- -- 
+  -- Table structure for table `u_user_info`
+  -- 
+  
+  DROP TABLE IF EXISTS `u_user_info`;
+! CREATE TABLE IF NOT EXISTS `u_user_info` (
+    `id` int(11) NOT NULL auto_increment,
+    `uid` int(11) NOT NULL default '0',
+--- 483,491 ----
+  
+  -- 
+  -- Table structure for table `u_user_info`
+  -- 
+  
+  DROP TABLE IF EXISTS `u_user_info`;
+! CREATE TABLE `u_user_info` (
+    `id` int(11) NOT NULL auto_increment,
+    `uid` int(11) NOT NULL default '0',
+***************
+*** 527,531 ****
+  
+  DROP TABLE IF EXISTS `u_user_log`;
+! CREATE TABLE IF NOT EXISTS `u_user_log` (
+    `id` int(11) NOT NULL auto_increment,
+    `username` varchar(255) NOT NULL default '',
+--- 509,513 ----
+  
+  DROP TABLE IF EXISTS `u_user_log`;
+! CREATE TABLE `u_user_log` (
+    `id` int(11) NOT NULL auto_increment,
+    `username` varchar(255) NOT NULL default '',
+***************
+*** 544,548 ****
+  
+  DROP TABLE IF EXISTS `u_users`;
+! CREATE TABLE IF NOT EXISTS `u_users` (
+    `id` int(11) NOT NULL auto_increment,
+    `username` varchar(25) NOT NULL default '',
+--- 526,530 ----
+  
+  DROP TABLE IF EXISTS `u_users`;
+! CREATE TABLE `u_users` (
+    `id` int(11) NOT NULL auto_increment,
+    `username` varchar(25) NOT NULL default '',
+***************
+*** 555,586 ****
+    `forgotten_pass` varchar(40) NOT NULL default '',
+    `auto_login` varchar(40) NOT NULL default '',
+!   PRIMARY KEY  (`id`)
+! ) TYPE=MyISAM PACK_KEYS=1;
+! 
+! 
+! CREATE TABLE `avworks_stat` (
+!   `id` int(11) unsigned NOT NULL auto_increment,
+!   `subject` varchar(255) NOT NULL default '',
+!   `info` text NOT NULL,
+!   `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `thumbnail` varchar(255) NOT NULL default '',
+!   `file` varchar(255) NOT NULL default '',
+!   `submiter` int(11) unsigned NOT NULL default '0',
+!   `category_id` int(11) unsigned NOT NULL default '0',
+!   `views` int(11) unsigned NOT NULL default '0',
+!   `color` varchar(20) NOT NULL default '',
+!   `file_size` int(11) NOT NULL default '0',
+!   `work_id` int(11) unsigned NOT NULL default '0',
+!   `submiter_name` varchar(255) NOT NULL default '',
+!   `category_name` varchar(255) NOT NULL default '',
+!   `vote_count` int(11) NOT NULL default '0',
+!   `vote_sum` int(11) NOT NULL default '0',
+!   `vote_avg` float NOT NULL default '0',
+!   `comment_count` int(11) NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+!   UNIQUE KEY `work_id` (`work_id`),
+!   KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`),
+!   KEY `vote_sum` (`vote_sum`),
+!   KEY `vote_avg` (`vote_avg`)
+! ) TYPE=MyISAM PACK_KEYS=1 AUTO_INCREMENT=1;
+\ No newline at end of file
+--- 537,547 ----
+    `forgotten_pass` varchar(40) NOT NULL default '',
+    `auto_login` varchar(40) NOT NULL default '',
+!   `may_send_work_after` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `may_comment_after` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `del_works_admin` int(11) NOT NULL default '0',
+!   `del_works_system` int(11) NOT NULL default '0',
+!   `c_count` int(11) NOT NULL default '0',
+!   `c_last_post` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`),
+!   KEY `c_last_post` (`c_last_post`)
+! ) TYPE=MyISAM PACK_KEYS=1;
+
+
+
+From nobody at sheep.berlios.de  Sun Jul 27 15:56:57 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sun, 27 Jul 2008 15:56:57 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/forum/tpl fresh_list.html, 1.4,
+	1.5
+Message-ID: <20080727135657.8E6F0149856@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl
+In directory sheep:/tmp/cvs-serv2398/htdocs/forum/tpl
+
+Modified Files:
+	fresh_list.html 
+Log Message:
+paboldinau pavadinima, nes nepastebi
+
+Index: fresh_list.html
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/forum/tpl/fresh_list.html,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** fresh_list.html	22 Dec 2007 21:49:05 -0000	1.4
+--- fresh_list.html	27 Jul 2008 13:56:55 -0000	1.5
+***************
+*** 8,12 ****
+  <br>
+  
+! <a href="page.simple;menuname.freshworks">?vie?iai komentuoti darbai</a>
+  
+  <block name="cvs_version">$Id$</block name="cvs_version">
+--- 8,12 ----
+  <br>
+  
+! <a class="news-title" href="page.simple;menuname.freshworks">?vie?iai komentuoti darbai ...</a>
+  
+  <block name="cvs_version">$Id$</block name="cvs_version">
+
+
+
+From nobody at sheep.berlios.de  Sun Jul 27 19:54:24 2008
+From: nobody at sheep.berlios.de (lthnnpwr)
+Date: Sun, 27 Jul 2008 19:54:24 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/darbai/class
+	darbai_submit.class.php, 1.14, 1.15
+Message-ID: <20080727175424.E867153BFB@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv22425
+
+Modified Files:
+	darbai_submit.class.php 
+Log Message:
+convert_exec parametr? -sample kei?iu ? -resize - taip gauname geresn?s kokyb?s thumbs'us, ne 'kapotus'.
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.14
+retrieving revision 1.15
+diff -C2 -d -r1.14 -r1.15
+*** darbai_submit.class.php	26 Jul 2008 21:25:49 -0000	1.14
+--- darbai_submit.class.php	27 Jul 2008 17:54:22 -0000	1.15
+***************
+*** 230,234 ****
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+  			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+! 			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -sample ". $this->thumb_x ."x". $this->thumb_y ." $work_dest jpg:$thumb_dest";
+  			exec($exec_src);
+  
+--- 230,234 ----
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+  			$thumb_dest = $this->ini->read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+! 			$exec_src = $this->ini->read_var('avworks', 'convert_exec') ." -resize ". $this->thumb_x ."x". $this->thumb_y ." $work_dest jpg:$thumb_dest";
+  			exec($exec_src);
+  
+
+
+
+From nobody at sheep.berlios.de  Sun Jul 27 23:12:06 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sun, 27 Jul 2008 23:12:06 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/scripts hirez_name_browse.php,
+	1.1, 1.2 hirez_browse.php, 1.1, 1.2
+Message-ID: <20080727211206.A41D0135DFA@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/scripts
+In directory sheep:/tmp/cvs-serv17089/htdocs/scripts
+
+Modified Files:
+	hirez_name_browse.php hirez_browse.php 
+Log Message:
+jau milijona metu ner komentaru veikianciu
+
+Index: hirez_name_browse.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/scripts/hirez_name_browse.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1 -r1.2
+*** hirez_name_browse.php	6 Aug 2006 16:47:53 -0000	1.1
+--- hirez_name_browse.php	27 Jul 2008 21:12:04 -0000	1.2
+***************
+*** 134,168 ****
+   if (!$i) {echo "?i?rov? atsiliepim? dar n?ra <br><br>";}
+  ?>
+- Tavo komentaras:
+- <table cellspacing="0" cellpadding="0" border="0"><tr><td bgcolor="#A6A090"><!--baltas krastas-->
+- <table width="100%" cellspacing="1" border="0"><tr><td  bgcolor="#2C2B2A">
+-   <form method=POST action="submit_hirez_talk.php" enctype="multipart/form-data">
+-   <?        
+-       echo "<input type=hidden name=iid value=$iid>";
+- 	  echo "<input type=hidden name=pname value=\"".$info["name"]."\">";
+- 	  echo "<input type=hidden name=pmail value=\"".$pimail."\">";
+-   ?>
+- <table>
+- <tr>
+- 	<td align="RIGHT"><span class="text">*vardas/nikas:</span><br></td>
+- 	<td><input type=text name=realname size=50></td>
+- </tr>
+- <tr>
+- 	<td align="RIGHT"><span class="text">emailas:</span></td>
+- 	<td><input type=text name=email size=50></td>
+- </tr>
+- 
+- </table>
+  
+-   
+-       
+-      <span class="text"> *komentaras:<br>
+-       <div align="right"><textarea name=comment COLS=60 ROWS=6></textarea><br><br></div>
+- 	  	  
+-       <div align="right"> <input type=submit value="si?sti">  <input type=reset value="i?trinti"></div>
+- </span>
+-     </form>
+- </td></tr></table>
+- </td></tr></table>
+  <br>
+  <?
+--- 134,138 ----
+
+Index: hirez_browse.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/scripts/hirez_browse.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1 -r1.2
+*** hirez_browse.php	6 Aug 2006 16:47:53 -0000	1.1
+--- hirez_browse.php	27 Jul 2008 21:12:04 -0000	1.2
+***************
+*** 128,161 ****
+  ?>
+  
+- <table cellspacing="0" cellpadding="0" border="0"><tr><td bgcolor="#A6A090"><!--baltas krastas-->
+- <table width="100%" cellspacing="1" border="0"><tr><td  bgcolor="#2C2B2A">
+-   <form method=POST action="submit_hirez_talk.php" enctype="multipart/form-data">
+-   <?        
+-       echo "<input type=hidden name=iid value=$iid>";
+- 	  echo "<input type=hidden name=pname value=\"".$info["name"]."\">";
+- 	  echo "<input type=hidden name=pmail value=\"".$pimail."\">";
+-   ?>
+- <table>
+- <tr>
+- 	<td align="RIGHT"><span class="text">*vardas/nikas:</span><br></td>
+- 	<td><input type=text name=realname size=50></td>
+- </tr>
+- <tr>
+- 	<td align="RIGHT"><span class="text">emailas:</span></td>
+- 	<td><input type=text name=email size=50></td>
+- </tr>
+- 
+- </table>
+  
+-   
+-       
+-      <span class="text"> *komentaras:<br>
+-       <div align="right"><textarea name=comment COLS=60 ROWS=6></textarea><br><br></div>
+- 	  	  
+-       <div align="right"> <input type=submit value="si?sti">  <input type=reset value="i?trinti"></div>
+- </span>
+-     </form>
+- </td></tr></table>
+- </td></tr></table>
+  <br>
+  <?
+--- 128,132 ----
+
+
+
+From nobody at sheep.berlios.de  Sun Jul 27 23:14:43 2008
+From: nobody at sheep.berlios.de (pukomuko)
+Date: Sun, 27 Jul 2008 23:14:43 +0200 (CEST)
+Subject: [artscene-cvs] art.scene.v2/htdocs/scripts hirez_name_browse.php,
+	1.2, 1.3
+Message-ID: <20080727211443.9C678149AF0@mail.berlios.de>
+
+Update of /cvsroot/artscene/art.scene.v2/htdocs/scripts
+In directory sheep:/tmp/cvs-serv17378/htdocs/scripts
+
+Modified Files:
+	hirez_name_browse.php 
+Log Message:
+o, neveikiantis linkas
+
+Index: hirez_name_browse.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/scripts/hirez_name_browse.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C2 -d -r1.2 -r1.3
+*** hirez_name_browse.php	27 Jul 2008 21:12:04 -0000	1.2
+--- hirez_name_browse.php	27 Jul 2008 21:14:41 -0000	1.3
+***************
+*** 64,68 ****
+      
+  ?>
+! <a href="/i_galerija.html">galerija</a><br>
+  <br>
+  
+--- 64,68 ----
+      
+  ?>
+! <a href="/i_galerija.php">galerija</a><br>
+  <br>
+  
+
+
+

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.3, 1.4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_list.class.php%2C%201.3%2C%201.4&In-Reply-To=%3C20071221232457.6FB5E110362%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000002.html">
+   <LINK REL="Next"  HREF="000004.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.3, 1.4</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_list.class.php%2C%201.3%2C%201.4&In-Reply-To=%3C20071221232457.6FB5E110362%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.3, 1.4">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Dec 22 00:24:57 CET 2007</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000002.html">[artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.3,1.4
+</A></li>
+        <LI>Next message: <A HREF="000004.html">[artscene-cvs] art.scene.v2/htdocs site.ini.php,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv32275/htdocs/darbai/class
+
+Modified Files:
+	darbai_list.class.php 
+Log Message:
+tadas zelionis pakeite selektus
+kad butu greitesni
+
+Index: darbai_list.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_list.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** darbai_list.class.php	5 Oct 2004 13:40:25 -0000	1.3
+--- darbai_list.class.php	21 Dec 2007 23:23:46 -0000	1.4
+***************
+*** 44,48 ****
+  	function get_top($limit = 4)
+  	{
+! 		$statement = &quot;SELECT COUNT(v.id) AS vcount, SUM(v.mark) AS summark, AVG(v.mark) AS avgmark,
+  			w.id AS id, subject, w.submiter AS user_id, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted,  u.username AS username, wc.name AS category, category_id, thumbnail
+  			FROM avworkvotes v, avworks w, u_users u, avworkcategory wc
+--- 44,48 ----
+  	function get_top($limit = 4)
+  	{
+! /*		$statement = &quot;SELECT COUNT(v.id) AS vcount, SUM(v.mark) AS summark, AVG(v.mark) AS avgmark,
+  			w.id AS id, subject, w.submiter AS user_id, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted,  u.username AS username, wc.name AS category, category_id, thumbnail
+  			FROM avworkvotes v, avworks w, u_users u, avworkcategory wc
+***************
+*** 53,56 ****
+--- 53,71 ----
+  			LIMIT $limit
+  		&quot;;
++ */
++ 		// plusam plusam optimizuojam /tm
++ 		$statement = &quot;SELECT COUNT(v.id) AS vcount, SUM(v.mark) AS summark, AVG(v.mark) AS avgmark,
++ 				w.id AS id, subject, w.submiter AS user_id, 
++ 				DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, 
++ 				u.username AS username, wc.name AS category, category_id, thumbnail
++ 			FROM avworkvotes v
++ 				LEFT JOIN avworks w ON v.work_id=w.id 
++ 				LEFT JOIN u_users u ON u.id=w.submiter
++ 				LEFT JOIN avworkcategory wc ON w.category_id=wc.id
++ 			WHERE DATE_SUB( NOW(), INTERVAL 7 DAY ) &lt; v.posted
++ 			GROUP BY w.id
++ 			ORDER BY summark DESC, avgmark DESC, w.score DESC
++ 			LIMIT $limit
++ 		&quot;;
+  		
+  		$result = $this-&gt;db-&gt;cached_select('top', $statement, array('avworkvotes', 'avworks', 'u_users', 'avworkcategory'), 12000);
+***************
+*** 136,146 ****
+  	function get_fresh_works($count)
+  	{
+! 		$sql = &quot;SELECT w.id AS id, w.subject, w.submiter AS user_id, w.thumbnail, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, u.username AS username, DATE_FORMAT(max(c.posted), '%Y.%m.%d %H:%i') as last_post
+  			FROM avcomments c, avworks w, u_users u
+  			WHERE c.table_name='avworks' AND w.id=c.parent_id AND w.submiter=u.id
+  			GROUP BY w.id
+  			ORDER BY last_post DESC 
+  			LIMIT $count&quot;;
+  
+  		return $this-&gt;db-&gt;cached_select('comments', $sql, array('avworks', 'u_users','avcomments'), 6000);
+  	}
+--- 151,171 ----
+  	function get_fresh_works($count)
+  	{
+! /*		$sql = &quot;SELECT w.id AS id, w.subject, w.submiter AS user_id, w.thumbnail, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, u.username AS username, DATE_FORMAT(max(c.posted), '%Y.%m.%d %H:%i') as last_post
+  			FROM avcomments c, avworks w, u_users u
+  			WHERE c.table_name='avworks' AND w.id=c.parent_id AND w.submiter=u.id
+  			GROUP BY w.id
+  			ORDER BY last_post DESC 
++ 			LIMIT $count&quot;; */
++ 		// optimizuojam optimizuojam, nemiegam /tm
++ 		$sql = &quot;SELECT w.id AS id, w.subject, w.submiter AS user_id, w.thumbnail, DATE_FORMAT(w.posted, '%Y.%m.%d') AS posted, u.username AS username, DATE_FORMAT(max(c.posted), '%Y.%m.%d %H:%i') as last_post
++ 			FROM avcomments c
++ 				RIGHT JOIN avworks w ON c.parent_id=w.id AND c.table_name='avworks'
++ 				LEFT JOIN u_users u ON u.id=w.submiter
++ 			GROUP BY w.id
++ 			ORDER BY last_post DESC 
+  			LIMIT $count&quot;;
+  
++ 
++ 
+  		return $this-&gt;db-&gt;cached_select('comments', $sql, array('avworks', 'u_users','avcomments'), 6000);
+  	}
+***************
+*** 160,162 ****
+  }
+  
+! ?&gt;
+\ No newline at end of file
+--- 185,187 ----
+  }
+  
+! ?&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000002.html">[artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.3,1.4
+</A></li>
+	<LI>Next message: <A HREF="000004.html">[artscene-cvs] art.scene.v2/htdocs site.ini.php,1.2,1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#3">[ date ]</a>
+              <a href="thread.html#3">[ thread ]</a>
+              <a href="subject.html#3">[ subject ]</a>
+              <a href="author.html#3">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

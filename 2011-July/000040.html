@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/core avuser.class.php, 1.4,	1.5 averror.class.php, 1.5, 1.6 avnavigator.class.php, 1.1,	1.2 avini.class.php, 1.3, 1.4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/core%20avuser.class.php%2C%201.4%2C%0A%091.5%20averror.class.php%2C%201.5%2C%201.6%20avnavigator.class.php%2C%201.1%2C%0A%091.2%20avini.class.php%2C%201.3%2C%201.4&In-Reply-To=%3C20110704210051.6116B48338C%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000039.html">
+   <LINK REL="Next"  HREF="000041.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/core avuser.class.php, 1.4,	1.5 averror.class.php, 1.5, 1.6 avnavigator.class.php, 1.1,	1.2 avini.class.php, 1.3, 1.4</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/core%20avuser.class.php%2C%201.4%2C%0A%091.5%20averror.class.php%2C%201.5%2C%201.6%20avnavigator.class.php%2C%201.1%2C%0A%091.2%20avini.class.php%2C%201.3%2C%201.4&In-Reply-To=%3C20110704210051.6116B48338C%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/core avuser.class.php, 1.4,	1.5 averror.class.php, 1.5, 1.6 avnavigator.class.php, 1.1,	1.2 avini.class.php, 1.3, 1.4">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 23:00:51 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000039.html">[artscene-cvs] art.scene.v2/htdocs/faq/class faq.class.php, 1.2,	1.3 avfaq.class.php, 1.1, 1.2
+</A></li>
+        <LI>Next message: <A HREF="000041.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.19, 1.20
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#40">[ date ]</a>
+              <a href="thread.html#40">[ thread ]</a>
+              <a href="subject.html#40">[ subject ]</a>
+              <a href="author.html#40">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/core
+In directory sheep:/tmp/cvs-serv31643/htdocs/core
+
+Modified Files:
+	avuser.class.php averror.class.php avnavigator.class.php 
+	avini.class.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: avuser.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/avuser.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C 2 -d -r1.4 -r1.5
+*** avuser.class.php	5 Feb 2006 15:28:18 -0000	1.4
+--- avuser.class.php	4 Jul 2011 21:00:49 -0000	1.5
+***************
+*** 133,137 ****
+  			
+  			//Inserted to logging users who logins into administrator site
+! 			$sql = &quot;INSERT INTO u_user_log (username,logindate,host,browser) VALUES ('{$tmp['username']}',NOW(),'{$host}','{$GLOBALS['HTTP_USER_AGENT']}')&quot;;
+  			$this-&gt;db-&gt;query($sql);			
+  			
+--- 133,137 ----
+  			
+  			//Inserted to logging users who logins into administrator site
+! 			$sql = &quot;INSERT INTO u_user_log (username,logindate,host,browser) VALUES ('{$tmp['username']}',NOW(),'{$host}','{$_SERVER['HTTP_USER_AGENT']}')&quot;;
+  			$this-&gt;db-&gt;query($sql);			
+  			
+***************
+*** 178,182 ****
+  			
+  			//Inserted to logging users who logins into administrator site
+! 			$sql = &quot;INSERT INTO u_user_log (username,logindate,host,browser) VALUES ('{$tmp['username']}',NOW(),'[auto]$host','{$GLOBALS['HTTP_USER_AGENT']}')&quot;;
+  			$this-&gt;db-&gt;query($sql);			
+  			
+--- 178,182 ----
+  			
+  			//Inserted to logging users who logins into administrator site
+! 			$sql = &quot;INSERT INTO u_user_log (username,logindate,host,browser) VALUES ('{$tmp['username']}',NOW(),'[auto]$host','{$_SERVER['HTTP_USER_AGENT']}')&quot;;
+  			$this-&gt;db-&gt;query($sql);			
+  			
+***************
+*** 196,205 ****
+  	function get_info($id)
+  	{
+  		
+  		if (!$id) { return false; }
+  		$this-&gt;db-&gt;query(&quot;SELECT *, 
+!               DATE_FORMAT(lastlogin, '$GLOBALS[SQL_DATE_FORMAT_LONG]') AS lastlogin,
+! 		          DATE_FORMAT(may_comment_after, '$GLOBALS[SQL_DATE_FORMAT_SHORT]') AS may_comment_after,
+! 		          DATE_FORMAT(may_send_work_after, '$GLOBALS[SQL_DATE_FORMAT_SHORT]') AS may_send_work_after
+  							FROM $this-&gt;table_name 
+  							WHERE id='$id'&quot;);
+--- 196,206 ----
+  	function get_info($id)
+  	{
++ 		global $SQL_DATE_FORMAT_LONG, $SQL_DATE_FORMAT_SHORT;
+  		
+  		if (!$id) { return false; }
+  		$this-&gt;db-&gt;query(&quot;SELECT *, 
+!               DATE_FORMAT(lastlogin, '$SQL_DATE_FORMAT_LONG') AS lastlogin,
+! 		          DATE_FORMAT(may_comment_after, '$SQL_DATE_FORMAT_SHORT') AS may_comment_after,
+! 		          DATE_FORMAT(may_send_work_after, '$SQL_DATE_FORMAT_SHORT') AS may_send_work_after
+  							FROM $this-&gt;table_name 
+  							WHERE id='$id'&quot;);
+***************
+*** 214,223 ****
+  	function get_user_info($id = false)
+  	{
+  		
+  		if (!$id) { $id = $this-&gt;id; }
+! 		$this-&gt;db-&gt;query(&quot;SELECT *, DATE_FORMAT(reg_date, '$GLOBALS[SQL_DATE_FORMAT_LONG]') AS reg_date, 
+!               DATE_FORMAT(lastlogin, '$GLOBALS[SQL_DATE_FORMAT_LONG]') AS lastlogin,
+! 		          DATE_FORMAT(may_comment_after, '$GLOBALS[SQL_DATE_FORMAT_SHORT]') AS may_comment_after,
+! 		          DATE_FORMAT(may_send_work_after, '$GLOBALS[SQL_DATE_FORMAT_SHORT]') AS may_send_work_after
+  							FROM u_user_info, $this-&gt;table_name u
+  							WHERE uid='$id' AND u.id='$id'&quot;);
+--- 215,225 ----
+  	function get_user_info($id = false)
+  	{
++ 		global $SQL_DATE_FORMAT_LONG, $SQL_DATE_FORMAT_SHORT;
+  		
+  		if (!$id) { $id = $this-&gt;id; }
+! 		$this-&gt;db-&gt;query(&quot;SELECT *, DATE_FORMAT(reg_date, '$SQL_DATE_FORMAT_LONG') AS reg_date, 
+!               DATE_FORMAT(lastlogin, '$SQL_DATE_FORMAT_LONG') AS lastlogin,
+! 		          DATE_FORMAT(may_comment_after, '$SQL_DATE_FORMAT_SHORT') AS may_comment_after,
+! 		          DATE_FORMAT(may_send_work_after, '$SQL_DATE_FORMAT_SHORT') AS may_send_work_after
+  							FROM u_user_info, $this-&gt;table_name u
+  							WHERE uid='$id' AND u.id='$id'&quot;);
+
+Index: averror.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/averror.class.php,v
+retrieving revision 1.5
+retrieving revision 1.6
+diff -C 2 -d -r1.5 -r1.6
+*** averror.class.php	26 Jul 2008 21:08:11 -0000	1.5
+--- averror.class.php	4 Jul 2011 21:00:49 -0000	1.6
+***************
+*** 83,86 ****
+--- 83,89 ----
+  	&lt;br&gt;&lt;br&gt;&quot;;
+  
++ 	// echo $text;
++ 	// debug_print_backtrace();	
++ 
+  	if (isset($GLOBALS['bench'])) { echo $text; }
+  	else { 
+
+Index: avini.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/avini.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C 2 -d -r1.3 -r1.4
+*** avini.class.php	26 Nov 2005 16:18:29 -0000	1.3
+--- avini.class.php	4 Jul 2011 21:00:49 -0000	1.4
+***************
+*** 118,122 ****
+          $this-&gt;GROUPS=array();
+          $contents = fread($fp, filesize($inifilename)); 
+!         $ini_data = split( &quot;\n&quot;,$contents); 
+           
+          while( list($key, $data) = each($ini_data) ) 
+--- 118,122 ----
+          $this-&gt;GROUPS=array();
+          $contents = fread($fp, filesize($inifilename)); 
+!         $ini_data = explode( &quot;\n&quot;,$contents); 
+           
+          while( list($key, $data) = each($ini_data) ) 
+***************
+*** 144,148 ****
+              $data = substr( $data, 0, strlen($data) - 1 );
+  
+!         if( ereg( &quot;\[([[:alnum:]]+)\]&quot;, $data, $out ) )
+          {
+              $this-&gt;CURRENT_GROUP = strtolower( $out[1] ); 
+--- 144,148 ----
+              $data = substr( $data, 0, strlen($data) - 1 );
+  
+!         if( preg_match( '/\[(.+)\]/', $data, $out ) )
+          {
+              $this-&gt;CURRENT_GROUP = strtolower( $out[1] ); 
+***************
+*** 150,154 ****
+          elseif (!empty($data)) 
+          {
+!             $split_data = split( &quot;=&quot;, $data ); 
+              $this-&gt;GROUPS[ $this-&gt;CURRENT_GROUP ][ $split_data[0] ] = $split_data[1]; 
+          }
+--- 150,154 ----
+          elseif (!empty($data)) 
+          {
+!             $split_data = explode( &quot;=&quot;, $data ); 
+              $this-&gt;GROUPS[ $this-&gt;CURRENT_GROUP ][ $split_data[0] ] = $split_data[1]; 
+          }
+***************
+*** 345,357 ****
+        If the ini-file object does not exist it is created before returning.
+      */
+!     function &amp;globalINI( $file = false )
+      {
+! 		global $RELPATH;
+  		empty($file) &amp;&amp; $file = $RELPATH . 'global.ini.php';
+!         $ini =&amp; $GLOBALS['g_ini'];
+  
+          if ( get_class( $ini ) != 'avini' )
+          {
+!             $ini = &amp; new avIni( $file );
+          }
+          return $ini;
+--- 345,357 ----
+        If the ini-file object does not exist it is created before returning.
+      */
+!     static function &amp;globalINI( $file = false )
+      {
+! 		global $RELPATH, $g_ini;
+  		empty($file) &amp;&amp; $file = $RELPATH . 'global.ini.php';
+!         $ini =&amp; $g_ini;
+  
+          if ( get_class( $ini ) != 'avini' )
+          {
+!             $ini =  new avIni( $file );
+          }
+          return $ini;
+
+Index: avnavigator.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/avnavigator.class.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C 2 -d -r1.1 -r1.2
+*** avnavigator.class.php	4 Aug 2004 22:51:40 -0000	1.1
+--- avnavigator.class.php	4 Jul 2011 21:00:49 -0000	1.2
+***************
+*** 10,14 ****
+  	}
+  
+! 	function show($offset, $count, $ipp, $class, &amp;$caller, $function, $step = false, $window = false)
+  	{
+  
+--- 10,14 ----
+  	}
+  
+! 	static function show($offset, $count, $ipp, $class, &amp;$caller, $function, $step = false, $window = false)
+  	{
+  
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000039.html">[artscene-cvs] art.scene.v2/htdocs/faq/class faq.class.php, 1.2,	1.3 avfaq.class.php, 1.1, 1.2
+</A></li>
+	<LI>Next message: <A HREF="000041.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.19, 1.20
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#40">[ date ]</a>
+              <a href="thread.html#40">[ thread ]</a>
+              <a href="subject.html#40">[ subject ]</a>
+              <a href="author.html#40">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

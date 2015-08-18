@@ -1,0 +1,745 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/scripts/sql create_tables.sql,1.4,1.5
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/scripts/sql%20create_tables.sql%2C1.4%2C1.5&In-Reply-To=%3C20080727001417.D749851189%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000015.html">
+   <LINK REL="Next"  HREF="000017.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/scripts/sql create_tables.sql,1.4,1.5</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/scripts/sql%20create_tables.sql%2C1.4%2C1.5&In-Reply-To=%3C20080727001417.D749851189%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/scripts/sql create_tables.sql,1.4,1.5">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sun Jul 27 02:14:17 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000015.html">[artscene-cvs] art.scene.v2/htdocs .cvsignore,NONE,1.1
+</A></li>
+        <LI>Next message: <A HREF="000017.html">[artscene-cvs] art.scene.v2/htdocs/forum/tpl fresh_list.html, 1.4,	1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#16">[ date ]</a>
+              <a href="thread.html#16">[ thread ]</a>
+              <a href="subject.html#16">[ subject ]</a>
+              <a href="author.html#16">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/scripts/sql
+In directory sheep:/tmp/cvs-serv29611/scripts/sql
+
+Modified Files:
+	create_tables.sql 
+Log Message:
+nauja struktura
+
+Index: create_tables.sql
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/scripts/sql/create_tables.sql,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** create_tables.sql	29 Sep 2004 00:54:19 -0000	1.4
+--- create_tables.sql	27 Jul 2008 00:14:14 -0000	1.5
+***************
+*** 4,14 ****
+  -- 
+  -- Host: localhost
+! -- Generation Time: Sep 24, 2004 at 01:22 AM
+! -- Server version: 4.0.21
+! -- PHP Version: 4.3.8-12
+  -- 
+  -- Database : `artscene`
+  -- 
+- -- $Id$
+  
+  -- --------------------------------------------------------
+--- 4,13 ----
+  -- 
+  -- Host: localhost
+! -- Generation Time: Jul 27, 2008 at 03:11 AM
+! -- Server version: 4.0.27
+! -- PHP Version: 4.4.4-8+etch6
+  -- 
+  -- Database : `artscene`
+  -- 
+  
+  -- --------------------------------------------------------
+***************
+*** 19,23 ****
+  
+  DROP TABLE IF EXISTS `avblock`;
+! CREATE TABLE IF NOT EXISTS `avblock` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(100) NOT NULL default '',
+--- 18,22 ----
+  
+  DROP TABLE IF EXISTS `avblock`;
+! CREATE TABLE `avblock` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(100) NOT NULL default '',
+***************
+*** 36,40 ****
+  
+  DROP TABLE IF EXISTS `avcomments`;
+! CREATE TABLE IF NOT EXISTS `avcomments` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(200) NOT NULL default '',
+--- 35,39 ----
+  
+  DROP TABLE IF EXISTS `avcomments`;
+! CREATE TABLE `avcomments` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(200) NOT NULL default '',
+***************
+*** 48,52 ****
+    KEY `parent_id` (`parent_id`),
+    KEY `table_name` (`table_name`),
+!   KEY `avcomment_double` (`table_name`,`parent_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 47,53 ----
+    KEY `parent_id` (`parent_id`),
+    KEY `table_name` (`table_name`),
+!   KEY `user_id` (`user_id`),
+!   KEY `posted` (`posted`),
+!   KEY `avcomment_double` (`table_name`(3),`parent_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 58,62 ****
+  
+  DROP TABLE IF EXISTS `avfaq`;
+! CREATE TABLE IF NOT EXISTS `avfaq` (
+    `id` int(11) NOT NULL auto_increment,
+    `question` text NOT NULL,
+--- 59,63 ----
+  
+  DROP TABLE IF EXISTS `avfaq`;
+! CREATE TABLE `avfaq` (
+    `id` int(11) NOT NULL auto_increment,
+    `question` text NOT NULL,
+***************
+*** 77,81 ****
+  
+  DROP TABLE IF EXISTS `avnews`;
+! CREATE TABLE IF NOT EXISTS `avnews` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(255) NOT NULL default '',
+--- 78,82 ----
+  
+  DROP TABLE IF EXISTS `avnews`;
+! CREATE TABLE `avnews` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(255) NOT NULL default '',
+***************
+*** 92,96 ****
+    PRIMARY KEY  (`id`),
+    KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 93,99 ----
+    PRIMARY KEY  (`id`),
+    KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`),
+!   KEY `visible` (`visible`),
+!   KEY `tripple` (`visible`,`posted`,`id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 102,106 ****
+  
+  DROP TABLE IF EXISTS `avnewscategory`;
+! CREATE TABLE IF NOT EXISTS `avnewscategory` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+--- 105,109 ----
+  
+  DROP TABLE IF EXISTS `avnewscategory`;
+! CREATE TABLE `avnewscategory` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+***************
+*** 118,122 ****
+  
+  DROP TABLE IF EXISTS `avworkcategory`;
+! CREATE TABLE IF NOT EXISTS `avworkcategory` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+--- 121,125 ----
+  
+  DROP TABLE IF EXISTS `avworkcategory`;
+! CREATE TABLE `avworkcategory` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+***************
+*** 134,138 ****
+  
+  DROP TABLE IF EXISTS `avworks`;
+! CREATE TABLE IF NOT EXISTS `avworks` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(255) NOT NULL default '',
+--- 137,141 ----
+  
+  DROP TABLE IF EXISTS `avworks`;
+! CREATE TABLE `avworks` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `subject` varchar(255) NOT NULL default '',
+***************
+*** 147,153 ****
+    `color` varchar(20) NOT NULL default '',
+    `file_size` int(11) NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+    KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 150,215 ----
+    `color` varchar(20) NOT NULL default '',
+    `file_size` int(11) NOT NULL default '0',
++   `c_count` int(11) NOT NULL default '0',
++   `c_last_post` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`),
+    KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`),
+!   KEY `posted` (`posted`),
+!   KEY `c_last_post` (`c_last_post`)
+! ) TYPE=MyISAM PACK_KEYS=1;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `avworks_delete_log`
+! -- 
+! 
+! DROP TABLE IF EXISTS `avworks_delete_log`;
+! CREATE TABLE `avworks_delete_log` (
+!   `id` int(11) unsigned NOT NULL auto_increment,
+!   `admin_id` int(11) unsigned NOT NULL default '0',
+!   `posted` timestamp(14) NOT NULL,
+!   `work_submiter` int(11) NOT NULL default '0',
+!   `work_subject` varchar(255) NOT NULL default '',
+!   `work_posted` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `work_votecount` int(11) NOT NULL default '0',
+!   `work_summark` float NOT NULL default '0',
+!   `work_avgmark` float NOT NULL default '0',
+!   `work_category` int(11) NOT NULL default '0',
+!   PRIMARY KEY  (`id`)
+! ) TYPE=MyISAM;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `avworks_stat`
+! -- 
+! 
+! DROP TABLE IF EXISTS `avworks_stat`;
+! CREATE TABLE `avworks_stat` (
+!   `id` int(11) unsigned NOT NULL auto_increment,
+!   `subject` varchar(255) NOT NULL default '',
+!   `info` text NOT NULL,
+!   `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `thumbnail` varchar(255) NOT NULL default '',
+!   `file` varchar(255) NOT NULL default '',
+!   `submiter` int(11) unsigned NOT NULL default '0',
+!   `category_id` int(11) unsigned NOT NULL default '0',
+!   `views` int(11) unsigned NOT NULL default '0',
+!   `color` varchar(20) NOT NULL default '',
+!   `file_size` int(11) NOT NULL default '0',
+!   `work_id` int(11) unsigned NOT NULL default '0',
+!   `submiter_name` varchar(255) NOT NULL default '',
+!   `category_name` varchar(255) NOT NULL default '',
+!   `vote_count` int(11) NOT NULL default '0',
+!   `vote_sum` int(11) NOT NULL default '0',
+!   `vote_avg` float NOT NULL default '0',
+!   `comment_count` int(11) NOT NULL default '0',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `work_id` (`work_id`),
+!   KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`),
+!   KEY `vote_sum` (`vote_sum`),
+!   KEY `vote_avg` (`vote_avg`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 159,163 ****
+  
+  DROP TABLE IF EXISTS `avworkvotes`;
+! CREATE TABLE IF NOT EXISTS `avworkvotes` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `mark` tinyint(4) NOT NULL default '0',
+--- 221,225 ----
+  
+  DROP TABLE IF EXISTS `avworkvotes`;
+! CREATE TABLE `avworkvotes` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `mark` tinyint(4) NOT NULL default '0',
+***************
+*** 166,170 ****
+    `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`),
+!   KEY `work_id` (`work_id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 228,234 ----
+    `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`),
+!   KEY `work_id` (`work_id`),
+!   KEY `user_id` (`user_id`),
+!   KEY `posted` (`posted`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 176,180 ****
+  
+  DROP TABLE IF EXISTS `forum_list`;
+! CREATE TABLE IF NOT EXISTS `forum_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(255) NOT NULL default '',
+--- 240,244 ----
+  
+  DROP TABLE IF EXISTS `forum_list`;
+! CREATE TABLE `forum_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(255) NOT NULL default '',
+***************
+*** 191,195 ****
+  
+  DROP TABLE IF EXISTS `forum_post_list`;
+! CREATE TABLE IF NOT EXISTS `forum_post_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `thread_id` int(11) NOT NULL default '0',
+--- 255,259 ----
+  
+  DROP TABLE IF EXISTS `forum_post_list`;
+! CREATE TABLE `forum_post_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `thread_id` int(11) NOT NULL default '0',
+***************
+*** 210,214 ****
+  
+  DROP TABLE IF EXISTS `forum_thread_list`;
+! CREATE TABLE IF NOT EXISTS `forum_thread_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `forum_id` int(11) NOT NULL default '0',
+--- 274,278 ----
+  
+  DROP TABLE IF EXISTS `forum_thread_list`;
+! CREATE TABLE `forum_thread_list` (
+    `id` int(11) NOT NULL auto_increment,
+    `forum_id` int(11) NOT NULL default '0',
+***************
+*** 218,221 ****
+--- 282,286 ----
+    `created_on` datetime NOT NULL default '0000-00-00 00:00:00',
+    `sticky` enum('Y','N') NOT NULL default 'N',
++   `vip` tinyint(1) NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+    KEY `forum_id` (`forum_id`),
+***************
+*** 230,234 ****
+  
+  DROP TABLE IF EXISTS `hirez`;
+! CREATE TABLE IF NOT EXISTS `hirez` (
+    `filename` varchar(60) NOT NULL default '',
+    `thumbnail` varchar(60) NOT NULL default '',
+--- 295,299 ----
+  
+  DROP TABLE IF EXISTS `hirez`;
+! CREATE TABLE `hirez` (
+    `filename` varchar(60) NOT NULL default '',
+    `thumbnail` varchar(60) NOT NULL default '',
+***************
+*** 251,255 ****
+  
+  DROP TABLE IF EXISTS `hirez_talk`;
+! CREATE TABLE IF NOT EXISTS `hirez_talk` (
+    `author` varchar(60) NOT NULL default '',
+    `email` varchar(60) default NULL,
+--- 316,320 ----
+  
+  DROP TABLE IF EXISTS `hirez_talk`;
+! CREATE TABLE `hirez_talk` (
+    `author` varchar(60) NOT NULL default '',
+    `email` varchar(60) default NULL,
+***************
+*** 259,263 ****
+    `id` int(10) unsigned NOT NULL auto_increment,
+    PRIMARY KEY  (`id`),
+!   KEY `hid` (`hid`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+--- 324,329 ----
+    `id` int(10) unsigned NOT NULL auto_increment,
+    PRIMARY KEY  (`id`),
+!   KEY `hid` (`hid`),
+!   KEY `hid_id` (`hid`,`id`)
+  ) TYPE=MyISAM PACK_KEYS=1;
+  
+***************
+*** 265,289 ****
+  
+  -- 
+- -- Table structure for table `languages`
+- -- 
+- 
+- DROP TABLE IF EXISTS `languages`;
+- CREATE TABLE IF NOT EXISTS `languages` (
+-   `id` tinyint(4) NOT NULL auto_increment,
+-   `name` varchar(4) NOT NULL default '',
+-   `lang_name` varchar(255) NOT NULL default '',
+-   PRIMARY KEY  (`id`),
+-   UNIQUE KEY `id` (`id`),
+-   KEY `id_2` (`id`)
+- ) TYPE=ISAM PACK_KEYS=1;
+- 
+- -- --------------------------------------------------------
+- 
+- -- 
+  -- Table structure for table `menuitem`
+  -- 
+  
+  DROP TABLE IF EXISTS `menuitem`;
+! CREATE TABLE IF NOT EXISTS `menuitem` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(255) NOT NULL default '',
+--- 331,339 ----
+  
+  -- 
+  -- Table structure for table `menuitem`
+  -- 
+  
+  DROP TABLE IF EXISTS `menuitem`;
+! CREATE TABLE `menuitem` (
+    `id` int(11) unsigned NOT NULL auto_increment,
+    `name` varchar(255) NOT NULL default '',
+***************
+*** 306,374 ****
+  
+  -- 
+! -- Table structure for table `polls`
+! -- 
+! 
+! DROP TABLE IF EXISTS `polls`;
+! CREATE TABLE IF NOT EXISTS `polls` (
+!   `id` int(11) NOT NULL auto_increment,
+!   `name` varchar(255) NOT NULL default '',
+!   `posted` date NOT NULL default '0000-00-00',
+!   `lang_id` tinyint(4) NOT NULL default '0',
+!   `file` varchar(255) NOT NULL default '',
+!   `visible` tinyint(4) NOT NULL default '0',
+!   `lastip` varchar(30) NOT NULL default '',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `id` (`id`),
+!   KEY `id_2` (`id`)
+! ) TYPE=ISAM PACK_KEYS=1;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `polls_answers`
+! -- 
+! 
+! DROP TABLE IF EXISTS `polls_answers`;
+! CREATE TABLE IF NOT EXISTS `polls_answers` (
+!   `id` int(11) NOT NULL auto_increment,
+!   `quid` int(11) NOT NULL default '0',
+!   `name` varchar(255) NOT NULL default '',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `id` (`id`),
+!   KEY `id_2` (`id`)
+! ) TYPE=ISAM PACK_KEYS=1;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `polls_questions`
+! -- 
+! 
+! DROP TABLE IF EXISTS `polls_questions`;
+! CREATE TABLE IF NOT EXISTS `polls_questions` (
+!   `id` int(11) NOT NULL auto_increment,
+!   `poll_id` int(11) NOT NULL default '0',
+!   `name` varchar(255) NOT NULL default '',
+!   `sort` tinyint(4) NOT NULL default '0',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `id` (`id`),
+!   KEY `id_2` (`id`)
+! ) TYPE=ISAM PACK_KEYS=1;
+! 
+! -- --------------------------------------------------------
+! 
+! -- 
+! -- Table structure for table `polls_votes`
+  -- 
+  
+! DROP TABLE IF EXISTS `polls_votes`;
+! CREATE TABLE IF NOT EXISTS `polls_votes` (
+!   `id` int(11) NOT NULL auto_increment,
+!   `uin` varchar(32) NOT NULL default '',
+!   `answer` int(11) NOT NULL default '0',
+!   PRIMARY KEY  (`id`),
+!   UNIQUE KEY `id` (`id`),
+!   KEY `id_2` (`id`)
+! ) TYPE=ISAM PACK_KEYS=1;
+  
+  -- --------------------------------------------------------
+--- 356,374 ----
+  
+  -- 
+! -- Table structure for table `puko_comments`
+  -- 
+  
+! DROP TABLE IF EXISTS `puko_comments`;
+! CREATE TABLE `puko_comments` (
+!   `id` int(10) unsigned NOT NULL auto_increment,
+!   `subject` varchar(200) NOT NULL default '',
+!   `info` text NOT NULL,
+!   `name` varchar(100) NOT NULL default '',
+!   `email` varchar(100) NOT NULL default '',
+!   `ip` varchar(40) NOT NULL default '',
+!   `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `pid` int(10) unsigned NOT NULL default '0',
+!   PRIMARY KEY  (`id`)
+! ) TYPE=MyISAM;
+  
+  -- --------------------------------------------------------
+***************
+*** 379,383 ****
+  
+  DROP TABLE IF EXISTS `u_group`;
+! CREATE TABLE IF NOT EXISTS `u_group` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+--- 379,383 ----
+  
+  DROP TABLE IF EXISTS `u_group`;
+! CREATE TABLE `u_group` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+***************
+*** 394,398 ****
+  
+  DROP TABLE IF EXISTS `u_module`;
+! CREATE TABLE IF NOT EXISTS `u_module` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+--- 394,398 ----
+  
+  DROP TABLE IF EXISTS `u_module`;
+! CREATE TABLE `u_module` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+***************
+*** 408,412 ****
+  
+  DROP TABLE IF EXISTS `u_permission`;
+! CREATE TABLE IF NOT EXISTS `u_permission` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+--- 408,412 ----
+  
+  DROP TABLE IF EXISTS `u_permission`;
+! CREATE TABLE `u_permission` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(50) NOT NULL default '',
+***************
+*** 423,427 ****
+  
+  DROP TABLE IF EXISTS `u_permission_link`;
+! CREATE TABLE IF NOT EXISTS `u_permission_link` (
+    `id` int(11) NOT NULL auto_increment,
+    `group_id` int(11) NOT NULL default '0',
+--- 423,427 ----
+  
+  DROP TABLE IF EXISTS `u_permission_link`;
+! CREATE TABLE `u_permission_link` (
+    `id` int(11) NOT NULL auto_increment,
+    `group_id` int(11) NOT NULL default '0',
+***************
+*** 437,441 ****
+  
+  DROP TABLE IF EXISTS `u_query_cache`;
+! CREATE TABLE IF NOT EXISTS `u_query_cache` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+--- 437,441 ----
+  
+  DROP TABLE IF EXISTS `u_query_cache`;
+! CREATE TABLE `u_query_cache` (
+    `id` int(11) NOT NULL auto_increment,
+    `name` varchar(200) NOT NULL default '',
+***************
+*** 454,458 ****
+  
+  DROP TABLE IF EXISTS `u_session`;
+! CREATE TABLE IF NOT EXISTS `u_session` (
+    `id` varchar(20) NOT NULL default '',
+    `LastAction` int(10) NOT NULL default '0',
+--- 454,458 ----
+  
+  DROP TABLE IF EXISTS `u_session`;
+! CREATE TABLE `u_session` (
+    `id` varchar(20) NOT NULL default '',
+    `LastAction` int(10) NOT NULL default '0',
+***************
+*** 470,474 ****
+  
+  DROP TABLE IF EXISTS `u_session_vars`;
+! CREATE TABLE IF NOT EXISTS `u_session_vars` (
+    `name` varchar(30) NOT NULL default '',
+    `session` varchar(20) NOT NULL default '',
+--- 470,474 ----
+  
+  DROP TABLE IF EXISTS `u_session_vars`;
+! CREATE TABLE `u_session_vars` (
+    `name` varchar(30) NOT NULL default '',
+    `session` varchar(20) NOT NULL default '',
+***************
+*** 483,509 ****
+  
+  -- 
+- -- Table structure for table `u_usage`
+- -- 
+- 
+- DROP TABLE IF EXISTS `u_usage`;
+- CREATE TABLE IF NOT EXISTS `u_usage` (
+-   `id` int(11) unsigned NOT NULL auto_increment,
+-   `timehit` timestamp(14) NOT NULL,
+-   `ip` char(30) NOT NULL default '',
+-   `user` char(40) NOT NULL default '',
+-   `agent` char(100) NOT NULL default '',
+-   `page` char(255) NOT NULL default '',
+-   `referrer` char(255) NOT NULL default '',
+-   PRIMARY KEY  (`id`)
+- ) TYPE=ISAM PACK_KEYS=1;
+- 
+- -- --------------------------------------------------------
+- 
+- -- 
+  -- Table structure for table `u_user_info`
+  -- 
+  
+  DROP TABLE IF EXISTS `u_user_info`;
+! CREATE TABLE IF NOT EXISTS `u_user_info` (
+    `id` int(11) NOT NULL auto_increment,
+    `uid` int(11) NOT NULL default '0',
+--- 483,491 ----
+  
+  -- 
+  -- Table structure for table `u_user_info`
+  -- 
+  
+  DROP TABLE IF EXISTS `u_user_info`;
+! CREATE TABLE `u_user_info` (
+    `id` int(11) NOT NULL auto_increment,
+    `uid` int(11) NOT NULL default '0',
+***************
+*** 527,531 ****
+  
+  DROP TABLE IF EXISTS `u_user_log`;
+! CREATE TABLE IF NOT EXISTS `u_user_log` (
+    `id` int(11) NOT NULL auto_increment,
+    `username` varchar(255) NOT NULL default '',
+--- 509,513 ----
+  
+  DROP TABLE IF EXISTS `u_user_log`;
+! CREATE TABLE `u_user_log` (
+    `id` int(11) NOT NULL auto_increment,
+    `username` varchar(255) NOT NULL default '',
+***************
+*** 544,548 ****
+  
+  DROP TABLE IF EXISTS `u_users`;
+! CREATE TABLE IF NOT EXISTS `u_users` (
+    `id` int(11) NOT NULL auto_increment,
+    `username` varchar(25) NOT NULL default '',
+--- 526,530 ----
+  
+  DROP TABLE IF EXISTS `u_users`;
+! CREATE TABLE `u_users` (
+    `id` int(11) NOT NULL auto_increment,
+    `username` varchar(25) NOT NULL default '',
+***************
+*** 555,586 ****
+    `forgotten_pass` varchar(40) NOT NULL default '',
+    `auto_login` varchar(40) NOT NULL default '',
+!   PRIMARY KEY  (`id`)
+! ) TYPE=MyISAM PACK_KEYS=1;
+! 
+! 
+! CREATE TABLE `avworks_stat` (
+!   `id` int(11) unsigned NOT NULL auto_increment,
+!   `subject` varchar(255) NOT NULL default '',
+!   `info` text NOT NULL,
+!   `posted` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `thumbnail` varchar(255) NOT NULL default '',
+!   `file` varchar(255) NOT NULL default '',
+!   `submiter` int(11) unsigned NOT NULL default '0',
+!   `category_id` int(11) unsigned NOT NULL default '0',
+!   `views` int(11) unsigned NOT NULL default '0',
+!   `color` varchar(20) NOT NULL default '',
+!   `file_size` int(11) NOT NULL default '0',
+!   `work_id` int(11) unsigned NOT NULL default '0',
+!   `submiter_name` varchar(255) NOT NULL default '',
+!   `category_name` varchar(255) NOT NULL default '',
+!   `vote_count` int(11) NOT NULL default '0',
+!   `vote_sum` int(11) NOT NULL default '0',
+!   `vote_avg` float NOT NULL default '0',
+!   `comment_count` int(11) NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+!   UNIQUE KEY `work_id` (`work_id`),
+!   KEY `submiter` (`submiter`),
+!   KEY `category_id` (`category_id`),
+!   KEY `vote_sum` (`vote_sum`),
+!   KEY `vote_avg` (`vote_avg`)
+! ) TYPE=MyISAM PACK_KEYS=1 AUTO_INCREMENT=1;
+\ No newline at end of file
+--- 537,547 ----
+    `forgotten_pass` varchar(40) NOT NULL default '',
+    `auto_login` varchar(40) NOT NULL default '',
+!   `may_send_work_after` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `may_comment_after` datetime NOT NULL default '0000-00-00 00:00:00',
+!   `del_works_admin` int(11) NOT NULL default '0',
+!   `del_works_system` int(11) NOT NULL default '0',
+!   `c_count` int(11) NOT NULL default '0',
+!   `c_last_post` datetime NOT NULL default '0000-00-00 00:00:00',
+    PRIMARY KEY  (`id`),
+!   KEY `c_last_post` (`c_last_post`)
+! ) TYPE=MyISAM PACK_KEYS=1;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000015.html">[artscene-cvs] art.scene.v2/htdocs .cvsignore,NONE,1.1
+</A></li>
+	<LI>Next message: <A HREF="000017.html">[artscene-cvs] art.scene.v2/htdocs/forum/tpl fresh_list.html, 1.4,	1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#16">[ date ]</a>
+              <a href="thread.html#16">[ thread ]</a>
+              <a href="subject.html#16">[ subject ]</a>
+              <a href="author.html#16">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

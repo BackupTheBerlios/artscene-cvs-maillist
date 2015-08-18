@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.27, 1.28 darbai_submit.class.php, 1.16, 1.17
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-November/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%20darbai.class.php%2C%0A%091.27%2C%201.28%20darbai_submit.class.php%2C%201.16%2C%201.17&In-Reply-To=%3C20081127020544.297DF3F9F8%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000023.html">
+   <LINK REL="Next"  HREF="000025.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.27, 1.28 darbai_submit.class.php, 1.16, 1.17</H1>
+    <B>lthnnpwr</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%20darbai.class.php%2C%0A%091.27%2C%201.28%20darbai_submit.class.php%2C%201.16%2C%201.17&In-Reply-To=%3C20081127020544.297DF3F9F8%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.27, 1.28 darbai_submit.class.php, 1.16, 1.17">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Thu Nov 27 03:05:44 CET 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000023.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.26, 1.27 darbai_submit.class.php, 1.15, 1.16
+</A></li>
+        <LI>Next message: <A HREF="000025.html">[artscene-cvs] art.scene.v2/htdocs/lib util.lib.php,1.9,1.10
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv12493/darbai/class
+
+Modified Files:
+	darbai.class.php darbai_submit.class.php 
+Log Message:
+papildymas:
+klase smartWrap($text,30), is esmes pakeicianti standartine php wordwrap, tik su galimybe wrapinti linkus, ju href'us paliekant ramybeje - taip vizualiai linkas luzta, bet href'as islieka 'clickable'.
+
+Index: darbai.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai.class.php,v
+retrieving revision 1.27
+retrieving revision 1.28
+diff -C2 -d -r1.27 -r1.28
+*** darbai.class.php	27 Nov 2008 01:17:45 -0000	1.27
+--- darbai.class.php	27 Nov 2008 02:05:34 -0000	1.28
+***************
+*** 475,480 ****
+      }
+  		if ($this-&gt;error) return true;
+- 		$comment = wordwrap($comment, 30, &quot; &quot;, true); // [alias] skaidom ilgus piktybi&#240;kus &#254;od&#254;ius
+  		$comment = do_ubb($comment);
+  		$subject = htmlchars($subject);
+  
+--- 475,480 ----
+      }
+  		if ($this-&gt;error) return true;
+  		$comment = do_ubb($comment);
++ 		$comment = smartWrap($comment, 30); // [alias] skaidom ilgus piktybi&#240;kus &#254;od&#254;ius
+  		$subject = htmlchars($subject);
+  
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.16
+retrieving revision 1.17
+diff -C2 -d -r1.16 -r1.17
+*** darbai_submit.class.php	27 Nov 2008 01:17:45 -0000	1.16
+--- darbai_submit.class.php	27 Nov 2008 02:05:34 -0000	1.17
+***************
+*** 271,277 ****
+  		isset($info) || $info = '';
+  		
+! 		//wordwrap($comment, 30, &quot; &quot;, true)
+! 		$info = wordwrap(do_ubb($info), 30, &quot; &quot;, true);
+! 		$subject = wordwrap(htmlchars($subject), 20, &quot; &quot;, true);
+  		$color = clean_hex($color);
+  
+--- 271,278 ----
+  		isset($info) || $info = '';
+  		
+! 		//wordwrap($comment, 30, &quot; &quot;, true) // senas variantas
+! 		//smartWrap($text,30); // naujas variantas
+! 		$info = smartWrap(do_ubb($info), 30);
+! 		$subject = wordwrap(htmlchars($subject), 20, &quot; &quot;, true); // cia html'o nebus, todel standartinis wordwrap
+  		$color = clean_hex($color);
+  
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000023.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.26, 1.27 darbai_submit.class.php, 1.15, 1.16
+</A></li>
+	<LI>Next message: <A HREF="000025.html">[artscene-cvs] art.scene.v2/htdocs/lib util.lib.php,1.9,1.10
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#24">[ date ]</a>
+              <a href="thread.html#24">[ thread ]</a>
+              <a href="subject.html#24">[ subject ]</a>
+              <a href="author.html#24">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

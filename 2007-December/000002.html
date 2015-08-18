@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.3,1.4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2007-December/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/core%20averror.class.php%2C1.3%2C1.4&In-Reply-To=%3C20071221232434.C36BF124BA1%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.3,1.4</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/core%20averror.class.php%2C1.3%2C1.4&In-Reply-To=%3C20071221232434.C36BF124BA1%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.3,1.4">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Dec 22 00:24:34 CET 2007</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000003.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.3, 1.4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/core
+In directory sheep:/tmp/cvs-serv32251/htdocs/core
+
+Modified Files:
+	averror.class.php 
+Log Message:
+klaidas siuncia i <A HREF="https://lists.berlios.de/mailman/listinfo/artscene-cvs">salna at kl.mii.lt</A>
+
+Index: averror.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/averror.class.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C2 -d -r1.3 -r1.4
+*** averror.class.php	3 Dec 2005 22:45:02 -0000	1.3
+--- averror.class.php	21 Dec 2007 23:23:23 -0000	1.4
+***************
+*** 3,10 ****
+  	Global error header 	
+  	Created: js, 2001.08.13
+  	___________________________________________________________
+- 	This file is part of flexiUpdate, content control framework
+- 	Copyright (c) 2001 UAB &quot;Alternatyvus valdymas&quot;
+- 	<A HREF="http://www.avc.lt">http://www.avc.lt</A> &lt;<A HREF="https://lists.berlios.de/mailman/listinfo/artscene-cvs">info at avc.lt</A>&gt;
+  */
+  
+--- 3,8 ----
+  	Global error header 	
+  	Created: js, 2001.08.13
++ 	$Id$
+  	___________________________________________________________
+  */
+  
+***************
+*** 72,78 ****
+  function avErrorHandler ($errno, $errstr, $errfile, $errline, $context) 
+  {
+  	if (!error_reporting()) return false;
+  	$errpage = $GLOBALS['REQUEST_URI'];
+! 	echo &quot;&lt;br&gt;
+  	&lt;b&gt;atsipra&#240;ome, bet sistemoje &#225;vyko klaida&lt;/b&gt;:&lt;br&gt;
+  	&lt;font color='#CC0000'&gt;$errstr&lt;/font&gt;
+--- 70,77 ----
+  function avErrorHandler ($errno, $errstr, $errfile, $errline, $context) 
+  {
++   global $g_user_id, $g_user_name;
+  	if (!error_reporting()) return false;
+  	$errpage = $GLOBALS['REQUEST_URI'];
+! 	$text = &quot;&lt;br&gt;
+  	&lt;b&gt;atsipra&#240;ome, bet sistemoje &#225;vyko klaida&lt;/b&gt;:&lt;br&gt;
+  	&lt;font color='#CC0000'&gt;$errstr&lt;/font&gt;
+***************
+*** 80,88 ****
+  	failas: $errfile [$errline]&lt;br&gt;
+  	puslapis: $errpage&lt;br&gt;
+! 	&lt;b&gt;b&#251;t&#248; labai smagu, jei atsi&#248;stum &#240;i&#224; informacij&#224; &lt;a href='mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/artscene-cvs">artscene at fluxus.lt</A>?subject=error on art.scene'&gt;pa&#240;tu&lt;/a&gt; su priera&#240;u k&#224; m&#235;ginai padaryti.&lt;/b&gt;
+  	&lt;br&gt;&lt;br&gt;&quot;;
+! 	exit;
+  }
+  
+! //set_error_handler(&quot;avErrorHandler&quot;);
+! ?&gt;
+--- 79,95 ----
+  	failas: $errfile [$errline]&lt;br&gt;
+  	puslapis: $errpage&lt;br&gt;
+! 	g_user_id: $g_user_id&lt;br&gt;
+! 	g_user_name: $g_user_name&lt;br&gt;
+  	&lt;br&gt;&lt;br&gt;&quot;;
+! 
+! 	if (isset($GLOBALS['bench'])) { echo $text; }
+! 	else { 
+! 		mail('<A HREF="https://lists.berlios.de/mailman/listinfo/artscene-cvs">salna at ktl.mii.lt</A>', 'klaida ant art.scene.lt', $text);
+! 		echo &quot;&lt;b&gt;atsipra&#240;ome, bet sistemoje &#225;vyko klaida&lt;/b&gt;: &quot;;
+! 		echo &quot;&lt;font color='#CC0000'&gt;$errno&lt;/font&gt;&lt;br&gt;&quot;;		
+! 	}
+  }
+  
+! 
+! set_error_handler(&quot;avErrorHandler&quot;);
+! ?&gt;
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000003.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.3, 1.4
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#2">[ date ]</a>
+              <a href="thread.html#2">[ thread ]</a>
+              <a href="subject.html#2">[ subject ]</a>
+              <a href="author.html#2">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

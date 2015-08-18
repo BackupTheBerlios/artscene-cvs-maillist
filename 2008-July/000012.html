@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.13, 1.14
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_submit.class.php%2C%201.13%2C%201.14&In-Reply-To=%3C20080726212551.7133C14B3D4%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000011.html">
+   <LINK REL="Next"  HREF="000013.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.13, 1.14</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_submit.class.php%2C%201.13%2C%201.14&In-Reply-To=%3C20080726212551.7133C14B3D4%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.13, 1.14">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Jul 26 23:25:51 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000011.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.22, 1.23
+</A></li>
+        <LI>Next message: <A HREF="000013.html">[artscene-cvs] art.scene.v2/htdocs/users/class login.class.php, 1.16,	1.17
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#12">[ date ]</a>
+              <a href="thread.html#12">[ thread ]</a>
+              <a href="subject.html#12">[ subject ]</a>
+              <a href="author.html#12">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv3187/htdocs/darbai/class
+
+Modified Files:
+	darbai_submit.class.php 
+Log Message:
+sorry uiron, bet subfolderius reik permastyti
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.13
+retrieving revision 1.14
+diff -C2 -d -r1.13 -r1.14
+*** darbai_submit.class.php	30 Mar 2006 14:52:55 -0000	1.13
+--- darbai_submit.class.php	26 Jul 2008 21:25:49 -0000	1.14
+***************
+*** 43,53 ****
+  		global  $g_user_id, $g_usr;
+  
+! 		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_ADD(posted, INTERVAL 1 DAY) &gt; NOW()&quot;);
+  		if ($tmp['kiekis'] &gt; 2 ) return 'per &#240;ias 24 valandas jau &#225;d&#235;jai tris darbus, lauk rytdienos.';
+  
+  		// tiems kurie neturi devyni&#248; darb&#248; senesni&#248; u&#254; savait&#230;
+! 		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_SUB(NOW(), INTERVAL 7 DAY) &gt; posted &quot;);
+  		if ($tmp['kiekis'] &lt; 9 ) {
+! 			$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND  DATE_ADD(posted, INTERVAL 18 HOUR) &gt; NOW()&quot;);
+  			if ($tmp['kiekis'] &gt; 0 ) return 'per &#240;ias 18 valand&#248; jau &#225;d&#235;jai vien&#224; darb&#224;, lauk rytdienos.';
+  		}
+--- 43,53 ----
+  		global  $g_user_id, $g_usr;
+  
+! 		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_ADD(posted, INTERVAL 1 DAY) &gt; NOW()&quot;);
+  		if ($tmp['kiekis'] &gt; 2 ) return 'per &#240;ias 24 valandas jau &#225;d&#235;jai tris darbus, lauk rytdienos.';
+  
+  		// tiems kurie neturi devyni&#248; darb&#248; senesni&#248; u&#254; savait&#230;
+! 		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_SUB(NOW(), INTERVAL 7 DAY) &gt; posted &quot;);
+  		if ($tmp['kiekis'] &lt; 9 ) {
+! 			$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND  DATE_ADD(posted, INTERVAL 18 HOUR) &gt; NOW()&quot;);
+  			if ($tmp['kiekis'] &gt; 0 ) return 'per &#240;ias 18 valand&#248; jau &#225;d&#235;jai vien&#224; darb&#224;, lauk rytdienos.';
+  		}
+***************
+*** 143,148 ****
+  		$work_name = $GLOBALS['work_name'];
+  		$work_size = $GLOBALS['work_size'];
+- 		
+- 		$work_subfolder = date('Y-m').'/';
+  
+  		$work_types = array('gif', 'jpg', 'png', 'swf');
+--- 143,146 ----
+***************
+*** 184,202 ****
+  		// kopijuojam darba!
+  		$work_name = clean_name($work_name);
+! 		$work_dest = $this-&gt;ini-&gt;read_var('avworks', 'works_dir').$work_subfolder;
+  
+! 		while (file_exists($work_dest.$work_name)) 
+  		{ 
+  			$work_name = &quot;_&quot;.$work_name;
+  		}
+- 
+- 		// TODO: antras mkDir parametras - teisiu flagai, po defaultu padarys 777
+- 		if (!is_dir($work_dest) &amp;&amp; !mkdir($work_dest)) {
+- 			// einam lauk, jei neturim kur d&#235;ti darbo.
+- 			$this-&gt;error .= 'turim problem&#248; i&#240;saugant darb&#224; serveryje, nesusikuria reikiamas folderis.&lt;br&gt;';
+- 			return true;
+- 		}
+- 		
+- 		$work_dest .= $work_name;
+  		
+  		copy($work, $work_dest);
+--- 182,192 ----
+  		// kopijuojam darba!
+  		$work_name = clean_name($work_name);
+! 		$work_dest = $this-&gt;ini-&gt;read_var('avworks', 'works_dir') . $work_name;
+  
+! 		while (file_exists($work_dest)) 
+  		{ 
+  			$work_name = &quot;_&quot;.$work_name;
++ 			$work_dest = $this-&gt;ini-&gt;read_var('avworks', 'works_dir') . $work_name;
+  		}
+  		
+  		copy($work, $work_dest);
+***************
+*** 209,219 ****
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+! 			$thumb_dest = $this-&gt;ini-&gt;read_var('avworks', 'thumbnails_dir').$work_subfolder;
+! 			if (!is_dir($thumb_dest) &amp;&amp; !mkdir($thumb_dest)) {
+! 				$this-&gt;error .= 'turim problem&#248; i&#240;saugant darb&#224; serveryje, nesusikuria reikiamas folderis.&lt;br&gt;';
+! 			}
+! 			$thumb_dest .= $work_name.'.jpg';
+! 
+! 
+  			$exec_src = $this-&gt;ini-&gt;read_var('avworks', 'convert_exec') .&quot; -sample &quot;. $this-&gt;thumb_x .&quot;x&quot;. $this-&gt;thumb_y .&quot; $thumbnail jpg:$thumb_dest&quot;;
+  			exec($exec_src);
+--- 199,203 ----
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+! 			$thumb_dest = $this-&gt;ini-&gt;read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+  			$exec_src = $this-&gt;ini-&gt;read_var('avworks', 'convert_exec') .&quot; -sample &quot;. $this-&gt;thumb_x .&quot;x&quot;. $this-&gt;thumb_y .&quot; $thumbnail jpg:$thumb_dest&quot;;
+  			exec($exec_src);
+***************
+*** 245,254 ****
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+! 			$thumb_dest = $this-&gt;ini-&gt;read_var('avworks', 'thumbnails_dir').$work_subfolder;
+! 			if (!is_dir($thumb_dest) &amp;&amp; !mkdir($thumb_dest)) {
+! 				$this-&gt;error .= 'turim problem&#248; i&#240;saugant darb&#224; serveryje, nesusikuria reikiamas folderis.&lt;br&gt;';
+! 			}
+! 			$thumb_dest .= $work_name.'.jpg';
+! 
+  			$exec_src = $this-&gt;ini-&gt;read_var('avworks', 'convert_exec') .&quot; -sample &quot;. $this-&gt;thumb_x .&quot;x&quot;. $this-&gt;thumb_y .&quot; $work_dest jpg:$thumb_dest&quot;;
+  			exec($exec_src);
+--- 229,233 ----
+  		{
+  			// vadinam taip pat kaip darba, kad nereiktu tikrinti dublikatu
+! 			$thumb_dest = $this-&gt;ini-&gt;read_var('avworks', 'thumbnails_dir') . $work_name . '.jpg';
+  			$exec_src = $this-&gt;ini-&gt;read_var('avworks', 'convert_exec') .&quot; -sample &quot;. $this-&gt;thumb_x .&quot;x&quot;. $this-&gt;thumb_y .&quot; $work_dest jpg:$thumb_dest&quot;;
+  			exec($exec_src);
+***************
+*** 280,289 ****
+  		}
+  
+- 
+- 		$thumb_subfolder=$work_subfolder;
+  		// jei problemos, dedam default
+  		if ($this-&gt;error || empty($thumbnail_name))
+  		{
+- 			$thumb_subfolder='';
+  			$thumbnail_name = 'nothumbnail.gif';
+  		}
+--- 259,265 ----
+***************
+*** 300,304 ****
+  
+  		$this-&gt;db-&gt;query(&quot;INSERT INTO avworks (subject, info, posted, thumbnail, file, submiter, category_id, color, file_size)
+! 							VALUES ('$subject', '$info', NOW(), '$thumb_subfolder$thumbnail_name', '$work_subfolder$work_name', $g_user_id, $category, '$color', $work_size)&quot;);
+  
+  		// TODO: update avworks_stat
+--- 276,280 ----
+  
+  		$this-&gt;db-&gt;query(&quot;INSERT INTO avworks (subject, info, posted, thumbnail, file, submiter, category_id, color, file_size)
+! 							VALUES ('$subject', '$info', NOW(), '$thumbnail_name', '$work_name', $g_user_id, $category, '$color', $work_size)&quot;);
+  
+  		// TODO: update avworks_stat
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000011.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.22, 1.23
+</A></li>
+	<LI>Next message: <A HREF="000013.html">[artscene-cvs] art.scene.v2/htdocs/users/class login.class.php, 1.16,	1.17
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#12">[ date ]</a>
+              <a href="thread.html#12">[ thread ]</a>
+              <a href="subject.html#12">[ subject ]</a>
+              <a href="author.html#12">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

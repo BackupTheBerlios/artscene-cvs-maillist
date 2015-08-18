@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.18, 1.19
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-June/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_submit.class.php%2C%201.18%2C%201.19&In-Reply-To=%3C20110625121513.0894A480FEA%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000027.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.18, 1.19</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%0A%09darbai_submit.class.php%2C%201.18%2C%201.19&In-Reply-To=%3C20110625121513.0894A480FEA%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.18, 1.19">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Sat Jun 25 14:15:12 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000027.html">[artscene-cvs] art.scene.v2/htdocs/darbai/tpl workitem.html, 1.9,	1.10
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#28">[ date ]</a>
+              <a href="thread.html#28">[ thread ]</a>
+              <a href="subject.html#28">[ subject ]</a>
+              <a href="author.html#28">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv30528/htdocs/darbai/class
+
+Modified Files:
+	darbai_submit.class.php 
+Log Message:
+senas nesukomitintas uploadinimo taisykliu pakeitimas: reikia tureti devinis senus darbus, jei nori ideti daugiau nei viena darba per diena.
+
+Index: darbai_submit.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai_submit.class.php,v
+retrieving revision 1.18
+retrieving revision 1.19
+diff -C 2 -d -r1.18 -r1.19
+*** darbai_submit.class.php	19 Apr 2009 21:35:35 -0000	1.18
+--- darbai_submit.class.php	25 Jun 2011 12:15:09 -0000	1.19
+***************
+*** 43,59 ****
+  		global  $g_user_id, $g_usr;
+  
+- 		// administratoriai gali d&#235;ti darbus be limito.
+- 		if (in_array($g_usr-&gt;group_id, array(1)))
+- 		{
+- 			return false;
+- 		}
+- 		
+  		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_ADD(posted, INTERVAL 1 DAY) &gt; NOW()&quot;);
+  		if ($tmp['kiekis'] &gt; 2 ) return 'per &#240;ias 24 valandas jau &#225;d&#235;jai tris darbus, lauk rytdienos.';
+  
+! 		// tiems kurie neturi dviej&#248; darb&#248; senesni&#248; u&#254; savait&#230;
+  		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_SUB(NOW(), INTERVAL 7 DAY) &gt; posted &quot;);
+! 		if ($tmp['kiekis'] &lt; 2 ) 
+! 		{
+  			$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND  DATE_ADD(posted, INTERVAL 18 HOUR) &gt; NOW()&quot;);
+  			if ($tmp['kiekis'] &gt; 0 ) return 'per &#240;ias 18 valand&#248; jau &#225;d&#235;jai vien&#224; darb&#224;, lauk rytdienos.';
+--- 43,52 ----
+  		global  $g_user_id, $g_usr;
+  
+  		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_ADD(posted, INTERVAL 1 DAY) &gt; NOW()&quot;);
+  		if ($tmp['kiekis'] &gt; 2 ) return 'per &#240;ias 24 valandas jau &#225;d&#235;jai tris darbus, lauk rytdienos.';
+  
+! 		// tiems kurie neturi devyni&#248; darb&#248; senesni&#248; u&#254; savait&#230;
+  		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND DATE_SUB(NOW(), INTERVAL 7 DAY) &gt; posted &quot;);
+! 		if ($tmp['kiekis'] &lt; 9 ) {
+  			$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND  DATE_ADD(posted, INTERVAL 18 HOUR) &gt; NOW()&quot;);
+  			if ($tmp['kiekis'] &gt; 0 ) return 'per &#240;ias 18 valand&#248; jau &#225;d&#235;jai vien&#224; darb&#224;, lauk rytdienos.';
+***************
+*** 63,67 ****
+  		{
+  		  return &quot;darbus gal&#235;si si&#248;sti tik nuo &quot; . $g_usr-&gt;may_send_work_after;
+! 		}
+  		return false;
+  	}
+--- 56,60 ----
+  		{
+  		  return &quot;darbus gal&#235;si si&#248;sti tik nuo &quot; . $g_usr-&gt;may_send_work_after;
+!     }
+  		return false;
+  	}
+***************
+*** 315,317 ****
+  }
+  
+! ?&gt;
+--- 308,310 ----
+  }
+  
+! ?&gt;
+\ No newline at end of file
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000027.html">[artscene-cvs] art.scene.v2/htdocs/darbai/tpl workitem.html, 1.9,	1.10
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#28">[ date ]</a>
+              <a href="thread.html#28">[ thread ]</a>
+              <a href="subject.html#28">[ subject ]</a>
+              <a href="author.html#28">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

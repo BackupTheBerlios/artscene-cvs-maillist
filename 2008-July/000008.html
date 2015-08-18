@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.4,1.5
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/core%20averror.class.php%2C1.4%2C1.5&In-Reply-To=%3C20080726210813.6DAB4142B4F%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000007.html">
+   <LINK REL="Next"  HREF="000009.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.4,1.5</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/core%20averror.class.php%2C1.4%2C1.5&In-Reply-To=%3C20080726210813.6DAB4142B4F%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/core averror.class.php,1.4,1.5">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Jul 26 23:08:13 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000007.html">[artscene-cvs] art.scene.v2/htdocs/core avsession.class.php, 1.1,	1.2
+</A></li>
+        <LI>Next message: <A HREF="000009.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.4, 1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/core
+In directory sheep:/tmp/cvs-serv922/htdocs/core
+
+Modified Files:
+	averror.class.php 
+Log Message:
+kitas globalsas
+
+Index: averror.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/core/averror.class.php,v
+retrieving revision 1.4
+retrieving revision 1.5
+diff -C2 -d -r1.4 -r1.5
+*** averror.class.php	21 Dec 2007 23:23:23 -0000	1.4
+--- averror.class.php	26 Jul 2008 21:08:11 -0000	1.5
+***************
+*** 72,76 ****
+    global $g_user_id, $g_user_name;
+  	if (!error_reporting()) return false;
+! 	$errpage = $GLOBALS['REQUEST_URI'];
+  	$text = &quot;&lt;br&gt;
+  	&lt;b&gt;atsipra&#240;ome, bet sistemoje &#225;vyko klaida&lt;/b&gt;:&lt;br&gt;
+--- 72,76 ----
+    global $g_user_id, $g_user_name;
+  	if (!error_reporting()) return false;
+! 	$errpage = $_SERVER[&quot;REQUEST_URI&quot;];
+  	$text = &quot;&lt;br&gt;
+  	&lt;b&gt;atsipra&#240;ome, bet sistemoje &#225;vyko klaida&lt;/b&gt;:&lt;br&gt;
+***************
+*** 85,89 ****
+  	if (isset($GLOBALS['bench'])) { echo $text; }
+  	else { 
+! 		mail('<A HREF="https://lists.berlios.de/mailman/listinfo/artscene-cvs">salna at ktl.mii.lt</A>', 'klaida ant art.scene.lt', $text);
+  		echo &quot;&lt;b&gt;atsipra&#240;ome, bet sistemoje &#225;vyko klaida&lt;/b&gt;: &quot;;
+  		echo &quot;&lt;font color='#CC0000'&gt;$errno&lt;/font&gt;&lt;br&gt;&quot;;		
+--- 85,89 ----
+  	if (isset($GLOBALS['bench'])) { echo $text; }
+  	else { 
+! 		mail('<A HREF="https://lists.berlios.de/mailman/listinfo/artscene-cvs">pukomuko at gmail.com</A>', 'klaida ant art.scene.lt', $text);
+  		echo &quot;&lt;b&gt;atsipra&#240;ome, bet sistemoje &#225;vyko klaida&lt;/b&gt;: &quot;;
+  		echo &quot;&lt;font color='#CC0000'&gt;$errno&lt;/font&gt;&lt;br&gt;&quot;;		
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000007.html">[artscene-cvs] art.scene.v2/htdocs/core avsession.class.php, 1.1,	1.2
+</A></li>
+	<LI>Next message: <A HREF="000009.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_list.class.php, 1.4, 1.5
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#8">[ date ]</a>
+              <a href="thread.html#8">[ thread ]</a>
+              <a href="subject.html#8">[ subject ]</a>
+              <a href="author.html#8">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

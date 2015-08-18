@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.22, 1.23
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%20darbai.class.php%2C%0A%091.22%2C%201.23&In-Reply-To=%3C20080726212445.6BF2413B417%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000010.html">
+   <LINK REL="Next"  HREF="000012.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.22, 1.23</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/darbai/class%20darbai.class.php%2C%0A%091.22%2C%201.23&In-Reply-To=%3C20080726212445.6BF2413B417%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/darbai/class darbai.class.php,	1.22, 1.23">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sat Jul 26 23:24:45 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000010.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_cleanup.class.php, 1.15, 1.16
+</A></li>
+        <LI>Next message: <A HREF="000012.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.13, 1.14
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/darbai/class
+In directory sheep:/tmp/cvs-serv3141/htdocs/darbai/class
+
+Modified Files:
+	darbai.class.php 
+Log Message:
+countas ant id greiciau nei zvaigzdute?
+
+Index: darbai.class.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/darbai/class/darbai.class.php,v
+retrieving revision 1.22
+retrieving revision 1.23
+diff -C2 -d -r1.22 -r1.23
+*** darbai.class.php	7 Mar 2006 21:16:27 -0000	1.22
+--- darbai.class.php	26 Jul 2008 21:24:43 -0000	1.23
+***************
+*** 436,444 ****
+  
+  		// ar turim darba senesni uz savaite
+! 		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND category_id!=5 AND DATE_SUB(NOW(), INTERVAL 7 DAY) &gt; posted &quot;);
+  		if ($tmp['kiekis'] &lt; 1 ) {
+  
+  			// ar turim tris fotkes senesnes uz savaite
+! 			$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(id) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND category_id=5 AND DATE_SUB(NOW(), INTERVAL 7 DAY) &gt; posted &quot;);
+  			if ($tmp['kiekis'] &lt; 3 ) return false;
+  		}
+--- 436,444 ----
+  
+  		// ar turim darba senesni uz savaite
+! 		$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND category_id!=5 AND DATE_SUB(NOW(), INTERVAL 7 DAY) &gt; posted &quot;);
+  		if ($tmp['kiekis'] &lt; 1 ) {
+  
+  			// ar turim tris fotkes senesnes uz savaite
+! 			$tmp = $this-&gt;db-&gt;get_array(&quot;SELECT COUNT(*) AS kiekis  FROM avworks WHERE submiter='$g_user_id' AND category_id=5 AND DATE_SUB(NOW(), INTERVAL 7 DAY) &gt; posted &quot;);
+  			if ($tmp['kiekis'] &lt; 3 ) return false;
+  		}
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000010.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_cleanup.class.php, 1.15, 1.16
+</A></li>
+	<LI>Next message: <A HREF="000012.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.13, 1.14
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#11">[ date ]</a>
+              <a href="thread.html#11">[ thread ]</a>
+              <a href="subject.html#11">[ subject ]</a>
+              <a href="author.html#11">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

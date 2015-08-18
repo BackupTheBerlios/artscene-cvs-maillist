@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/scripts hirez_name_browse.php,	1.1, 1.2 hirez_browse.php, 1.1, 1.2
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2008-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/scripts%20hirez_name_browse.php%2C%0A%091.1%2C%201.2%20hirez_browse.php%2C%201.1%2C%201.2&In-Reply-To=%3C20080727211206.A41D0135DFA%40mail.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000018.html">
+   <LINK REL="Next"  HREF="000020.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/scripts hirez_name_browse.php,	1.1, 1.2 hirez_browse.php, 1.1, 1.2</H1>
+    <B>pukomuko</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/scripts%20hirez_name_browse.php%2C%0A%091.1%2C%201.2%20hirez_browse.php%2C%201.1%2C%201.2&In-Reply-To=%3C20080727211206.A41D0135DFA%40mail.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/scripts hirez_name_browse.php,	1.1, 1.2 hirez_browse.php, 1.1, 1.2">nobody at sheep.berlios.de
+       </A><BR>
+    <I>Sun Jul 27 23:12:06 CEST 2008</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000018.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.14, 1.15
+</A></li>
+        <LI>Next message: <A HREF="000020.html">[artscene-cvs] art.scene.v2/htdocs/scripts hirez_name_browse.php,	1.2, 1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#19">[ date ]</a>
+              <a href="thread.html#19">[ thread ]</a>
+              <a href="subject.html#19">[ subject ]</a>
+              <a href="author.html#19">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/scripts
+In directory sheep:/tmp/cvs-serv17089/htdocs/scripts
+
+Modified Files:
+	hirez_name_browse.php hirez_browse.php 
+Log Message:
+jau milijona metu ner komentaru veikianciu
+
+Index: hirez_name_browse.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/scripts/hirez_name_browse.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1 -r1.2
+*** hirez_name_browse.php	6 Aug 2006 16:47:53 -0000	1.1
+--- hirez_name_browse.php	27 Jul 2008 21:12:04 -0000	1.2
+***************
+*** 134,168 ****
+   if (!$i) {echo &quot;&#222;i&#251;rov&#248; atsiliepim&#248; dar n&#235;ra &lt;br&gt;&lt;br&gt;&quot;;}
+  ?&gt;
+- Tavo komentaras:
+- &lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tr&gt;&lt;td bgcolor=&quot;#A6A090&quot;&gt;&lt;!--baltas krastas--&gt;
+- &lt;table width=&quot;100%&quot; cellspacing=&quot;1&quot; border=&quot;0&quot;&gt;&lt;tr&gt;&lt;td  bgcolor=&quot;#2C2B2A&quot;&gt;
+-   &lt;form method=POST action=&quot;submit_hirez_talk.php&quot; enctype=&quot;multipart/form-data&quot;&gt;
+-   &lt;?        
+-       echo &quot;&lt;input type=hidden name=iid value=$iid&gt;&quot;;
+- 	  echo &quot;&lt;input type=hidden name=pname value=\&quot;&quot;.$info[&quot;name&quot;].&quot;\&quot;&gt;&quot;;
+- 	  echo &quot;&lt;input type=hidden name=pmail value=\&quot;&quot;.$pimail.&quot;\&quot;&gt;&quot;;
+-   ?&gt;
+- &lt;table&gt;
+- &lt;tr&gt;
+- 	&lt;td align=&quot;RIGHT&quot;&gt;&lt;span class=&quot;text&quot;&gt;*vardas/nikas:&lt;/span&gt;&lt;br&gt;&lt;/td&gt;
+- 	&lt;td&gt;&lt;input type=text name=realname size=50&gt;&lt;/td&gt;
+- &lt;/tr&gt;
+- &lt;tr&gt;
+- 	&lt;td align=&quot;RIGHT&quot;&gt;&lt;span class=&quot;text&quot;&gt;emailas:&lt;/span&gt;&lt;/td&gt;
+- 	&lt;td&gt;&lt;input type=text name=email size=50&gt;&lt;/td&gt;
+- &lt;/tr&gt;
+- 
+- &lt;/table&gt;
+  
+-   
+-       
+-      &lt;span class=&quot;text&quot;&gt; *komentaras:&lt;br&gt;
+-       &lt;div align=&quot;right&quot;&gt;&lt;textarea name=comment COLS=60 ROWS=6&gt;&lt;/textarea&gt;&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+- 	  	  
+-       &lt;div align=&quot;right&quot;&gt; &lt;input type=submit value=&quot;si&#248;sti&quot;&gt;  &lt;input type=reset value=&quot;i&#240;trinti&quot;&gt;&lt;/div&gt;
+- &lt;/span&gt;
+-     &lt;/form&gt;
+- &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+- &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+  &lt;br&gt;
+  &lt;?
+--- 134,138 ----
+
+Index: hirez_browse.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/scripts/hirez_browse.php,v
+retrieving revision 1.1
+retrieving revision 1.2
+diff -C2 -d -r1.1 -r1.2
+*** hirez_browse.php	6 Aug 2006 16:47:53 -0000	1.1
+--- hirez_browse.php	27 Jul 2008 21:12:04 -0000	1.2
+***************
+*** 128,161 ****
+  ?&gt;
+  
+- &lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tr&gt;&lt;td bgcolor=&quot;#A6A090&quot;&gt;&lt;!--baltas krastas--&gt;
+- &lt;table width=&quot;100%&quot; cellspacing=&quot;1&quot; border=&quot;0&quot;&gt;&lt;tr&gt;&lt;td  bgcolor=&quot;#2C2B2A&quot;&gt;
+-   &lt;form method=POST action=&quot;submit_hirez_talk.php&quot; enctype=&quot;multipart/form-data&quot;&gt;
+-   &lt;?        
+-       echo &quot;&lt;input type=hidden name=iid value=$iid&gt;&quot;;
+- 	  echo &quot;&lt;input type=hidden name=pname value=\&quot;&quot;.$info[&quot;name&quot;].&quot;\&quot;&gt;&quot;;
+- 	  echo &quot;&lt;input type=hidden name=pmail value=\&quot;&quot;.$pimail.&quot;\&quot;&gt;&quot;;
+-   ?&gt;
+- &lt;table&gt;
+- &lt;tr&gt;
+- 	&lt;td align=&quot;RIGHT&quot;&gt;&lt;span class=&quot;text&quot;&gt;*vardas/nikas:&lt;/span&gt;&lt;br&gt;&lt;/td&gt;
+- 	&lt;td&gt;&lt;input type=text name=realname size=50&gt;&lt;/td&gt;
+- &lt;/tr&gt;
+- &lt;tr&gt;
+- 	&lt;td align=&quot;RIGHT&quot;&gt;&lt;span class=&quot;text&quot;&gt;emailas:&lt;/span&gt;&lt;/td&gt;
+- 	&lt;td&gt;&lt;input type=text name=email size=50&gt;&lt;/td&gt;
+- &lt;/tr&gt;
+- 
+- &lt;/table&gt;
+  
+-   
+-       
+-      &lt;span class=&quot;text&quot;&gt; *komentaras:&lt;br&gt;
+-       &lt;div align=&quot;right&quot;&gt;&lt;textarea name=comment COLS=60 ROWS=6&gt;&lt;/textarea&gt;&lt;br&gt;&lt;br&gt;&lt;/div&gt;
+- 	  	  
+-       &lt;div align=&quot;right&quot;&gt; &lt;input type=submit value=&quot;si&#248;sti&quot;&gt;  &lt;input type=reset value=&quot;i&#240;trinti&quot;&gt;&lt;/div&gt;
+- &lt;/span&gt;
+-     &lt;/form&gt;
+- &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+- &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+  &lt;br&gt;
+  &lt;?
+--- 128,132 ----
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000018.html">[artscene-cvs] art.scene.v2/htdocs/darbai/class	darbai_submit.class.php, 1.14, 1.15
+</A></li>
+	<LI>Next message: <A HREF="000020.html">[artscene-cvs] art.scene.v2/htdocs/scripts hirez_name_browse.php,	1.2, 1.3
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#19">[ date ]</a>
+              <a href="thread.html#19">[ thread ]</a>
+              <a href="subject.html#19">[ subject ]</a>
+              <a href="author.html#19">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs process_maintenance.php, NONE,	1.1
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs%20process_maintenance.php%2C%20NONE%2C%0A%091.1&In-Reply-To=%3C20110704212119.D014548134D%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000042.html">
+   
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs process_maintenance.php, NONE,	1.1</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs%20process_maintenance.php%2C%20NONE%2C%0A%091.1&In-Reply-To=%3C20110704212119.D014548134D%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs process_maintenance.php, NONE,	1.1">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 23:21:19 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000042.html">[artscene-cvs] art.scene.v2/scripts/sql cleanup_users.sql,1.1,1.2
+</A></li>
+        
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs
+In directory sheep:/tmp/cvs-serv2384/htdocs
+
+Added Files:
+	process_maintenance.php 
+Log Message:
+maintenance page
+
+--- NEW FILE: process_maintenance.php ---
+&lt;?php
+/*!
+	prints out redirection page
+	header, javascript, link
+*/
+function redirect($page)
+{
+	header(&quot;Location: $page&quot;);
+	
+	?&gt; 
+	&lt;html&gt;&lt;head&gt;&lt;title&gt;redirect&lt;/title&gt;
+	&lt;meta http-equiv=&quot;Refresh&quot; content=&quot;0; URL=&lt;? echo $page ?&gt;&quot;&gt;
+	&lt;/head&gt;
+
+	&lt;body&gt;
+	&lt;script language=&quot;JavaScript&quot;&gt;
+	&lt;!--
+	window.location = '&lt;? echo $page ?&gt;';
+	//--&gt;
+	&lt;/script&gt;
+	&lt;a href=&quot;&lt;? echo $page ?&gt;&quot;&gt;&lt;b&gt;spauskit &#196;&#141;ia / enter here&lt;/b&gt;&lt;/a&gt;
+	
+	&lt;/body&gt;
+	&lt;/html&gt;
+	&lt;?
+	exit;
+}
+
+$process = 'process.php';
+
+if (substr($_SERVER['REQUEST_URI'] , - strlen(&quot;/$process&quot;)) == &quot;/$process&quot;) redirect (&quot;$process/&quot;);
+
+
+?&gt;&lt;!doctype html public &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+	&lt;title&gt; art.scene.v2 &lt;/title&gt;
+	&lt;META HTTP-EQUIV=&quot;Content-Type&quot; CONTENT=&quot;text/html; charset=utf-8&quot;&gt;
+	&lt;link href=&quot;../css/artv2.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+	&lt;LINK REL=&quot;SHORTCUT ICON&quot; HREF=&quot;<A HREF="http://art.scene.lt/favicon.ico">http://art.scene.lt/favicon.ico</A>&quot;&gt;
+&lt;/head&gt;
+
+&lt;body topmargin=0 leftmargin=0 marginheight=0 marginwidth=0&gt;
+
+&lt;table width=&quot;100%&quot; border=0 cellpadding=0 cellspacing=0 height=&quot;&quot;&gt;&lt;tr&gt; &lt;!-- outter layout --&gt;
+	&lt;td class=&quot;table-light&quot; valign=&quot;top&quot; align=&quot;left&quot; width=&quot;769&quot;&gt;
+	
+	
+	&lt;table width=&quot;100%&quot; border=0 cellpadding=0 cellspacing=0&gt; &lt;!-- logo virsus --&gt;
+	&lt;tr&gt;
+		&lt;td class=&quot;border-out&quot; valign=&quot;top&quot; align=&quot;left&quot;&gt;&lt;img src=&quot;../design_images/art.scene.logo.top.gif&quot; width=&quot;374&quot; height=&quot;10&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;/table&gt; &lt;!-- logo virsus --&gt;
+	
+	&lt;table width=&quot;100%&quot; border=0 cellpadding=0 cellspacing=0&gt; &lt;!-- header --&gt;
+	&lt;tr&gt;
+		&lt;td valign=&quot;top&quot; align=&quot;left&quot;&gt;&lt;a href=&quot;../process/&quot;&gt;&lt;img src=&quot;../design_images/art.scene.logo.bottom.gif&quot; width=&quot;377&quot; height=&quot;59&quot; border=0 alt=&quot;&quot;&gt;&lt;/a&gt;&lt;br&gt;&nbsp;
+
+		
+		&lt;/td&gt;
+		&lt;td valign=&quot;bottom&quot; align=&quot;right&quot; rowspan=3&gt;&lt;img src=&quot;../dot.gif&quot; width=&quot;1&quot; height=&quot;5&quot; border=0 alt=&quot;&quot;&gt;&lt;br&gt;
+
+
+		&lt;img src=&quot;../design_images/header.bottom.right2.gif&quot; width=&quot;262&quot; height=&quot;45&quot; border=0 alt=&quot;&quot;&gt;&lt;!-- &lt;img src=&quot;../design_images/header.bottom.right.gif&quot; width=&quot;262&quot; height=&quot;103&quot; border=0 alt=&quot;&quot;&gt; --&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td valign=&quot;bottom&quot;&gt;
+		
+		    &lt;table&gt;&lt;tr&gt;&lt;td&gt;&nbsp;&lt;/td&gt;&lt;td&gt;
+			&#197;&#161;iuo metu vyksta serverio atnaujinimo darbai.&lt;br&gt;
+			ateikite u&#197;&#190; valandos, rytoj, poryt.&lt;br&gt;
+			b&#197;&#171;tinai prane&#197;&#161;kite apie pasteb&#196;&#151;tas klaidas, kai artscena atsigaus!&lt;br&gt;
+			&lt;a href=&quot;mailto:<A HREF="https://lists.berlios.de/mailman/listinfo/artscene-cvs">art at scene.lt</A>&quot;&gt;<A HREF="https://lists.berlios.de/mailman/listinfo/artscene-cvs">art at scene.lt</A>&lt;/a&gt;
+
+            &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+		&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td valign=&quot;bottom&quot;&gt;
+
+			
+			
+
+		&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;/table&gt; &lt;!-- header --&gt;
+
+	&lt;table width=&quot;100%&quot; border=0 cellpadding=0 cellspacing=0&gt; &lt;!-- linija --&gt;
+	&lt;tr&gt;
+		&lt;td class=&quot;border-out&quot; valign=&quot;top&quot; align=&quot;left&quot;&gt;&lt;img src=&quot;../dot.gif&quot; width=&quot;769&quot; height=&quot;10&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;/table&gt; &lt;!-- linija --&gt;
+	
+	
+
+	&lt;/td&gt;&lt;!-- vidines celles pabaiga --&gt;
+
+	&lt;td class=&quot;border-out&quot; valign=&quot;top&quot; align=&quot;left&quot; width=&quot;*&quot;&gt;&lt;table width=&quot;100%&quot; cellpadding=0 cellspacing=0 border=0&gt;
+	&lt;tr&gt;
+		&lt;td width=&quot;99%&quot; class=&quot;border-out&quot;&gt;&lt;img src=&quot;../dot.gif&quot; width=&quot;1&quot; height=&quot;10&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+		&lt;td rowspan=&quot;5&quot; width=&quot;106&quot; valign=&quot;top&quot;&gt;&lt;img src=&quot;../design_images/top.right.gif&quot; width=&quot;106&quot; height=&quot;64&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td class=&quot;table-light&quot;&gt;&lt;img src=&quot;../dot.gif&quot; width=&quot;1&quot; height=&quot;14&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td class=&quot;border-out&quot;&gt;&lt;img src=&quot;../dot.gif&quot; width=&quot;1&quot; height=&quot;8&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td class=&quot;table-light&quot;&gt;&lt;img src=&quot;../dot.gif&quot; width=&quot;1&quot; height=&quot;1&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr&gt;
+		&lt;td class=&quot;border-out&quot;&gt;&lt;img src=&quot;../dot.gif&quot; width=&quot;1&quot; height=&quot;30&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+	&lt;/tr&gt;
+
+	&lt;/table&gt;
+
+	
+	
+	&lt;/td&gt;&lt;!-- isorine celle --&gt;
+
+	&lt;td  class=&quot;border-out&quot; valign=&quot;top&quot; width=&quot;7&quot; background=&quot;../design_images/right.background.gif&quot;&gt;&lt;img src=&quot;../design_images/top.right.right.gif&quot; width=&quot;7&quot; height=&quot;64&quot; border=0 alt=&quot;&quot;&gt;&lt;/td&gt;
+
+
+&lt;/tr&gt;
+
+
+
+
+&lt;/table&gt; &lt;!-- outter layout --&gt;
+
+
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000042.html">[artscene-cvs] art.scene.v2/scripts/sql cleanup_users.sql,1.1,1.2
+</A></li>
+	
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#43">[ date ]</a>
+              <a href="thread.html#43">[ thread ]</a>
+              <a href="subject.html#43">[ subject ]</a>
+              <a href="author.html#43">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

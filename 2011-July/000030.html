@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs process.php, 1.2,	1.3 site.ini.php, 1.3, 1.4
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs%20process.php%2C%201.2%2C%0A%091.3%20site.ini.php%2C%201.3%2C%201.4&In-Reply-To=%3C20110704210050.D7A98483382%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000029.html">
+   <LINK REL="Next"  HREF="000031.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs process.php, 1.2,	1.3 site.ini.php, 1.3, 1.4</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs%20process.php%2C%201.2%2C%0A%091.3%20site.ini.php%2C%201.3%2C%201.4&In-Reply-To=%3C20110704210050.D7A98483382%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs process.php, 1.2,	1.3 site.ini.php, 1.3, 1.4">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 23:00:50 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000029.html">[artscene-cvs] art.scene.v2/htdocs/control/class	avctextarea_html.class.php, 1.1, 1.2 avctext.class.php, 1.1,	1.2 page_users.class.php, 1.5, 1.6 avcactions.class.php, 1.1,	1.2 page_language.class.php, 1.1, 1.2 avcselect.class.php, 1.1,	1.2 avcbrowser_type.class.php, 1.1, 1.2 avcimage.class.php,	1.1, 1.2 page_modules.class.php, 1.1,	1.2 page_groups.class.php, 1.1, 1.2 avctextarea.class.php, 1.1,	1.2 page_permissions.class.php, 1.1,	1.2 avctextarea_bbcode.class.php, 1.1,	1.2 avcdbselect.class.php, 1.1, 1.2 avclinktext.class.php, 1.1,	1.2 page_user_log.class.php, 1.1, 1.2 avcdbtext.class.php, 1.4, 1.5
+</A></li>
+        <LI>Next message: <A HREF="000031.html">[artscene-cvs] art.scene.v2/htdocs/news/class avnews.class.php, 1.1,	1.2 avcomments.class.php, 1.1, 1.2 news.class.php, 1.4,	1.5 avnewscategory.class.php, 1.1, 1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#30">[ date ]</a>
+              <a href="thread.html#30">[ thread ]</a>
+              <a href="subject.html#30">[ subject ]</a>
+              <a href="author.html#30">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs
+In directory sheep:/tmp/cvs-serv31643/htdocs
+
+Modified Files:
+	process.php site.ini.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: process.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/process.php,v
+retrieving revision 1.2
+retrieving revision 1.3
+diff -C 2 -d -r1.2 -r1.3
+*** process.php	25 Nov 2007 23:49:08 -0000	1.2
+--- process.php	4 Jul 2011 21:00:47 -0000	1.3
+***************
+*** 42,50 ****
+  $RELPATH = './';
+  
+- 
+  include_once($RELPATH . 'site.ini.php');
+  include_once($RELPATH . $LIBPATH . 'user_header.inc.php');
+  
+! if (substr($REQUEST_URI, - strlen('/process.php')) == '/process.php') redirect ('process.php/');
+  
+  //if ($_SERVER['HTTP_HOST'] != 'art.scene.lt') redirect('<A HREF="http://art.scene.lt/process.php/page.simple;menuname.address">http://art.scene.lt/process.php/page.simple;menuname.address</A>');
+--- 42,49 ----
+  $RELPATH = './';
+  
+  include_once($RELPATH . 'site.ini.php');
+  include_once($RELPATH . $LIBPATH . 'user_header.inc.php');
+  
+! if (substr($_SERVER['REQUEST_URI'] , - strlen('/process.php')) == '/process.php') redirect ('process.php/');
+  
+  //if ($_SERVER['HTTP_HOST'] != 'art.scene.lt') redirect('<A HREF="http://art.scene.lt/process.php/page.simple;menuname.address">http://art.scene.lt/process.php/page.simple;menuname.address</A>');
+***************
+*** 65,69 ****
+  }
+  
+! $g_tpl-&gt;set_var('SCRIPT_NAME', $GLOBALS['SCRIPT_NAME'] . '/');
+  
+  isset($page) || $page = $g_ini-&gt;read_var('site', 'DefaultPage');
+--- 64,68 ----
+  }
+  
+! $g_tpl-&gt;set_var('SCRIPT_NAME', $_SERVER['SCRIPT_NAME'] . '/');
+  
+  isset($page) || $page = $g_ini-&gt;read_var('site', 'DefaultPage');
+***************
+*** 98,102 ****
+  		if (empty($names[3])) { $names[3] = ''; }
+  
+! 		$table[$index]['table'] = &amp; new $names[1]();
+  		$table[$index]['table_name'] = $names[1];
+  		$table[$index]['method'] = $names[2];
+--- 97,101 ----
+  		if (empty($names[3])) { $names[3] = ''; }
+  
+! 		$table[$index]['table'] = new $names[1]();
+  		$table[$index]['table_name'] = $names[1];
+  		$table[$index]['method'] = $names[2];
+***************
+*** 115,119 ****
+  	$ts = getmicrotime();
+  	$g_tpl-&gt;set_var($table[$index]['column'], $g_tpl-&gt;get_var_silent($table[$index]['column']) . $table[$index]['table']-&gt;$table[$index]['method']($table[$index]['param']) ); // :)
+! 	if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[&quot;.$table[$index]['table_name'].&quot;]: &quot; . round((getmicrotime() - $ts),2);}	
+  }
+  
+--- 114,121 ----
+  	$ts = getmicrotime();
+  	$g_tpl-&gt;set_var($table[$index]['column'], $g_tpl-&gt;get_var_silent($table[$index]['column']) . $table[$index]['table']-&gt;$table[$index]['method']($table[$index]['param']) ); // :)
+! 	if (isset($GLOBALS['bench'])) { 
+! 		echo &quot;&lt;br&gt;checkpoint[&quot;.$table[$index]['table_name'].&quot;-&quot;.$table[$index]['method'].&quot;]: &quot; . 
+! 			round((getmicrotime() - $ts),2);
+! 	}	
+  }
+  
+
+Index: site.ini.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/site.ini.php,v
+retrieving revision 1.3
+retrieving revision 1.4
+diff -C 2 -d -r1.3 -r1.4
+*** site.ini.php	21 Dec 2007 23:46:02 -0000	1.3
+--- site.ini.php	4 Jul 2011 21:00:47 -0000	1.4
+***************
+*** 12,16 ****
+  */
+  
+! error_reporting(E_ALL);
+  
+  
+--- 12,16 ----
+  */
+  
+! error_reporting(E_ALL &amp; ~(E_NOTICE | E_DEPRECATED | E_STRICT));
+  
+  
+***************
+*** 28,31 ****
+--- 28,36 ----
+  //$bench = 1;
+  
++ foreach($_REQUEST as $key =&gt; $obj) {
++     if (!isset($GLOBALS[$key])) $GLOBALS[$key] = $obj;
++ }
++   $PHP_SELF = $_SERVER['PHP_SELF'];
++ 
+  include_once($RELPATH . $COREPATH . &quot;averror.class.php&quot;);
+  include_once($RELPATH . $COREPATH . &quot;avdb.class.php&quot;);
+***************
+*** 39,47 ****
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[includes]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_error = &amp; new avError('report');
+  
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[error]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_ini = &amp; new avIni($RELPATH . 'global.ini.php');
+  
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[ini]: &quot; . round((getmicrotime() - $pradedam),2); }
+--- 44,52 ----
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[includes]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_error = new avError('report');
+  
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[error]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_ini = new avIni($RELPATH . 'global.ini.php');
+  
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[ini]: &quot; . round((getmicrotime() - $pradedam),2); }
+***************
+*** 54,66 ****
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[lang]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_db = &amp; new avDb();
+  
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[db]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_sess = &amp; new avSession ();
+  
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[session]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_tpl = &amp; new phemplate($RELPATH, 'keep');
+  $g_tpl-&gt;set_error_handler(&amp;$g_error);
+  
+--- 59,71 ----
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[lang]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_db = new avDb();
+  
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[db]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_sess = new avSession ();
+  
+  if (isset($GLOBALS['bench'])) { echo &quot;&lt;br&gt;checkpoint[session]: &quot; . round((getmicrotime() - $pradedam),2); }
+  
+! $g_tpl = new phemplate($RELPATH, 'keep');
+  $g_tpl-&gt;set_error_handler(&amp;$g_error);
+  
+***************
+*** 77,81 ****
+  if (empty($g_user_id) || !$g_sess-&gt;userID) { $g_user_id = false; }
+  
+! $g_usr = &amp; new avUser($g_user_id);
+  
+  
+--- 82,86 ----
+  if (empty($g_user_id) || !$g_sess-&gt;userID) { $g_user_id = false; }
+  
+! $g_usr = new avUser($g_user_id);
+  
+  
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000029.html">[artscene-cvs] art.scene.v2/htdocs/control/class	avctextarea_html.class.php, 1.1, 1.2 avctext.class.php, 1.1,	1.2 page_users.class.php, 1.5, 1.6 avcactions.class.php, 1.1,	1.2 page_language.class.php, 1.1, 1.2 avcselect.class.php, 1.1,	1.2 avcbrowser_type.class.php, 1.1, 1.2 avcimage.class.php,	1.1, 1.2 page_modules.class.php, 1.1,	1.2 page_groups.class.php, 1.1, 1.2 avctextarea.class.php, 1.1,	1.2 page_permissions.class.php, 1.1,	1.2 avctextarea_bbcode.class.php, 1.1,	1.2 avcdbselect.class.php, 1.1, 1.2 avclinktext.class.php, 1.1,	1.2 page_user_log.class.php, 1.1, 1.2 avcdbtext.class.php, 1.4, 1.5
+</A></li>
+	<LI>Next message: <A HREF="000031.html">[artscene-cvs] art.scene.v2/htdocs/news/class avnews.class.php, 1.1,	1.2 avcomments.class.php, 1.1, 1.2 news.class.php, 1.4,	1.5 avnewscategory.class.php, 1.1, 1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#30">[ date ]</a>
+              <a href="thread.html#30">[ thread ]</a>
+              <a href="subject.html#30">[ subject ]</a>
+              <a href="author.html#30">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>

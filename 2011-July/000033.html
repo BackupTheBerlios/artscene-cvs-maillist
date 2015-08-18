@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [artscene-cvs] art.scene.v2/htdocs/lib util.lib.php,1.10,1.11
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/artscene-cvs/2011-July/index.html" >
+   <LINK REL="made" HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/lib%20util.lib.php%2C1.10%2C1.11&In-Reply-To=%3C20110704210051.11E4C483386%40sheep.berlios.de%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   <LINK REL="Previous"  HREF="000035.html">
+   <LINK REL="Next"  HREF="000034.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[artscene-cvs] art.scene.v2/htdocs/lib util.lib.php,1.10,1.11</H1>
+    <B>pukomuko at BerliOS</B> 
+    <A HREF="mailto:artscene-cvs%40lists.berlios.de?Subject=Re%3A%20%5Bartscene-cvs%5D%20art.scene.v2/htdocs/lib%20util.lib.php%2C1.10%2C1.11&In-Reply-To=%3C20110704210051.11E4C483386%40sheep.berlios.de%3E"
+       TITLE="[artscene-cvs] art.scene.v2/htdocs/lib util.lib.php,1.10,1.11">pukomuko at sheep.berlios.de
+       </A><BR>
+    <I>Mon Jul  4 23:00:51 CEST 2011</I>
+    <P><UL>
+        <LI>Previous message: <A HREF="000035.html">[artscene-cvs] art.scene.v2/htdocs/control ini_edit.php, 1.1,	1.2 index.php, 1.1, 1.2 settings_edit.php, 1.1,	1.2 control.php, 1.1, 1.2 admin.php, 1.3, 1.4
+</A></li>
+        <LI>Next message: <A HREF="000034.html">[artscene-cvs] art.scene.v2/htdocs/control/usage usage.class.php,	1.1, 1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Update of /cvsroot/artscene/art.scene.v2/htdocs/lib
+In directory sheep:/tmp/cvs-serv31643/htdocs/lib
+
+Modified Files:
+	util.lib.php 
+Log Message:
+php5 compatibility
+not everything is tested, but most of the functionality appears to be working.
+
+Index: util.lib.php
+===================================================================
+RCS file: /cvsroot/artscene/art.scene.v2/htdocs/lib/util.lib.php,v
+retrieving revision 1.10
+retrieving revision 1.11
+diff -C 2 -d -r1.10 -r1.11
+*** util.lib.php	27 Nov 2008 02:05:35 -0000	1.10
+--- util.lib.php	4 Jul 2011 21:00:48 -0000	1.11
+***************
+*** 61,65 ****
+  function htmlchars($s)
+  {
+! 	$s = ereg_replace(&quot;'&quot;,&quot;&#039;&quot;, htmlspecialchars($s));
+  	return $s;
+  }
+--- 61,65 ----
+  function htmlchars($s)
+  {
+! 	$s = @ereg_replace(&quot;'&quot;,&quot;&#039;&quot;, htmlspecialchars($s));
+  	return $s;
+  }
+***************
+*** 68,72 ****
+  function clean_username($name)
+  {
+! 	return ereg_replace(&quot;[^0-9a-zA-Z_]&quot;,&quot;&quot;,$name);
+  }
+  
+--- 68,72 ----
+  function clean_username($name)
+  {
+! 	return @ereg_replace(&quot;[^0-9a-zA-Z_]&quot;,&quot;&quot;,$name);
+  }
+  
+***************
+*** 75,79 ****
+  function clean_name($name)
+  {
+! 	return ereg_replace(&quot;[^0-9a-zA-Z_.]&quot;,&quot;&quot;,$name);
+  }
+  
+--- 75,79 ----
+  function clean_name($name)
+  {
+! 	return preg_replace(&quot;/[^0-9a-zA-Z_.]/&quot;,&quot;&quot;,$name);
+  }
+  
+***************
+*** 81,85 ****
+  function clean_number($name)
+  {
+! 	return ereg_replace(&quot;[^0-9]&quot;,&quot;&quot;,$name);
+  }
+  
+--- 81,85 ----
+  function clean_number($name)
+  {
+! 	return @ereg_replace(&quot;[^0-9]&quot;,&quot;&quot;,$name);
+  }
+  
+***************
+*** 87,91 ****
+  function clean_hex($name)
+  {
+! 	return ereg_replace(&quot;[^0-9a-fA-F]&quot;,&quot;&quot;,$name);
+  }
+  
+--- 87,91 ----
+  function clean_hex($name)
+  {
+! 	return @ereg_replace(&quot;[^0-9a-fA-F]&quot;,&quot;&quot;,$name);
+  }
+  
+***************
+*** 95,99 ****
+  {
+  	$email_regular_expression = &quot;^([-!#\$%&amp;'*+./0-9=?A-Z^_`a-z{|}~ ])+@([-!#\$%&amp;'*+/0-9=?A-Z^_`a-z{|}~ ]+\\.)+[a-zA-Z]{2,4}\$&quot;;
+! 	return (eregi($email_regular_expression, $email) != 0);
+  }
+  
+--- 95,99 ----
+  {
+  	$email_regular_expression = &quot;^([-!#\$%&amp;'*+./0-9=?A-Z^_`a-z{|}~ ])+@([-!#\$%&amp;'*+/0-9=?A-Z^_`a-z{|}~ ]+\\.)+[a-zA-Z]{2,4}\$&quot;;
+! 	return (@eregi($email_regular_expression, $email) != 0);
+  }
+  
+***************
+*** 106,110 ****
+  function html_build_date($name, $date = false)
+  {
+! 	$tmp = split('[-. ]', $date);
+  
+  	for ($i = 0; $i &lt; 3; $i++)
+--- 106,110 ----
+  function html_build_date($name, $date = false)
+  {
+! 	$tmp = preg_split('/[-. ]/', $date);
+  
+  	for ($i = 0; $i &lt; 3; $i++)
+***************
+*** 317,321 ****
+  {
+  	
+! 	//$url = substr(strrchr($GLOBALS['REQUEST_URI'],'/'),1);
+  	
+  	$url = get_query();
+--- 317,321 ----
+  {
+  	
+! 	//$url = substr(strrchr($_SERVER['REQUEST_URI'],'/'),1);
+  	
+  	$url = get_query();
+***************
+*** 354,362 ****
+  function get_query()
+  {
+! 	$request = $GLOBALS['REQUEST_URI'];
+  	
+! 	if ( is_int(strpos($request, $GLOBALS['SCRIPT_NAME'])) )
+  	{
+! 		$request = str_replace($GLOBALS['SCRIPT_NAME'], '', $request);
+  
+  		if ($request) 
+--- 354,362 ----
+  function get_query()
+  {
+! 	$request = $_SERVER['REQUEST_URI'];
+  	
+! 	if ( is_int(strpos($request, $_SERVER['SCRIPT_NAME'])) )
+  	{
+! 		$request = str_replace($_SERVER['SCRIPT_NAME'], '', $request);
+  
+  		if ($request) 
+***************
+*** 370,374 ****
+  	} else
+  	{
+! 		if ( strlen($request) &gt; (strlen(dirname($GLOBALS['SCRIPT_NAME'])) + 1) )
+  		{	
+  			return  substr($request, 2 + strlen(dirname($request)), strlen($request));
+--- 370,374 ----
+  	} else
+  	{
+! 		if ( strlen($request) &gt; (strlen(dirname($_SERVER['SCRIPT_NAME'])) + 1) )
+  		{	
+  			return  substr($request, 2 + strlen(dirname($request)), strlen($request));
+***************
+*** 492,496 ****
+  	$article = str_replace(&quot;[i]&quot;,&quot;&lt;i&gt;&quot;,$article);
+  	$article = str_replace(&quot;[/i]&quot;,&quot;&lt;/i&gt;&quot;,$article);
+! 	$article=eregi_replace(&quot;\\[img=([^\\[]*)\\]&quot;,&quot;&lt;img src=\&quot;\\1\&quot;&gt;&quot;,$article);
+  
+  
+--- 492,496 ----
+  	$article = str_replace(&quot;[i]&quot;,&quot;&lt;i&gt;&quot;,$article);
+  	$article = str_replace(&quot;[/i]&quot;,&quot;&lt;/i&gt;&quot;,$article);
+! 	$article=@eregi_replace(&quot;\\[img=([^\\[]*)\\]&quot;,&quot;&lt;img src=\&quot;\\1\&quot;&gt;&quot;,$article);
+  
+  
+***************
+*** 517,523 ****
+  
+  
+! 	$article=eregi_replace(&quot;\\[icq=([^\\[]*)\\]([^\\[]*)\\[/icq\\]&quot;,&quot;&lt;a href=\&quot;<A HREF="http://wwp.icq.com/scripts/Search.dll?to=\\1\">http://wwp.icq.com/scripts/Search.dll?to=\\1\</A>&quot;&gt;\\2&lt;/a&gt;&quot;,$article);
+! 	$article=eregi_replace(&quot;\\[colour=([^\\[]*)\\]([^\\[]*)\\[/colour\\]&quot;,&quot;&lt;font color=\\1&gt;\\2&lt;/font&gt;&quot;,$article);
+! 	$article=eregi_replace(&quot;quote\\]&quot;,&quot;quote]&quot;,$article);  // make lower case
+  	$article=str_replace(&quot;[quote]\r\n&quot;,&quot;&lt;blockquote&gt;&lt;smallfont&gt;&quot;,$article);
+  	$article=str_replace(&quot;[quote]&quot;,&quot;&lt;blockquote&gt;&lt;smallfont&gt;&quot;,$article);
+--- 517,523 ----
+  
+  
+! 	$article=@eregi_replace(&quot;\\[icq=([^\\[]*)\\]([^\\[]*)\\[/icq\\]&quot;,&quot;&lt;a href=\&quot;<A HREF="http://wwp.icq.com/scripts/Search.dll?to=\\1\">http://wwp.icq.com/scripts/Search.dll?to=\\1\</A>&quot;&gt;\\2&lt;/a&gt;&quot;,$article);
+! 	$article=@eregi_replace(&quot;\\[colour=([^\\[]*)\\]([^\\[]*)\\[/colour\\]&quot;,&quot;&lt;font color=\\1&gt;\\2&lt;/font&gt;&quot;,$article);
+! 	$article=@eregi_replace(&quot;quote\\]&quot;,&quot;quote]&quot;,$article);  // make lower case
+  	$article=str_replace(&quot;[quote]\r\n&quot;,&quot;&lt;blockquote&gt;&lt;smallfont&gt;&quot;,$article);
+  	$article=str_replace(&quot;[quote]&quot;,&quot;&lt;blockquote&gt;&lt;smallfont&gt;&quot;,$article);
+***************
+*** 543,551 ****
+  	$article = str_replace(&quot;&lt;/i&gt;&quot;,&quot;[/i]&quot;,$article);
+  
+! 	$article=eregi_replace(&quot;\\&lt;img src=\&quot;([^&gt;\[]*)\&quot;\\&gt;&quot; ,&quot;[img=\\1]&quot;,$article);
+  
+  	$article=preg_replace(&quot;/\\&lt;a target=\&quot;_new\&quot; href=\&quot;(.*?)\&quot;\\&gt;([^&lt;\[]*)&lt;\/a&gt;/i&quot;,&quot;[url=\\1]\\2[/url]&quot;,$article);
+! 	$article=eregi_replace(&quot;\\&lt;font color=([^&gt;\[]*)\\&gt;([^&lt;\[]*)&lt;/font&gt;&quot; ,&quot;[colour=\\1]\\2[/colour]&quot;,$article);
+! 	$article=eregi_replace(&quot;\\&lt;a href=\&quot;mailto:([^\\[]*)\&quot;\\&gt;([^&lt;\[]*)&lt;/a&gt;&quot;,&quot;[email=\\1]\\2[/email]&quot;,$article);
+  	$article=str_replace(&quot;&lt;blockquote&gt;&lt;smallfont&gt;&quot;,&quot;[quote]&quot;,$article);
+  	$article=str_replace(&quot;&lt;/smallfont&gt;&lt;/blockquote&gt;&quot;,&quot;[/quote]&quot;,$article);
+--- 543,551 ----
+  	$article = str_replace(&quot;&lt;/i&gt;&quot;,&quot;[/i]&quot;,$article);
+  
+! 	$article=@eregi_replace(&quot;\\&lt;img src=\&quot;([^&gt;\[]*)\&quot;\\&gt;&quot; ,&quot;[img=\\1]&quot;,$article);
+  
+  	$article=preg_replace(&quot;/\\&lt;a target=\&quot;_new\&quot; href=\&quot;(.*?)\&quot;\\&gt;([^&lt;\[]*)&lt;\/a&gt;/i&quot;,&quot;[url=\\1]\\2[/url]&quot;,$article);
+! 	$article=@eregi_replace(&quot;\\&lt;font color=([^&gt;\[]*)\\&gt;([^&lt;\[]*)&lt;/font&gt;&quot; ,&quot;[colour=\\1]\\2[/colour]&quot;,$article);
+! 	$article=@eregi_replace(&quot;\\&lt;a href=\&quot;mailto:([^\\[]*)\&quot;\\&gt;([^&lt;\[]*)&lt;/a&gt;&quot;,&quot;[email=\\1]\\2[/email]&quot;,$article);
+  	$article=str_replace(&quot;&lt;blockquote&gt;&lt;smallfont&gt;&quot;,&quot;[quote]&quot;,$article);
+  	$article=str_replace(&quot;&lt;/smallfont&gt;&lt;/blockquote&gt;&quot;,&quot;[/quote]&quot;,$article);
+***************
+*** 579,583 ****
+  function get_language_select($current)
+  {
+! 	$handle = opendir($GLOBALS['RELPATH'] . 'lang/');
+  	readdir($handle); // .
+  	readdir($handle); // ..
+--- 579,584 ----
+  function get_language_select($current)
+  {
+! 	global $RELPATH;
+! 	$handle = opendir($RELPATH . 'lang/');
+  	readdir($handle); // .
+  	readdir($handle); // ..
+***************
+*** 601,605 ****
+  function get_theme_select($current)
+  {
+! 	$handle = opendir($GLOBALS['RELPATH'] . 'control/tpl/');
+  	readdir($handle); // .
+  	readdir($handle); // ..
+--- 602,607 ----
+  function get_theme_select($current)
+  {
+! 	global $RELPATH;
+! 	$handle = opendir($RELPATH . 'control/tpl/');
+  	readdir($handle); // .
+  	readdir($handle); // ..
+***************
+*** 613,617 ****
+  	while( $file = readdir($handle) )
+  	{
+! 		if (is_dir($GLOBALS['RELPATH'] . 'control/tpl/' . $file))
+  		{
+  			$out[$index]['value'] = $file;
+--- 615,619 ----
+  	while( $file = readdir($handle) )
+  	{
+! 		if (is_dir($RELPATH . 'control/tpl/' . $file))
+  		{
+  			$out[$index]['value'] = $file;
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	<LI>Previous message: <A HREF="000035.html">[artscene-cvs] art.scene.v2/htdocs/control ini_edit.php, 1.1,	1.2 index.php, 1.1, 1.2 settings_edit.php, 1.1,	1.2 control.php, 1.1, 1.2 admin.php, 1.3, 1.4
+</A></li>
+	<LI>Next message: <A HREF="000034.html">[artscene-cvs] art.scene.v2/htdocs/control/usage usage.class.php,	1.1, 1.2
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#33">[ date ]</a>
+              <a href="thread.html#33">[ thread ]</a>
+              <a href="subject.html#33">[ subject ]</a>
+              <a href="author.html#33">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/artscene-cvs">More information about the artscene-cvs
+mailing list</a><br>
+</body></html>
